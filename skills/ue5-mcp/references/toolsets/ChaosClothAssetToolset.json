@@ -43,7 +43,9 @@
       "id": "UChaosClothAssetConversionSkill",
       "desc": "Agent skill that documents the end-to-end workflow for converting a legacy UClothingAssetCommon on a SkeletalMesh into a new UChaosClothAsset using the ChaosClothAsset toolset.",
       "instructions": "Workflow to convert legacy Chaos cloth to the new ChaosClothAsset format:\n1. Call ListClothingAssets(SkeletalMeshPath) and locate entries where bRequiresMatchingLodIndex == false; those are legacy UClothingAssetCommon assets.\n2. For each legacy asset, call ConvertClothingAssetCommonToChaosClothAsset(SkeletalMeshPath, ClothingAssetName, OutputPackagePath, AssetName). Use a content folder such as /Game/Cloth/ and pass an empty AssetName to use the default name.\n3. Validate the returned UChaosClothAsset and its embedded Dataflow graph. Use the ClothingAssetImport node's Reimport action after edits to the legacy asset.\n4. Call CreateClothingAsset(SkeletalMeshPath, NewClothAssetPath), then call AssignClothingToSection for each required LOD and section. Set ClothingLodIndex equal to LodIndex for UChaosClothAsset-derived assets.\n5. After validating the new binding, optionally call RemoveClothingFromSection to unbind the legacy clothing.",
-      "toolsets": []
+      "toolsets": [
+        "UChaosClothAssetToolset"
+      ]
     }
   ]
 }

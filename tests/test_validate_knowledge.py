@@ -133,6 +133,28 @@ class MetadataValidationTests(unittest.TestCase):
             descriptions[("Example.json", "ExampleTools")],
         )
 
+    def test_skill_toolset_references_must_resolve_to_exact_ids(self):
+        issues = validate_knowledge.validate_skill_toolset_references(
+            [("Niagara.json", "NiagaraSkill", "NiagaraToolset_System")],
+            {"UNiagaraToolset_System"},
+        )
+
+        self.assertEqual(
+            [
+                "Niagara.json: skill NiagaraSkill references unknown toolset: "
+                "NiagaraToolset_System"
+            ],
+            issues,
+        )
+
+    def test_exact_skill_toolset_references_are_allowed(self):
+        issues = validate_knowledge.validate_skill_toolset_references(
+            [("Niagara.json", "NiagaraSkill", "UNiagaraToolset_System")],
+            {"UNiagaraToolset_System"},
+        )
+
+        self.assertEqual([], issues)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,10 +9,10 @@ Select one primary domain, search the catalog, then describe only the live Tools
 | Blueprint classes and graphs | `BlueprintTools` | `AssetTools`, `ObjectTools`, `ActorTools` | `blueprint.md` |
 | Materials | `MaterialTools` | `MaterialInstanceTools`, `AssetTools`, `TextureTools` | `material.md` |
 | PCG | `UPCGToolset` | `SceneTools`, `AssetTools` | `pcg.md` |
-| Niagara systems | `UNiagaraToolset_System` | `_Assets`, `_Component`, `_Blueprint`, `_Info`, `AssetTools` | `niagara.md` |
+| Niagara systems | `UNiagaraToolset_System` | `UNiagaraToolset_Assets`, `UNiagaraToolset_Component`, `UNiagaraToolset_Blueprint`, `UNiagaraToolset_Info`, `AssetTools` | `niagara.md` |
 | UMG | `UUMGToolSet` | `ObjectTools`, `BlueprintTools`, `AssetTools` | `umg.md` |
 | Sequencer and Control Rig | `SequencerTools` | `SequencerKeyframingTools`, `SequencerControlRigTools`, `ControlRigTools` | Search catalog first |
-| Skeletal/static meshes | `SkeletalMeshTools` or `StaticMeshTools` | `PhysicsAssetToolset`, `AssetTools` | Search catalog first |
+| Skeletal/static meshes | `SkeletalMeshTools` or `StaticMeshTools` | `UPhysicsAssetToolset`, `AssetTools` | Search catalog first |
 | GAS and Gameplay Tags | `UAbilitySystemInspectorToolset` | `UAttributeSetToolset`, `UGameplayCueToolset`, `UGameplayTagsToolset` | Search catalog first |
 | AI data | `BehaviorTreeTools` or `StateTreeTools` | `ConversationTools`, `UWorldConditionTools` | Search catalog first |
 | Data assets and tables | `DataAssetTools` or `DataTableTools` | `CurveTableTools`, `StringTableTools`, `UDataRegistryTools` | Search catalog first |

@@ -183,7 +183,7 @@ Skill 默认采用以下证据顺序：
 | Toolsets | 55 |
 | Tools | 865 |
 | UE workflow Skills | 12 |
-| Parse errors | 0 |
+| Parse errors | Not recorded for this snapshot |
 | Duplicate tools | 0 |
 | Test definitions | 0 |
 

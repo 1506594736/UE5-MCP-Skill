@@ -3,7 +3,7 @@
     {
       "type": "C++",
       "id": "UPluginToolset",
-      "desc": "Tools for creating, editing, enabling, and querying Unreal plugins",
+      "desc": "Tools for creating, editing, enabling, and querying Unreal plugins.",
       "tools": [
         {
           "id": "ListEnabledPlugins",

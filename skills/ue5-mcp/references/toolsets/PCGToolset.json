@@ -3,7 +3,7 @@
     {
       "type": "C++",
       "id": "UPCGToolset",
-      "desc": "Toolset for building and modifying PCG graphs",
+      "desc": "Toolset for building and modifying PCG graphs.",
       "tools": [
         {
           "id": "CreateGraph",

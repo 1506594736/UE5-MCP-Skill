@@ -55,7 +55,7 @@
     {
       "type": "Python",
       "id": "ControlRigTools",
-      "desc": "Tools for creating and editing Control Rig assets, including hierarchy",
+      "desc": "Tools for creating and editing Control Rig assets, including hierarchy and graph operations.",
       "tools": [
         {
           "id": "create",
@@ -282,7 +282,7 @@
     {
       "type": "Python",
       "id": "SequencerControlRigTools",
-      "desc": "Tools for animating with Control Rig inside Sequencer. Use when adding",
+      "desc": "Tools for animating with Control Rig inside Sequencer.",
       "tools": [
         {
           "id": "get_float",
@@ -733,7 +733,7 @@
     {
       "type": "Python",
       "id": "SequencerKeyframingTools",
-      "desc": "Tools for keyframing and animating properties on the Sequencer",
+      "desc": "Tools for keyframing and animating properties in Sequencer.",
       "tools": [
         {
           "id": "get_channel_names",
@@ -850,7 +850,7 @@
     {
       "type": "Python",
       "id": "SequencerOutlinerTools",
-      "desc": "Tools for inspecting and managing the Sequencer outliner tree. Use when",
+      "desc": "Tools for inspecting and managing the Sequencer outliner tree.",
       "tools": [
         {
           "id": "get_outliner_tree",

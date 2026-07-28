@@ -16,7 +16,7 @@ CATALOG = Path(__file__).resolve().parent.parent / "references" / "toolsets"
 TEST_NAME = re.compile(r"(^|[^a-z])(fake|mock|demo|errorprone)([^a-z]|$)", re.IGNORECASE)
 ENGINE_VERSION = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)(?:\.(0|[1-9]\d*))?$")
 TRUNCATED_DESCRIPTION = re.compile(
-    r"(?:,\s*(?:and|or)|\b(?:including|of)|\.\s+use)\s*$",
+    r"(?:[,;:]|,\s*(?:and|or)|\b(?:including|of|plus)|\.\s+use(?:\s+when)?)\s*$",
     re.IGNORECASE,
 )
 FUTURE_TOLERANCE = timedelta(minutes=5)
@@ -80,6 +80,18 @@ def index_toolset_descriptions(index: dict[str, Any]) -> dict[tuple[str, str], s
             if file_name and toolset_id:
                 descriptions[(file_name, toolset_id)] = str(toolset.get("desc", "")).strip()
     return descriptions
+
+
+def validate_skill_toolset_references(
+    references: list[tuple[str, str, str]], available_toolsets: set[str]
+) -> list[str]:
+    issues: list[str] = []
+    for file_name, skill_id, toolset_id in references:
+        if toolset_id not in available_toolsets:
+            issues.append(
+                f"{file_name}: skill {skill_id} references unknown toolset: {toolset_id}"
+            )
+    return issues
 
 
 def validate_metadata(
@@ -170,6 +182,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         skills: set[str] = set()
         tool_count = 0
         skill_count = 0
+        skill_toolset_references: list[tuple[str, str, str]] = []
 
         for path in files:
             data = read(path)
@@ -199,12 +212,15 @@ def main(argv: Optional[list[str]] = None) -> int:
                     tool_id = str(tool.get("id", "")).strip()
                     key = f"{toolset_id}.{tool_id}"
                     tool_count += 1
+                    tool_desc = str(tool.get("desc", "")).strip()
                     if (
                         not tool_id
                         or not str(tool.get("signature", "")).strip()
-                        or not str(tool.get("desc", "")).strip()
+                        or not tool_desc
                     ):
                         issues.append(f"{path.name}: incomplete tool {key}")
+                    elif description_looks_truncated(tool_desc):
+                        issues.append(f"{path.name}: truncated-looking tool description: {key}")
                     if key in tools:
                         issues.append(f"duplicate tool: {key}")
                     tools.add(key)
@@ -216,6 +232,17 @@ def main(argv: Optional[list[str]] = None) -> int:
                 if skill_id in skills:
                     issues.append(f"duplicate skill: {skill_id}")
                 skills.add(skill_id)
+                declared_toolsets = skill.get("toolsets", [])
+                if not isinstance(declared_toolsets, list):
+                    issues.append(f"{path.name}: invalid toolsets list for skill {skill_id}")
+                    continue
+                for toolset_id_value in declared_toolsets:
+                    toolset_id = str(toolset_id_value).strip()
+                    if not toolset_id:
+                        issues.append(f"{path.name}: empty toolset reference in skill {skill_id}")
+                    else:
+                        skill_toolset_references.append((path.name, skill_id, toolset_id))
+        issues.extend(validate_skill_toolset_references(skill_toolset_references, toolsets))
         for file_name, toolset_id in sorted(indexed_toolset_descriptions.keys() - seen_indexed_toolsets):
             issues.append(f"index summary has no source toolset: {file_name}.{toolset_id}")
     except (OSError, ValueError, json.JSONDecodeError) as exc:

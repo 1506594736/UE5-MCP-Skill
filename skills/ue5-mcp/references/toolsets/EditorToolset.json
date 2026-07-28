@@ -236,12 +236,12 @@
         },
         {
           "id": "list_functions",
-          "desc": "Lists all functions visible on the Blueprint — locally defined plus",
+          "desc": "Lists all functions visible on the Blueprint.",
           "signature": "BlueprintTools.list_functions(unreal.Blueprint) -> list[unreal.BlueprintFunctionInfo]"
         },
         {
           "id": "list_events",
-          "desc": "Lists all events visible on the Blueprint — locally defined custom events",
+          "desc": "Lists all events visible on the Blueprint.",
           "signature": "BlueprintTools.list_events(unreal.Blueprint) -> list[unreal.BlueprintFunctionInfo]"
         },
         {
@@ -649,7 +649,7 @@
         },
         {
           "id": "rename_parameter_group",
-          "desc": "Renames a parameter group across all parameter expressions in a Material or",
+          "desc": "Renames a parameter group across all parameter expressions in a Material.",
           "signature": "MaterialTools.rename_parameter_group(unreal.Object, str, str) -> None"
         },
         {
@@ -818,7 +818,7 @@
         },
         {
           "id": "reset_properties",
-          "desc": "Resets one or more properties on an object to their default values,",
+          "desc": "Resets one or more properties on an object to their default values.",
           "signature": "ObjectTools.reset_properties(unreal.Object, list[str]) -> bool"
         }
       ]
