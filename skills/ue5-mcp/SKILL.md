@@ -1,5 +1,7 @@
 ---
 name: ue5-mcp
+version: "1.0.0"
+appliesTo: "**/*.uproject, **/*.uasset, **/*.umap"
 description: Operate Unreal Engine 5 through its Model Context Protocol server with low-context tool discovery, guarded editor mutations, and post-change validation. Use for UE5 or Unreal Editor tasks involving MCP, Blueprint, actors, levels, assets, materials, PCG, Niagara, UMG, Sequencer, animation, gameplay systems, plugins, logs, screenshots, PIE, automation tests, or Live Coding; also trigger for Chinese requests mentioning UE5 MCP, Unreal MCP, 蓝图, 关卡, 材质, PCG, Niagara, UMG, 编辑器自动化, or 通过 Codex 操作虚幻引擎.
 ---
 

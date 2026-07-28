@@ -1,5 +1,7 @@
 {
   "format": "ue5-toolsets-clean-v1",
+  "engine": "5.8.0",
+  "generated": "2026-07-29T00:00:00Z",
   "stats": {
     "plugins": 26,
     "toolsets": 55,
