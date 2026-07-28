@@ -240,9 +240,3 @@ UE5-MCP-Skill/
 - 增加运行时目录同步和快照版本元数据。
 - 增加不上传 GitHub 的项目配置文件。
 - 完成 Blueprint、Material、PCG、Niagara、UMG 的隔离资产端到端测试。
-
-## 设计参考
-
-README 的信息组织参考了 [VRChat-Agent-Open-Memory-Library](https://github.com/RhineLab-magellan/VRChat-Agent-Open-Memory-Library) 的架构说明、能力矩阵、知识治理和状态展示方式，并针对 Codex Skill 的渐进加载机制进行了压缩。
-
-本项目的 Skill 内容和 UE 工具目录为独立实现，不复制该项目的知识库内容。
