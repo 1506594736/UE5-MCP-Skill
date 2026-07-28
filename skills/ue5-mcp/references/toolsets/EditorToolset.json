@@ -1,0 +1,1394 @@
+{
+  "toolsets": [
+    {
+      "type": "Python",
+      "id": "ActorTools",
+      "desc": "Provides tools for inspecting and modifying actors, including",
+      "tools": [
+        {
+          "id": "get_label",
+          "desc": "Returns the actor's human friendly name as it appears in the editor.",
+          "signature": "ActorTools.get_label(unreal.Actor) -> str"
+        },
+        {
+          "id": "set_label",
+          "desc": "Sets the human-friendly name of the actor.",
+          "signature": "ActorTools.set_label(unreal.Actor, str) -> bool"
+        },
+        {
+          "id": "get_tags",
+          "desc": "Returns the list of tags on an actor.",
+          "signature": "ActorTools.get_tags(unreal.Actor) -> list[str]"
+        },
+        {
+          "id": "has_tag",
+          "desc": "Returns whether an actor has a specific tag.",
+          "signature": "ActorTools.has_tag(unreal.Actor, str) -> bool"
+        },
+        {
+          "id": "add_tag",
+          "desc": "Adds a tag to an actor.",
+          "signature": "ActorTools.add_tag(unreal.Actor, str) -> None"
+        },
+        {
+          "id": "remove_tag",
+          "desc": "Removes a tag from an actor.",
+          "signature": "ActorTools.remove_tag(unreal.Actor, str) -> None"
+        },
+        {
+          "id": "get_actor_transform",
+          "desc": "Returns the position, rotation, and scale of an actor.",
+          "signature": "ActorTools.get_actor_transform(unreal.Actor) -> unreal.Transform"
+        },
+        {
+          "id": "set_actor_transform",
+          "desc": "Updates the position, rotation, and/or scale of an actor.",
+          "signature": "ActorTools.set_actor_transform(unreal.Actor, unreal.Transform, bool) -> bool"
+        },
+        {
+          "id": "look_at",
+          "desc": "Rotates an actor so its forward vector points at a world-space position.",
+          "signature": "ActorTools.look_at(unreal.Actor, unreal.Vector) -> None"
+        },
+        {
+          "id": "get_root_component",
+          "desc": "Returns the root component of an actor, if any.",
+          "signature": "ActorTools.get_root_component(unreal.Actor) -> unreal.SceneComponent | None"
+        },
+        {
+          "id": "get_component_actor",
+          "desc": "Returns the actor that owns the specified component.",
+          "signature": "ActorTools.get_component_actor(unreal.ActorComponent) -> unreal.Actor"
+        },
+        {
+          "id": "get_parent_component",
+          "desc": "Returns the parent component that this component is attached to, if any.",
+          "signature": "ActorTools.get_parent_component(unreal.SceneComponent) -> unreal.SceneComponent | None"
+        },
+        {
+          "id": "set_parent_component",
+          "desc": "Sets the parent for the specified scene component.",
+          "signature": "ActorTools.set_parent_component(unreal.SceneComponent, Any) -> bool"
+        },
+        {
+          "id": "get_actor_bounds",
+          "desc": "Returns the bounding box of an actor.",
+          "signature": "ActorTools.get_actor_bounds(unreal.Actor) -> unreal.Box"
+        },
+        {
+          "id": "get_components",
+          "desc": "Returns the components that an actor contains.",
+          "signature": "ActorTools.get_components(unreal.Actor, Any) -> list[unreal.ActorComponent]"
+        },
+        {
+          "id": "add_component",
+          "desc": "Adds a component to an actor instance or blueprint.",
+          "signature": "ActorTools.add_component(unreal.Object, unreal.Class, str) -> unreal.ActorComponent"
+        },
+        {
+          "id": "remove_component",
+          "desc": "Removes a component from an actor instance or blueprint.",
+          "signature": "ActorTools.remove_component(unreal.ActorComponent) -> bool"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "AssetTools",
+      "desc": "Provides tools for interacting with assets in the Unreal project and files on disk.",
+      "tools": [
+        {
+          "id": "create_folder",
+          "desc": "Creates a folder at the specified path.",
+          "signature": "AssetTools.create_folder(str) -> bool"
+        },
+        {
+          "id": "list_folders",
+          "desc": "Lists the folders contained within a folder.",
+          "signature": "AssetTools.list_folders(str, bool) -> list[str]"
+        },
+        {
+          "id": "exists",
+          "desc": "Determines if a folder or asset exists.",
+          "signature": "AssetTools.exists(str) -> bool"
+        },
+        {
+          "id": "duplicate",
+          "desc": "Makes a copy of a folder or asset.",
+          "signature": "AssetTools.duplicate(str, str) -> bool"
+        },
+        {
+          "id": "move",
+          "desc": "Moves or renames an asset or folder.",
+          "signature": "AssetTools.move(str, str) -> bool"
+        },
+        {
+          "id": "delete",
+          "desc": "Deletes an asset or folder.",
+          "signature": "AssetTools.delete(str) -> bool"
+        },
+        {
+          "id": "find_assets",
+          "desc": "Searches the project for assets that match specific criteria.",
+          "signature": "AssetTools.find_assets(str, str, Any, bool, Any) -> list[str]"
+        },
+        {
+          "id": "get_asset_tags",
+          "desc": "Gets the asset registry tags for an asset.",
+          "signature": "AssetTools.get_asset_tags(str) -> dict[str, str]"
+        },
+        {
+          "id": "get_asset_class",
+          "desc": "Gets the class of an asset.",
+          "signature": "AssetTools.get_asset_class(str) -> str"
+        },
+        {
+          "id": "get_metadata_tags",
+          "desc": "Gets the metadata tags for an asset.",
+          "signature": "AssetTools.get_metadata_tags(str) -> dict[str, str]"
+        },
+        {
+          "id": "update_metadata_tags",
+          "desc": "Sets or removes metadata tags on an asset.",
+          "signature": "AssetTools.update_metadata_tags(str, Any, Any) -> None"
+        },
+        {
+          "id": "load_asset",
+          "desc": "Loads an asset from the project.",
+          "signature": "AssetTools.load_asset(str) -> unreal.Object"
+        },
+        {
+          "id": "save_assets",
+          "desc": "Saves assets to disk.",
+          "signature": "AssetTools.save_assets(list[str]) -> bool"
+        },
+        {
+          "id": "is_dirty",
+          "desc": "Checks whether an asset has unsaved changes.",
+          "signature": "AssetTools.is_dirty(str) -> bool"
+        },
+        {
+          "id": "can_edit_asset",
+          "desc": "Checks whether an asset can be edited.",
+          "signature": "AssetTools.can_edit_asset(str) -> bool"
+        },
+        {
+          "id": "is_checked_out",
+          "desc": "Checks whether an asset is checked out by the current user.",
+          "signature": "AssetTools.is_checked_out(str) -> bool"
+        },
+        {
+          "id": "get_referencers",
+          "desc": "Lists assets that reference the specified asset.",
+          "signature": "AssetTools.get_referencers(str) -> list[str]"
+        },
+        {
+          "id": "get_dependencies",
+          "desc": "Lists assets that the specified asset depends on.",
+          "signature": "AssetTools.get_dependencies(str) -> list[str]"
+        },
+        {
+          "id": "get_plugin_content_paths",
+          "desc": "Returns the root content paths for plugins that have content.",
+          "signature": "AssetTools.get_plugin_content_paths(bool) -> list[str]"
+        },
+        {
+          "id": "read_file",
+          "desc": "Reads a text file from disk and returns its contents.",
+          "signature": "AssetTools.read_file(str) -> str"
+        },
+        {
+          "id": "write_file",
+          "desc": "Writes text content to a file on disk.",
+          "signature": "AssetTools.write_file(str, str) -> None"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "BlueprintTools",
+      "desc": "Provides tools for working with Blueprints.",
+      "tools": [
+        {
+          "id": "create",
+          "desc": "Creates a new Blueprint asset in the project.",
+          "signature": "BlueprintTools.create(str, str, unreal.Class) -> unreal.Blueprint"
+        },
+        {
+          "id": "compile_blueprint",
+          "desc": "Compiles the given Blueprint.",
+          "signature": "BlueprintTools.compile_blueprint(unreal.Blueprint, bool) -> None"
+        },
+        {
+          "id": "get_default_object",
+          "desc": "Returns the Class Default Object (CDO) for a Blueprint's.",
+          "signature": "BlueprintTools.get_default_object(unreal.Blueprint) -> unreal.Object"
+        },
+        {
+          "id": "list_graphs",
+          "desc": "Lists all graphs in the Blueprint.",
+          "signature": "BlueprintTools.list_graphs(unreal.Blueprint) -> list[unreal.EdGraph]"
+        },
+        {
+          "id": "get_graph",
+          "desc": "Retrieves a specific graph from a Blueprint asset by name.",
+          "signature": "BlueprintTools.get_graph(unreal.Blueprint, str) -> unreal.EdGraph"
+        },
+        {
+          "id": "list_functions",
+          "desc": "Lists all functions visible on the Blueprint — locally defined plus",
+          "signature": "BlueprintTools.list_functions(unreal.Blueprint) -> list[unreal.BlueprintFunctionInfo]"
+        },
+        {
+          "id": "list_events",
+          "desc": "Lists all events visible on the Blueprint — locally defined custom events",
+          "signature": "BlueprintTools.list_events(unreal.Blueprint) -> list[unreal.BlueprintFunctionInfo]"
+        },
+        {
+          "id": "add_function_graph",
+          "desc": "Adds a function graph to the Blueprint.",
+          "signature": "BlueprintTools.add_function_graph(unreal.Blueprint, str) -> unreal.EdGraph"
+        },
+        {
+          "id": "add_event",
+          "desc": "Adds an event node to the Blueprint's event graph.",
+          "signature": "BlueprintTools.add_event(unreal.Blueprint, str, unreal.IntPoint) -> unreal.EdGraphNode"
+        },
+        {
+          "id": "remove_function_graph",
+          "desc": "Removes a function graph or event dispatcher from the Blueprint.",
+          "signature": "BlueprintTools.remove_function_graph(unreal.Blueprint, str) -> None"
+        },
+        {
+          "id": "add_function_param",
+          "desc": "Adds an input or output to a function or event dispatcher",
+          "signature": "BlueprintTools.add_function_param(unreal.EdGraph, str, str, bool, Any) -> PinID"
+        },
+        {
+          "id": "remove_function_param",
+          "desc": "Removes an input or output from a function or event dispatcher.",
+          "signature": "BlueprintTools.remove_function_param(unreal.EdGraph, str, bool) -> None"
+        },
+        {
+          "id": "add_struct_function_param",
+          "desc": "Adds a struct input or output to a function or event dispatcher.",
+          "signature": "BlueprintTools.add_struct_function_param(unreal.EdGraph, str, unreal.ScriptStruct, bool, Any) -> PinID"
+        },
+        {
+          "id": "add_object_function_param",
+          "desc": "Adds an object reference input or output to a function or event dispatcher.",
+          "signature": "BlueprintTools.add_object_function_param(unreal.EdGraph, str, unreal.Class, bool, Any) -> PinID"
+        },
+        {
+          "id": "get_node_infos",
+          "desc": "Retrieves detailed information for a list of Blueprint graph nodes.",
+          "signature": "BlueprintTools.get_node_infos(list[unreal.EdGraphNode]) -> list[NodeInfo]"
+        },
+        {
+          "id": "get_create_event_function",
+          "desc": "Returns the function currently bound to a Create Event node.",
+          "signature": "BlueprintTools.get_create_event_function(unreal.K2Node_CreateDelegate) -> str"
+        },
+        {
+          "id": "set_create_event_function",
+          "desc": "Binds a function to a Create Event node.",
+          "signature": "BlueprintTools.set_create_event_function(unreal.K2Node_CreateDelegate, str) -> None"
+        },
+        {
+          "id": "list_compatible_event_functions",
+          "desc": "Lists functions that can be bound to a Create Event node.",
+          "signature": "BlueprintTools.list_compatible_event_functions(unreal.K2Node_CreateDelegate) -> list[str]"
+        },
+        {
+          "id": "find_nodes",
+          "desc": "Finds nodes in a graph by title, class, and/or execution role.",
+          "signature": "BlueprintTools.find_nodes(unreal.EdGraph, str, Any, bool) -> list[unreal.EdGraphNode]"
+        },
+        {
+          "id": "get_connected_subgraph",
+          "desc": "Returns detailed information for all nodes connected to the given node.",
+          "signature": "BlueprintTools.get_connected_subgraph(unreal.EdGraphNode) -> list[NodeInfo]"
+        },
+        {
+          "id": "find_node_types",
+          "desc": "Finds node types that can be created in a particular graph meeting the search criteria.",
+          "signature": "BlueprintTools.find_node_types(unreal.EdGraph, str, list[PinID]) -> list[str]"
+        },
+        {
+          "id": "get_node_type_pins",
+          "desc": "Returns the pin names and types for a node type.",
+          "signature": "BlueprintTools.get_node_type_pins(unreal.EdGraph, str) -> NodeInfo"
+        },
+        {
+          "id": "find_node_categories",
+          "desc": "Retrieves a list of available node categories in a Blueprint graph, optionally filtered by compatible input and/or output pin types",
+          "signature": "BlueprintTools.find_node_categories(unreal.EdGraph, str, list[PinID]) -> list[str]"
+        },
+        {
+          "id": "list_component_events",
+          "desc": "Lists the bindable delegate events available on a component.",
+          "signature": "BlueprintTools.list_component_events(unreal.ActorComponent) -> list[str]"
+        },
+        {
+          "id": "add_component_bound_event",
+          "desc": "Creates a component bound event node in the event graph.",
+          "signature": "BlueprintTools.add_component_bound_event(unreal.ActorComponent, str, unreal.EdGraph) -> unreal.EdGraphNode"
+        },
+        {
+          "id": "create_node",
+          "desc": "Adds a new node to the graph.",
+          "signature": "BlueprintTools.create_node(unreal.EdGraph, str, unreal.IntPoint, Any) -> unreal.EdGraphNode"
+        },
+        {
+          "id": "delete_node",
+          "desc": "Deletes the node from its graph.",
+          "signature": "BlueprintTools.delete_node(unreal.EdGraphNode) -> None"
+        },
+        {
+          "id": "add_node_pin",
+          "desc": "Adds a pin to a node that supports dynamic pin addition.",
+          "signature": "BlueprintTools.add_node_pin(unreal.EdGraphNode) -> PinID"
+        },
+        {
+          "id": "remove_node_pin",
+          "desc": "Removes a specific pin from a node that supports dynamic pin removal.",
+          "signature": "BlueprintTools.remove_node_pin(unreal.EdGraphNode, PinID) -> None"
+        },
+        {
+          "id": "retarget_node_class",
+          "desc": "Replaces a node's baked-in class reference from old_class to new_class in place.",
+          "signature": "BlueprintTools.retarget_node_class(unreal.EdGraphNode, unreal.Class, unreal.Class) -> None"
+        },
+        {
+          "id": "set_node_position",
+          "desc": "Sets a new position for the node.",
+          "signature": "BlueprintTools.set_node_position(unreal.EdGraphNode, unreal.IntPoint) -> None"
+        },
+        {
+          "id": "arrange_nodes",
+          "desc": "Arranges a list of nodes in a readable left-to-right layout.",
+          "signature": "BlueprintTools.arrange_nodes(list[unreal.EdGraphNode]) -> None"
+        },
+        {
+          "id": "connect_pins",
+          "desc": "Makes a connection between source (output) and dest (input) pins.",
+          "signature": "BlueprintTools.connect_pins(PinID, PinID) -> None"
+        },
+        {
+          "id": "break_pins",
+          "desc": "Breaks the connection between two pins.",
+          "signature": "BlueprintTools.break_pins(PinID, PinID) -> None"
+        },
+        {
+          "id": "set_pin_value",
+          "desc": "Sets the value of a Blueprint graph pin.",
+          "signature": "BlueprintTools.set_pin_value(PinID, str) -> None"
+        },
+        {
+          "id": "get_pin_value",
+          "desc": "Gets the value of a Blueprint graph pin.",
+          "signature": "BlueprintTools.get_pin_value(PinID) -> str"
+        },
+        {
+          "id": "get_parent",
+          "desc": "Returns the parent class of a Blueprint.",
+          "signature": "BlueprintTools.get_parent(unreal.Blueprint) -> unreal.Class"
+        },
+        {
+          "id": "set_parent",
+          "desc": "Reparents a Blueprint to a new parent class.",
+          "signature": "BlueprintTools.set_parent(unreal.Blueprint, unreal.Class) -> None"
+        },
+        {
+          "id": "add_variable",
+          "desc": "Adds a member or local variable to a Blueprint.",
+          "signature": "BlueprintTools.add_variable(unreal.Blueprint, str, str, Any, Any) -> None"
+        },
+        {
+          "id": "add_struct_variable",
+          "desc": "Adds a member or local variable of a struct type to a Blueprint.",
+          "signature": "BlueprintTools.add_struct_variable(unreal.Blueprint, str, unreal.ScriptStruct, Any, Any) -> None"
+        },
+        {
+          "id": "add_object_variable",
+          "desc": "Adds a member or local variable that holds an object reference to a Blueprint.",
+          "signature": "BlueprintTools.add_object_variable(unreal.Blueprint, str, unreal.Class, Any, Any) -> None"
+        },
+        {
+          "id": "list_variables",
+          "desc": "Lists member or local variables defined on a Blueprint.",
+          "signature": "BlueprintTools.list_variables(unreal.Blueprint, Any) -> list[str]"
+        },
+        {
+          "id": "set_variable_instance_editable",
+          "desc": "Sets whether a member variable is editable per-instance on actors placed in the level.",
+          "signature": "BlueprintTools.set_variable_instance_editable(unreal.Blueprint, str, bool) -> None"
+        },
+        {
+          "id": "get_variable_replication",
+          "desc": "Gets the replication mode of a Blueprint member variable.",
+          "signature": "BlueprintTools.get_variable_replication(unreal.Blueprint, str) -> unreal.BlueprintVariableReplication"
+        },
+        {
+          "id": "set_variable_replication",
+          "desc": "Sets the replication mode on a Blueprint member variable.",
+          "signature": "BlueprintTools.set_variable_replication(unreal.Blueprint, str, unreal.BlueprintVariableReplication) -> None"
+        },
+        {
+          "id": "get_variable_category",
+          "desc": "Gets the user-defined category of a Blueprint member variable.",
+          "signature": "BlueprintTools.get_variable_category(unreal.Blueprint, str) -> str"
+        },
+        {
+          "id": "set_variable_category",
+          "desc": "Sets the user-defined category on a Blueprint member variable.",
+          "signature": "BlueprintTools.set_variable_category(unreal.Blueprint, str, str) -> None"
+        },
+        {
+          "id": "remove_variable",
+          "desc": "Removes a member or local variable from a Blueprint.",
+          "signature": "BlueprintTools.remove_variable(unreal.Blueprint, str, Any) -> None"
+        },
+        {
+          "id": "add_event_dispatcher",
+          "desc": "Adds an event dispatcher to a Blueprint.",
+          "signature": "BlueprintTools.add_event_dispatcher(unreal.Blueprint, str) -> unreal.EdGraph"
+        },
+        {
+          "id": "list_event_dispatchers",
+          "desc": "Lists all event dispatchers defined on a Blueprint.",
+          "signature": "BlueprintTools.list_event_dispatchers(unreal.Blueprint) -> list[unreal.EdGraph]"
+        },
+        {
+          "id": "get_graph_dsl_docs",
+          "desc": "Returns the full syntax reference for write_graph_dsl.",
+          "signature": "BlueprintTools.get_graph_dsl_docs() -> str"
+        },
+        {
+          "id": "write_graph_dsl",
+          "desc": "Populates a Blueprint graph with nodes from a DSL script and compiles the Blueprint.",
+          "signature": "BlueprintTools.write_graph_dsl(unreal.EdGraph, str) -> None"
+        },
+        {
+          "id": "read_graph_dsl",
+          "desc": "Reads a Blueprint graph and returns a DSL script.",
+          "signature": "BlueprintTools.read_graph_dsl(unreal.EdGraph) -> str"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "CurveTableTools",
+      "desc": "Provides tools for creating and editing CurveTable assets.",
+      "tools": [
+        {
+          "id": "import_file",
+          "desc": "Imports a file from disk as a CurveTable asset.",
+          "signature": "CurveTableTools.import_file(str, str, str, unreal.RichCurveInterpMode) -> list[unreal.Object]"
+        },
+        {
+          "id": "create",
+          "desc": "Creates a new CurveTable asset.",
+          "signature": "CurveTableTools.create(str, str) -> unreal.CurveTable"
+        },
+        {
+          "id": "list_rows",
+          "desc": "Lists the names of all rows in the curve table.",
+          "signature": "CurveTableTools.list_rows(unreal.CurveTable) -> list[str]"
+        },
+        {
+          "id": "add_row",
+          "desc": "Adds a new row to the curve table with an optional default value.",
+          "signature": "CurveTableTools.add_row(unreal.CurveTable, str, Any) -> None"
+        },
+        {
+          "id": "remove_row",
+          "desc": "Removes a row from the curve table.",
+          "signature": "CurveTableTools.remove_row(unreal.CurveTable, str) -> None"
+        },
+        {
+          "id": "rename_row",
+          "desc": "Renames a row in the curve table.",
+          "signature": "CurveTableTools.rename_row(unreal.CurveTable, str, str) -> None"
+        },
+        {
+          "id": "add_key",
+          "desc": "Adds a key to a row.",
+          "signature": "CurveTableTools.add_key(unreal.CurveTable, str, unreal.SimpleCurveKey) -> bool"
+        },
+        {
+          "id": "set_keys",
+          "desc": "Replaces all keys in a row with the provided list.",
+          "signature": "CurveTableTools.set_keys(unreal.CurveTable, str, list[unreal.SimpleCurveKey]) -> bool"
+        },
+        {
+          "id": "get_keys",
+          "desc": "Returns all keys for a row.",
+          "signature": "CurveTableTools.get_keys(unreal.CurveTable, str) -> list[unreal.SimpleCurveKey]"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "DataAssetTools",
+      "desc": "Provides tools for working with Data Assets.",
+      "tools": [
+        {
+          "id": "create",
+          "desc": "Creates a new DataAsset asset in the project.",
+          "signature": "DataAssetTools.create(str, str, unreal.Class) -> unreal.DataAsset"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "DataTableTools",
+      "desc": "Provides tools for creating and editing DataTable assets.",
+      "tools": [
+        {
+          "id": "search_row_structs",
+          "desc": "Finds structs that can be used as a DataTable schema.",
+          "signature": "DataTableTools.search_row_structs(str) -> list[unreal.ScriptStruct]"
+        },
+        {
+          "id": "import_file",
+          "desc": "Imports a file from disk as a DataTable asset.",
+          "signature": "DataTableTools.import_file(str, str, str, unreal.ScriptStruct) -> list[unreal.Object]"
+        },
+        {
+          "id": "create",
+          "desc": "Creates a new DataTable asset with the specified column schema.",
+          "signature": "DataTableTools.create(str, str, unreal.ScriptStruct) -> unreal.DataTable"
+        },
+        {
+          "id": "get_schema",
+          "desc": "Returns the column schema of the data table as a JSON string.",
+          "signature": "DataTableTools.get_schema(unreal.DataTable) -> str"
+        },
+        {
+          "id": "list_rows",
+          "desc": "Lists the names of all rows in the data table.",
+          "signature": "DataTableTools.list_rows(unreal.DataTable) -> list[str]"
+        },
+        {
+          "id": "add_rows",
+          "desc": "Adds new rows with default values to the data table.",
+          "signature": "DataTableTools.add_rows(unreal.DataTable, list[str]) -> None"
+        },
+        {
+          "id": "remove_rows",
+          "desc": "Removes rows from the data table.",
+          "signature": "DataTableTools.remove_rows(unreal.DataTable, list[str]) -> None"
+        },
+        {
+          "id": "rename_rows",
+          "desc": "Renames one or more rows in the data table.",
+          "signature": "DataTableTools.rename_rows(unreal.DataTable, dict[str, str]) -> None"
+        },
+        {
+          "id": "get_rows",
+          "desc": "Returns the column values for one or more rows as a JSON string.",
+          "signature": "DataTableTools.get_rows(unreal.DataTable, list[str]) -> str"
+        },
+        {
+          "id": "set_rows",
+          "desc": "Sets column values for one or more rows.",
+          "signature": "DataTableTools.set_rows(unreal.DataTable, str) -> None"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "MaterialTools",
+      "desc": "Provides tools for creating and editing Material and MaterialFunction assets.",
+      "tools": [
+        {
+          "id": "create_material",
+          "desc": "Creates a new empty Material asset.",
+          "signature": "MaterialTools.create_material(str, str) -> unreal.Material"
+        },
+        {
+          "id": "create_function",
+          "desc": "Creates a new empty MaterialFunction asset.",
+          "signature": "MaterialTools.create_function(str, str) -> unreal.MaterialFunction"
+        },
+        {
+          "id": "create_parameter_collection",
+          "desc": "Creates a new empty MaterialParameterCollection (MPC) asset.",
+          "signature": "MaterialTools.create_parameter_collection(str, str) -> unreal.MaterialParameterCollection"
+        },
+        {
+          "id": "list_expression_classes",
+          "desc": "Returns MaterialExpression subclasses valid for the given context.",
+          "signature": "MaterialTools.list_expression_classes(unreal.Object, str) -> list[unreal.SoftClassPath]"
+        },
+        {
+          "id": "add_expression",
+          "desc": "Adds a new expression node to a Material or MaterialFunction graph.",
+          "signature": "MaterialTools.add_expression(unreal.Object, unreal.Class, int, int) -> unreal.MaterialExpression"
+        },
+        {
+          "id": "delete_expression",
+          "desc": "Removes an expression node from a Material or MaterialFunction graph.",
+          "signature": "MaterialTools.delete_expression(unreal.Object, unreal.MaterialExpression) -> None"
+        },
+        {
+          "id": "get_expressions",
+          "desc": "Returns all expression nodes in a Material or MaterialFunction graph.",
+          "signature": "MaterialTools.get_expressions(unreal.Object) -> list[unreal.MaterialExpression]"
+        },
+        {
+          "id": "layout_expressions",
+          "desc": "Automatically arranges all expression nodes in a Material or MaterialFunction graph.",
+          "signature": "MaterialTools.layout_expressions(unreal.Object) -> None"
+        },
+        {
+          "id": "list_parameter_groups",
+          "desc": "Returns the unique parameter group names defined in a Material or MaterialFunction.",
+          "signature": "MaterialTools.list_parameter_groups(unreal.Object) -> list[str]"
+        },
+        {
+          "id": "rename_parameter_group",
+          "desc": "Renames a parameter group across all parameter expressions in a Material or",
+          "signature": "MaterialTools.rename_parameter_group(unreal.Object, str, str) -> None"
+        },
+        {
+          "id": "delete_parameter_group",
+          "desc": "Removes a parameter group, ungrouping all parameters that belong to it.",
+          "signature": "MaterialTools.delete_parameter_group(unreal.Object, str) -> None"
+        },
+        {
+          "id": "get_expression_input_names",
+          "desc": "Returns the names of all input pins on a material expression node.",
+          "signature": "MaterialTools.get_expression_input_names(unreal.MaterialExpression) -> list[str]"
+        },
+        {
+          "id": "get_expression_output_names",
+          "desc": "Returns the names of all output pins on a material expression node.",
+          "signature": "MaterialTools.get_expression_output_names(unreal.MaterialExpression) -> list[str]"
+        },
+        {
+          "id": "connect_expressions",
+          "desc": "Connects an expression node's output pin to another expression node's input pin.",
+          "signature": "MaterialTools.connect_expressions(unreal.MaterialExpression, str, unreal.MaterialExpression, str) -> None"
+        },
+        {
+          "id": "disconnect_expressions",
+          "desc": "Disconnects the input pin of an expression node, removing whatever is connected to it.",
+          "signature": "MaterialTools.disconnect_expressions(unreal.MaterialExpression, str) -> None"
+        },
+        {
+          "id": "get_expression_inputs",
+          "desc": "Returns the current wiring of each input pin on a material expression.",
+          "signature": "MaterialTools.get_expression_inputs(unreal.Object, unreal.MaterialExpression) -> list[MaterialInputSource]"
+        },
+        {
+          "id": "get_property_input",
+          "desc": "Returns the expression and output pin feeding a material output property.",
+          "signature": "MaterialTools.get_property_input(unreal.Material, unreal.MaterialProperty) -> MaterialInputSource"
+        },
+        {
+          "id": "connect_to_output",
+          "desc": "Connects an expression node's output to one of the material's output properties.",
+          "signature": "MaterialTools.connect_to_output(unreal.MaterialExpression, str, unreal.MaterialProperty) -> None"
+        },
+        {
+          "id": "disconnect_from_output",
+          "desc": "Disconnects the expression currently connected to a material output property.",
+          "signature": "MaterialTools.disconnect_from_output(unreal.Material, unreal.MaterialProperty) -> None"
+        },
+        {
+          "id": "delete_unused_expressions",
+          "desc": "Deletes all expression nodes not connected to any material output.",
+          "signature": "MaterialTools.delete_unused_expressions(unreal.Material) -> None"
+        },
+        {
+          "id": "recompile",
+          "desc": "Recompiles a Material or MaterialFunction after edits.",
+          "signature": "MaterialTools.recompile(unreal.Object) -> None"
+        },
+        {
+          "id": "get_referencing_materials",
+          "desc": "Returns asset data for all Materials that reference this MaterialFunction.",
+          "signature": "MaterialTools.get_referencing_materials(unreal.MaterialFunction) -> list[unreal.AssetData]"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "MaterialInstanceTools",
+      "desc": "Provides tools for creating and modifying MaterialInstanceConstant assets.",
+      "tools": [
+        {
+          "id": "create",
+          "desc": "Creates a new MaterialInstanceConstant asset derived from a parent material.",
+          "signature": "MaterialInstanceTools.create(str, str, unreal.MaterialInterface) -> unreal.MaterialInstanceConstant"
+        },
+        {
+          "id": "list_parameters",
+          "desc": "Returns all parameters exposed by a material or instance, with their names and types.",
+          "signature": "MaterialInstanceTools.list_parameters(unreal.MaterialInterface) -> list[MaterialParameter]"
+        },
+        {
+          "id": "get_scalar_parameter",
+          "desc": "Gets the current value of a scalar parameter on a material instance.",
+          "signature": "MaterialInstanceTools.get_scalar_parameter(unreal.MaterialInstanceConstant, str) -> float"
+        },
+        {
+          "id": "set_scalar_parameter",
+          "desc": "Sets the value of a scalar parameter on a material instance.",
+          "signature": "MaterialInstanceTools.set_scalar_parameter(unreal.MaterialInstanceConstant, str, float) -> None"
+        },
+        {
+          "id": "get_vector_parameter",
+          "desc": "Gets the current value of a vector parameter on a material instance.",
+          "signature": "MaterialInstanceTools.get_vector_parameter(unreal.MaterialInstanceConstant, str) -> unreal.LinearColor"
+        },
+        {
+          "id": "set_vector_parameter",
+          "desc": "Sets the value of a vector parameter on a material instance.",
+          "signature": "MaterialInstanceTools.set_vector_parameter(unreal.MaterialInstanceConstant, str, unreal.LinearColor) -> None"
+        },
+        {
+          "id": "get_texture_parameter",
+          "desc": "Gets the texture assigned to a texture parameter on a material instance.",
+          "signature": "MaterialInstanceTools.get_texture_parameter(unreal.MaterialInstanceConstant, str) -> unreal.Texture | None"
+        },
+        {
+          "id": "set_texture_parameter",
+          "desc": "Assigns a texture to a texture parameter on a material instance.",
+          "signature": "MaterialInstanceTools.set_texture_parameter(unreal.MaterialInstanceConstant, str, unreal.Texture) -> None"
+        },
+        {
+          "id": "get_static_switch_parameter",
+          "desc": "Gets the value of a static switch parameter on a material instance.",
+          "signature": "MaterialInstanceTools.get_static_switch_parameter(unreal.MaterialInstanceConstant, str) -> bool"
+        },
+        {
+          "id": "set_static_switch_parameter",
+          "desc": "Sets the value of a static switch parameter on a material instance.",
+          "signature": "MaterialInstanceTools.set_static_switch_parameter(unreal.MaterialInstanceConstant, str, bool) -> None"
+        },
+        {
+          "id": "set_parent",
+          "desc": "Changes the parent of a material instance.",
+          "signature": "MaterialInstanceTools.set_parent(unreal.MaterialInstanceConstant, unreal.MaterialInterface) -> None"
+        },
+        {
+          "id": "clear_parameters",
+          "desc": "Clears all parameter overrides on a material instance, reverting to parent defaults.",
+          "signature": "MaterialInstanceTools.clear_parameters(unreal.MaterialInstanceConstant) -> None"
+        },
+        {
+          "id": "set_parameter_override",
+          "desc": "Enables or disables a parameter override on a material instance.",
+          "signature": "MaterialInstanceTools.set_parameter_override(unreal.MaterialInstanceConstant, str, bool) -> None"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "ObjectTools",
+      "desc": "Provides tools for inspecting and modifying the properties of",
+      "tools": [
+        {
+          "id": "search_subclasses",
+          "desc": "Finds all subclasses of a given class.",
+          "signature": "ObjectTools.search_subclasses(unreal.Class, str) -> list[unreal.SoftClassPath]"
+        },
+        {
+          "id": "get_class",
+          "desc": "Returns the class of an Unreal object.",
+          "signature": "ObjectTools.get_class(unreal.Object) -> unreal.Class"
+        },
+        {
+          "id": "list_properties",
+          "desc": "Returns a list of properties that are on the specified object.",
+          "signature": "ObjectTools.list_properties(unreal.Object) -> str"
+        },
+        {
+          "id": "get_properties",
+          "desc": "Returns the values of one or more properties on an object.",
+          "signature": "ObjectTools.get_properties(unreal.Object, list[str]) -> str"
+        },
+        {
+          "id": "set_properties",
+          "desc": "Sets the values of properties on an object.",
+          "signature": "ObjectTools.set_properties(unreal.Object, str) -> bool"
+        },
+        {
+          "id": "reset_properties",
+          "desc": "Resets one or more properties on an object to their default values,",
+          "signature": "ObjectTools.reset_properties(unreal.Object, list[str]) -> bool"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "PrimitiveTools",
+      "desc": "Provides tools for adding primitive geometry components to actors.",
+      "tools": [
+        {
+          "id": "add_cube",
+          "desc": "Adds a cube-shaped StaticMeshComponent to an actor.",
+          "signature": "PrimitiveTools.add_cube(unreal.Actor, str, unreal.Vector, Any) -> unreal.StaticMeshComponent"
+        },
+        {
+          "id": "add_sphere",
+          "desc": "Adds a sphere-shaped StaticMeshComponent to an actor.",
+          "signature": "PrimitiveTools.add_sphere(unreal.Actor, str, float, Any) -> unreal.StaticMeshComponent"
+        },
+        {
+          "id": "add_cylinder",
+          "desc": "Adds a cylinder-shaped StaticMeshComponent to an actor.",
+          "signature": "PrimitiveTools.add_cylinder(unreal.Actor, str, float, float, Any) -> unreal.StaticMeshComponent"
+        },
+        {
+          "id": "add_cone",
+          "desc": "Adds a cone-shaped StaticMeshComponent to an actor.",
+          "signature": "PrimitiveTools.add_cone(unreal.Actor, str, float, float, Any) -> unreal.StaticMeshComponent"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "SceneTools",
+      "desc": "Provides tools for working with the currently loaded level, including",
+      "tools": [
+        {
+          "id": "load_level",
+          "desc": "Loads a level in the editor.",
+          "signature": "SceneTools.load_level(str) -> None"
+        },
+        {
+          "id": "get_current_level",
+          "desc": "Returns the path to the current level asset.",
+          "signature": "SceneTools.get_current_level() -> str"
+        },
+        {
+          "id": "get_collision_channels",
+          "desc": "Returns all available collision channels for use with find_actors.",
+          "signature": "SceneTools.get_collision_channels() -> list[unreal.ObjectTypeQuery]"
+        },
+        {
+          "id": "find_actors",
+          "desc": "Searches the scene for actors that match specific criteria.",
+          "signature": "SceneTools.find_actors(Any, str, Any, str, Any, list[unreal.ObjectTypeQuery]) -> list[unreal.Actor]"
+        },
+        {
+          "id": "add_to_scene_from_class",
+          "desc": "Creates a new instance of the specified object at the specified transform.",
+          "signature": "SceneTools.add_to_scene_from_class(unreal.Class, str, unreal.Transform, Any, bool) -> unreal.Actor"
+        },
+        {
+          "id": "add_to_scene_from_asset",
+          "desc": "Creates a new actor in the scene from an asset.",
+          "signature": "SceneTools.add_to_scene_from_asset(str, str, unreal.Transform, Any, bool) -> unreal.Actor"
+        },
+        {
+          "id": "remove_from_scene",
+          "desc": "Deletes an actor from the scene.",
+          "signature": "SceneTools.remove_from_scene(unreal.Actor) -> bool"
+        },
+        {
+          "id": "get_folders",
+          "desc": "Returns all folder paths currently in use in the outliner.",
+          "signature": "SceneTools.get_folders() -> list[str]"
+        },
+        {
+          "id": "get_actors_in_folder",
+          "desc": "Returns the actors in the specified outliner folder.",
+          "signature": "SceneTools.get_actors_in_folder(str, bool) -> list[unreal.Actor]"
+        },
+        {
+          "id": "set_actor_folder",
+          "desc": "Assigns an actor to the specified folder in the outliner.",
+          "signature": "SceneTools.set_actor_folder(unreal.Actor, str) -> None"
+        },
+        {
+          "id": "rename_folder",
+          "desc": "Renames a folder in the outliner.",
+          "signature": "SceneTools.rename_folder(str, str) -> int"
+        },
+        {
+          "id": "delete_folder",
+          "desc": "Deletes a folder from the outliner.",
+          "signature": "SceneTools.delete_folder(str) -> int"
+        },
+        {
+          "id": "trace_world",
+          "desc": "Traces a line through the world and returns the distance to the first hit.",
+          "signature": "SceneTools.trace_world(unreal.Vector, unreal.Vector) -> float | None"
+        },
+        {
+          "id": "merge_actors",
+          "desc": "Merges multiple StaticMesh actors into a single mesh asset and actor.",
+          "signature": "SceneTools.merge_actors(list[unreal.StaticMeshActor], str, str, bool) -> unreal.StaticMeshActor"
+        },
+        {
+          "id": "create_level_instance",
+          "desc": "Creates a Level Instance actor in the scene referencing an existing level asset.",
+          "signature": "SceneTools.create_level_instance(str, str, unreal.Transform, Any) -> unreal.LevelInstance"
+        },
+        {
+          "id": "edit_level_instance",
+          "desc": "Opens a level instance for editing.",
+          "signature": "SceneTools.edit_level_instance(unreal.LevelInstance) -> None"
+        },
+        {
+          "id": "commit_level_instance",
+          "desc": "Saves or discards edits to a level instance and exits edit mode.",
+          "signature": "SceneTools.commit_level_instance(unreal.LevelInstance, bool) -> None"
+        },
+        {
+          "id": "can_edit",
+          "desc": "Checks whether an actor can be edited.",
+          "signature": "SceneTools.can_edit(unreal.Actor) -> bool"
+        },
+        {
+          "id": "is_checked_out",
+          "desc": "Checks whether an actor is checked out by the current user.",
+          "signature": "SceneTools.is_checked_out(unreal.Actor) -> bool"
+        },
+        {
+          "id": "save_actor",
+          "desc": "Saves the actor to disk.",
+          "signature": "SceneTools.save_actor(unreal.Actor) -> None"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "SkeletalMeshTools",
+      "desc": "Provides tools for inspecting and modifying skeletal mesh assets, including",
+      "tools": [
+        {
+          "id": "import_file",
+          "desc": "Imports a mesh file from disk as a SkeletalMesh asset.",
+          "signature": "SkeletalMeshTools.import_file(str, str, str, Any, bool, bool, bool, bool) -> list[unreal.Object]"
+        },
+        {
+          "id": "get_lod_count",
+          "desc": "Returns the number of LODs in a skeletal mesh asset.",
+          "signature": "SkeletalMeshTools.get_lod_count(unreal.SkeletalMesh) -> int"
+        },
+        {
+          "id": "get_vertex_count",
+          "desc": "Returns the number of vertices in a specific LOD of a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_vertex_count(unreal.SkeletalMesh, int) -> int"
+        },
+        {
+          "id": "get_section_count",
+          "desc": "Returns the number of sections in a specific LOD of a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_section_count(unreal.SkeletalMesh, int) -> int"
+        },
+        {
+          "id": "get_bounds",
+          "desc": "Returns the local-space bounding volume of a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_bounds(unreal.SkeletalMesh) -> unreal.BoxSphereBounds"
+        },
+        {
+          "id": "get_skeleton",
+          "desc": "Returns the skeleton asset associated with a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_skeleton(unreal.SkeletalMesh) -> unreal.Skeleton"
+        },
+        {
+          "id": "get_bone_names",
+          "desc": "Returns the names of all bones in a skeletal mesh in hierarchy order.",
+          "signature": "SkeletalMeshTools.get_bone_names(unreal.SkeletalMesh) -> list[str]"
+        },
+        {
+          "id": "get_bone_parent",
+          "desc": "Returns the name of a bone's parent, or an empty string for the root bone.",
+          "signature": "SkeletalMeshTools.get_bone_parent(unreal.SkeletalMesh, str) -> str"
+        },
+        {
+          "id": "get_bone_children",
+          "desc": "Returns the direct children of a bone.",
+          "signature": "SkeletalMeshTools.get_bone_children(unreal.SkeletalMesh, str) -> list[str]"
+        },
+        {
+          "id": "get_material_slots",
+          "desc": "Returns the names of all material slots in a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_material_slots(unreal.SkeletalMesh) -> list[str]"
+        },
+        {
+          "id": "get_material",
+          "desc": "Returns the material assigned to a named slot on a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_material(unreal.SkeletalMesh, str) -> unreal.MaterialInterface"
+        },
+        {
+          "id": "set_material",
+          "desc": "Assigns a material to a named slot on a skeletal mesh asset.",
+          "signature": "SkeletalMeshTools.set_material(unreal.SkeletalMesh, str, unreal.MaterialInterface) -> bool"
+        },
+        {
+          "id": "get_physics_asset",
+          "desc": "Returns the physics asset assigned to a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_physics_asset(unreal.SkeletalMesh) -> unreal.PhysicsAsset"
+        },
+        {
+          "id": "assign_physics_asset",
+          "desc": "Assigns a physics asset to a skeletal mesh.",
+          "signature": "SkeletalMeshTools.assign_physics_asset(unreal.SkeletalMesh, unreal.PhysicsAsset) -> bool"
+        },
+        {
+          "id": "get_morph_target_names",
+          "desc": "Returns the names of all morph targets on a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_morph_target_names(unreal.SkeletalMesh) -> list[str]"
+        },
+        {
+          "id": "add_socket",
+          "desc": "Adds a named socket to a skeletal mesh attached to a bone.",
+          "signature": "SkeletalMeshTools.add_socket(unreal.SkeletalMesh, str, str) -> unreal.SkeletalMeshSocket"
+        },
+        {
+          "id": "get_socket_names",
+          "desc": "Returns the names of all sockets on a skeletal mesh.",
+          "signature": "SkeletalMeshTools.get_socket_names(unreal.SkeletalMesh) -> list[str]"
+        },
+        {
+          "id": "get_socket_bone",
+          "desc": "Returns the name of the bone that a socket is attached to.",
+          "signature": "SkeletalMeshTools.get_socket_bone(unreal.SkeletalMesh, str) -> str"
+        },
+        {
+          "id": "get_socket_transform",
+          "desc": "Returns the local transform of a socket relative to its parent bone.",
+          "signature": "SkeletalMeshTools.get_socket_transform(unreal.SkeletalMesh, str) -> unreal.Transform"
+        },
+        {
+          "id": "set_socket_transform",
+          "desc": "Sets the local transform of a socket relative to its parent bone.",
+          "signature": "SkeletalMeshTools.set_socket_transform(unreal.SkeletalMesh, str, unreal.Transform) -> None"
+        },
+        {
+          "id": "remove_socket",
+          "desc": "Removes a named socket from a skeletal mesh.",
+          "signature": "SkeletalMeshTools.remove_socket(unreal.SkeletalMesh, str) -> bool"
+        },
+        {
+          "id": "rename_socket",
+          "desc": "Renames a socket on a skeletal mesh.",
+          "signature": "SkeletalMeshTools.rename_socket(unreal.SkeletalMesh, str, str) -> bool"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "StaticMeshTools",
+      "desc": "Provides tools for inspecting and modifying static mesh assets.",
+      "tools": [
+        {
+          "id": "import_file",
+          "desc": "Imports a mesh file from disk as a StaticMesh asset.",
+          "signature": "StaticMeshTools.import_file(str, str, str, bool, bool, bool) -> list[unreal.Object]"
+        },
+        {
+          "id": "get_lod_count",
+          "desc": "Returns the number of LODs in a static mesh asset.",
+          "signature": "StaticMeshTools.get_lod_count(unreal.StaticMesh) -> int"
+        },
+        {
+          "id": "get_triangle_count",
+          "desc": "Returns the number of triangles in a specific LOD of a static mesh.",
+          "signature": "StaticMeshTools.get_triangle_count(unreal.StaticMesh, int) -> int"
+        },
+        {
+          "id": "get_vertex_count",
+          "desc": "Returns the number of vertices in a specific LOD of a static mesh.",
+          "signature": "StaticMeshTools.get_vertex_count(unreal.StaticMesh, int) -> int"
+        },
+        {
+          "id": "get_bounds",
+          "desc": "Returns the local-space bounding box of a static mesh.",
+          "signature": "StaticMeshTools.get_bounds(unreal.StaticMesh) -> unreal.Box"
+        },
+        {
+          "id": "get_material_slots",
+          "desc": "Returns the names of all material slots in a static mesh.",
+          "signature": "StaticMeshTools.get_material_slots(unreal.StaticMesh) -> list[str]"
+        },
+        {
+          "id": "get_material",
+          "desc": "Returns the material assigned to a named slot on a static mesh.",
+          "signature": "StaticMeshTools.get_material(unreal.StaticMesh, str) -> unreal.MaterialInterface"
+        },
+        {
+          "id": "set_material",
+          "desc": "Assigns a material to a named slot on a static mesh asset.",
+          "signature": "StaticMeshTools.set_material(unreal.StaticMesh, str, unreal.MaterialInterface) -> bool"
+        },
+        {
+          "id": "get_lod_thresholds",
+          "desc": "Returns the screen-size thresholds at which each LOD becomes active.",
+          "signature": "StaticMeshTools.get_lod_thresholds(unreal.StaticMesh) -> list[float]"
+        },
+        {
+          "id": "set_lod_thresholds",
+          "desc": "Sets the screen-size thresholds at which each LOD becomes active.",
+          "signature": "StaticMeshTools.set_lod_thresholds(unreal.StaticMesh, list[float]) -> bool"
+        },
+        {
+          "id": "generate_lods",
+          "desc": "Auto-generates LODs for a static mesh using triangle reduction.",
+          "signature": "StaticMeshTools.generate_lods(unreal.StaticMesh, list[float]) -> int"
+        },
+        {
+          "id": "remove_lods",
+          "desc": "Removes all auto-generated LODs from a static mesh, keeping only LOD 0.",
+          "signature": "StaticMeshTools.remove_lods(unreal.StaticMesh) -> bool"
+        },
+        {
+          "id": "generate_convex_collisions",
+          "desc": "Generates convex hull collision shapes for a static mesh.",
+          "signature": "StaticMeshTools.generate_convex_collisions(unreal.StaticMesh, int, int, int) -> bool"
+        },
+        {
+          "id": "remove_collisions",
+          "desc": "Removes all collision shapes from a static mesh.",
+          "signature": "StaticMeshTools.remove_collisions(unreal.StaticMesh) -> bool"
+        },
+        {
+          "id": "is_nanite_enabled",
+          "desc": "Returns whether Nanite is enabled for a static mesh.",
+          "signature": "StaticMeshTools.is_nanite_enabled(unreal.StaticMesh) -> bool"
+        },
+        {
+          "id": "set_nanite_enabled",
+          "desc": "Enables or disables Nanite for a static mesh.",
+          "signature": "StaticMeshTools.set_nanite_enabled(unreal.StaticMesh, bool) -> None"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "StringTableTools",
+      "desc": "Provides tools for creating and editing StringTable assets.",
+      "tools": [
+        {
+          "id": "import_file",
+          "desc": "Imports a file from disk as a StringTable asset.",
+          "signature": "StringTableTools.import_file(str, str, str) -> list[unreal.Object]"
+        },
+        {
+          "id": "create",
+          "desc": "Creates a new StringTable asset.",
+          "signature": "StringTableTools.create(str, str) -> unreal.StringTable"
+        },
+        {
+          "id": "get_table_id",
+          "desc": "Returns the table ID for a StringTable asset.",
+          "signature": "StringTableTools.get_table_id(unreal.StringTable) -> str"
+        },
+        {
+          "id": "get_namespace",
+          "desc": "Returns the namespace of a StringTable asset.",
+          "signature": "StringTableTools.get_namespace(unreal.StringTable) -> str"
+        },
+        {
+          "id": "list_keys",
+          "desc": "Lists all keys in the string table.",
+          "signature": "StringTableTools.list_keys(unreal.StringTable) -> list[str]"
+        },
+        {
+          "id": "get_entry",
+          "desc": "Returns the source string for a specific key.",
+          "signature": "StringTableTools.get_entry(unreal.StringTable, str) -> str"
+        },
+        {
+          "id": "set_entry",
+          "desc": "Adds or updates an entry in the string table.",
+          "signature": "StringTableTools.set_entry(unreal.StringTable, str, str) -> None"
+        },
+        {
+          "id": "remove_entry",
+          "desc": "Removes an entry from the string table.",
+          "signature": "StringTableTools.remove_entry(unreal.StringTable, str) -> None"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "TextureTools",
+      "desc": "Provides tools for working with Texture assets.",
+      "tools": [
+        {
+          "id": "import_file",
+          "desc": "Imports an image file from disk as a Texture2D asset.",
+          "signature": "TextureTools.import_file(str, str, str) -> list[unreal.Object]"
+        },
+        {
+          "id": "get_size",
+          "desc": "Returns the dimensions of a Texture2D in pixels.",
+          "signature": "TextureTools.get_size(unreal.Texture2D) -> unreal.IntPoint"
+        }
+      ]
+    },
+    {
+      "type": "C++",
+      "id": "UEditorAppToolset",
+      "desc": "Tools for querying and modifying Unreal Editor state: console variables, asset imaging, actor and asset selection, viewport camera, content browser navigation, and Play-In-Editor session control.",
+      "tools": [
+        {
+          "id": "SearchCVars",
+          "desc": "Finds all console variables that contain a given name. @param Name The partial or full name to search for. @return A JSON dict with info about matching cvars.",
+          "signature": "UEditorAppToolset.SearchCVars(const FString&) -> FString"
+        },
+        {
+          "id": "CaptureAssetImage",
+          "desc": "Renders a thumbnail for the specified asset (e.g. static meshes, skeletal meshes, skeletons, animations, montages, materials, textures). @param AssetPath The path to the asset, e.g. '/Game/Meshes/SM_Cube'. @return An image of the asset.",
+          "signature": "UEditorAppToolset.CaptureAssetImage(const FString&) -> UToolCallAsyncResultImage*"
+        },
+        {
+          "id": "CaptureEditorImage",
+          "desc": "Captures an image of the entire editor application as the user sees it. @return An image of editor windows as they appear on the users' desktop.",
+          "signature": "UEditorAppToolset.CaptureEditorImage() -> FToolsetImage"
+        },
+        {
+          "id": "CaptureViewport",
+          "desc": "Captures the level viewport with optional annotations. Annotations rendering overlays a projected 3D world-space grid plus name + position labels on visible actors. The grid is drawn at a configurable ground-plane Z and projected through the camera, with coordinate numbers at intersections (shown in meters). Each labeled actor gets a crosshair at its projected screen position with a leader-line callout placed to avoid overlap. This gives a vision-capable agent spatial awareness: it can reference grid coordinates to direct placement and identify scene contents by label. @param CaptureTransform Optional pose to capture from. If unset, uses the viewport's current camera. @param Annotations Optional annotation overlay configuration. Only use this when you need the information in order to perform spatial actions. @param bShowUI If false (default), editor UI overlays such as transform gizmos and selection outlines are hidden in the captured image. Set true to capture exactly what's on screen, gizmos and all. @return The captured image and associated metadata.",
+          "signature": "UEditorAppToolset.CaptureViewport(TOptional<FTransform>, TOptional<FViewportAnnotationConfig>, bool) -> FViewportCapture"
+        },
+        {
+          "id": "GetSelectedActors",
+          "desc": "Gets the currently selected actors in the level editor. @return A list of the currently selected actors.",
+          "signature": "UEditorAppToolset.GetSelectedActors() -> TArray<AActor*>"
+        },
+        {
+          "id": "SelectActors",
+          "desc": "Selects the specified actors in the current scene. @param Actors The actors to select.",
+          "signature": "UEditorAppToolset.SelectActors(const TArray<AActor*>&) -> void"
+        },
+        {
+          "id": "GetCameraTransform",
+          "desc": "Returns the position and rotation of the level viewport camera. @return The transform for the level viewport camera.",
+          "signature": "UEditorAppToolset.GetCameraTransform() -> FTransform"
+        },
+        {
+          "id": "SetCameraTransform",
+          "desc": "Sets the position and rotation of the level viewport camera. @param Transform The transform to apply to the viewport camera.",
+          "signature": "UEditorAppToolset.SetCameraTransform(const FTransform&) -> void"
+        },
+        {
+          "id": "FocusOnActors",
+          "desc": "Repositions the level editor camera to focus on the specified actors. Cannot be called while PIE is active. @param Actors The actors to focus the level camera on.",
+          "signature": "UEditorAppToolset.FocusOnActors(const TArray<AActor*>&) -> void"
+        },
+        {
+          "id": "GetVisibleActors",
+          "desc": "Returns all actors in the current level whose bounds intersect the viewport frustum. @return The actors that are at least partially in view.",
+          "signature": "UEditorAppToolset.GetVisibleActors() -> TArray<AActor*>"
+        },
+        {
+          "id": "WorldPosToScreenCoords",
+          "desc": "Converts a world-space position into normalized screen space based on the editor viewport camera. @param Position The world space position to convert. @return The normalized screen-space coordinates for the position if it is in view.",
+          "signature": "UEditorAppToolset.WorldPosToScreenCoords(FVector) -> FVector2D"
+        },
+        {
+          "id": "ScreenCoordsToWorld",
+          "desc": "Finds the world position of the nearest solid object at a given set of normalized view space coords. @param Coords The normalized screen-space coordinates to trace from. @param TraceDistance The maximum distance to trace within the scene. @return The world-space coordinates of the intersection point.",
+          "signature": "UEditorAppToolset.ScreenCoordsToWorld(FVector2D, float) -> FVector"
+        },
+        {
+          "id": "GetSelectedAssets",
+          "desc": "Gets the list of assets selected in the content browser. @return A list of package paths to the assets selected in the content browser.",
+          "signature": "UEditorAppToolset.GetSelectedAssets() -> TArray<FString>"
+        },
+        {
+          "id": "SelectAssets",
+          "desc": "Selects the specified assets in the content browser. Completes once the content browser has applied the selection. @param AssetPaths The package paths of the assets to select.",
+          "signature": "UEditorAppToolset.SelectAssets(const TArray<FString>&) -> UToolCallAsyncResultVoid*"
+        },
+        {
+          "id": "GetContentBrowserPath",
+          "desc": "Gets the current path of the active content browser. @return The path to the folder currently shown in the content browser.",
+          "signature": "UEditorAppToolset.GetContentBrowserPath() -> FString"
+        },
+        {
+          "id": "SetContentBrowserPath",
+          "desc": "Navigates the active content browser to the specified folder path. @param Path The internal path to navigate to, e.g. '/Game/Meshes'.",
+          "signature": "UEditorAppToolset.SetContentBrowserPath(const FString&) -> void"
+        },
+        {
+          "id": "OpenEditorForAsset",
+          "desc": "Opens an asset editor for the specified asset. @param AssetPath The path to the asset to open, e.g. '/Game/Meshes/SM_Cube'.",
+          "signature": "UEditorAppToolset.OpenEditorForAsset(const FString&) -> void"
+        },
+        {
+          "id": "GetOpenAssets",
+          "desc": "Gets the list of assets currently open in asset editors. @return A list of package paths to the assets open in asset editors.",
+          "signature": "UEditorAppToolset.GetOpenAssets() -> TArray<FString>"
+        },
+        {
+          "id": "StartPIE",
+          "desc": "Starts a Play-In-Editor or Simulate-In-Editor session using the current level. Completes after the engine fires PostPIEStarted (session fully started, BeginPlay called) and Options.WarmupSeconds have elapsed, giving project- specific initialization (services, authentication, plugin warmup) time to settle before the agent inspects state or logs. Raises an error if a play session is already running. @param Options Session configuration: PIE vs Simulate, play mode, optional spawn transform override, warmup duration. See FPIESessionOptions.",
+          "signature": "UEditorAppToolset.StartPIE(const FPIESessionOptions&) -> UToolCallAsyncResultVoid*"
+        },
+        {
+          "id": "StopPIE",
+          "desc": "Stops the currently running play session (PIE or Simulate). Raises an error if no play session is running.",
+          "signature": "UEditorAppToolset.StopPIE() -> UToolCallAsyncResultVoid*"
+        },
+        {
+          "id": "IsPIERunning",
+          "desc": "Returns whether a Play In Editor session is currently running. @return True if PIE is active, false otherwise.",
+          "signature": "UEditorAppToolset.IsPIERunning() -> bool"
+        }
+      ]
+    },
+    {
+      "type": "C++",
+      "id": "ULogsToolset",
+      "desc": "Provides tools for reading the Unreal Engine output log and controlling log category verbosity.",
+      "tools": [
+        {
+          "id": "GetLogEntries",
+          "desc": "Returns log entries from the current session's log file. @param Category If non-empty, only returns entries from this log category (e.g. \"LogTemp\"). @param Pattern If non-empty, only returns entries whose text matches this regular expression. @param MaxEntries Maximum number of entries to return, taken from the end of the log. Pass 0 for no limit. Defaults to 1000. @return A list of matching log entries in chronological order.",
+          "signature": "ULogsToolset.GetLogEntries(const FString&) -> TArray<FString>"
+        },
+        {
+          "id": "GetLogCategories",
+          "desc": "Returns a sorted list of registered log categories. @param Filter If non-empty, only returns categories whose name contains this substring. @return A sorted list of log category names (e.g. [\"LogBlueprint\", \"LogTemp\"]).",
+          "signature": "ULogsToolset.GetLogCategories(const FString&) -> TArray<FString>"
+        },
+        {
+          "id": "GetVerbosity",
+          "desc": "Returns the current verbosity level for a log category. @param Category The log category name, e.g. \"LogTemp\". @return The verbosity level as a string: one of \"NoLogging\", \"Fatal\", \"Error\", \"Warning\", \"Display\", \"Log\", \"Verbose\", or \"VeryVerbose\". Raises a script error if the category is not found.",
+          "signature": "ULogsToolset.GetVerbosity(const FString&) -> FString"
+        },
+        {
+          "id": "SetVerbosity",
+          "desc": "Sets the verbosity level for a log category. @param Category The log category name, e.g. \"LogTemp\". @param Verbosity The verbosity level: one of \"NoLogging\", \"Fatal\", \"Error\", \"Warning\", \"Display\", \"Log\", \"Verbose\", or \"VeryVerbose\".",
+          "signature": "ULogsToolset.SetVerbosity(const FString&, const FString&) -> void"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "BlueprintBasicsSkill",
+      "desc": "Provides guidance on creating and editing Blueprints in Unreal Engine.\nApply this skill whenever creating, modifying, or reviewing Blueprint assets.",
+      "instructions": "READING GRAPHS\n- Use the DSL to read a graph as text; this is the natural way to understand\n  logic before modifying it with the DSL.\n- Use node inspection tools when you need to navigate or examine specific nodes\n  rather than read the whole graph. For example, filtering to entry-point nodes\n  then reading the connected subgraph isolates one event chain from a large Event Graph.\n\nWRITING GRAPHS\n- Use the DSL to populate event and function graphs.\n- Never guess node type IDs or pin names. Always look up node types and confirm\n  exact pin names before writing DSL or connecting nodes via the API.\n- Use function graphs for logic that returns values or needs to be reused;\n  keep the Event Graph for event-driven and async logic.\n- Only compile once all graph modifications for a logical unit are complete.\n\nBATCH OPERATIONS\n- For work that spans multiple assets (creating many Blueprints, adding variables\n  in bulk, reparenting), use programmatic tool calling instead of many individual tool calls.\n\nCOMMON GOTCHAS\n- Pure node outputs are not cached: each wire connected to a pure node output\n  reruns the calculation. Store the result in a variable if used more than once.\n- Casting to a Blueprint creates a hard load dependency: all assets that Blueprint\n  references load into memory even if the cast fails. Prefer interfaces for loose coupling.\n- The Blueprint must be compiled before structural changes take effect. Added or\n  removed components, new variables, and function signature changes won't appear\n  on the CDO or on newly spawned instances until the next compile.\n- Runtime physics operations require Movable component mobility. Components inherit\n  a default mobility that is often Static; set mobility to Movable before enabling\n  simulation or applying impulses, or the call is rejected at runtime.",
+      "toolsets": []
+    },
+    {
+      "id": "DefaultOutdoorLightingSkill",
+      "desc": "Skill that is dedicated at adjusting the default outdoor lighting setup in Unreal.\nApply this skill whenever setting up or modifying outdoor lighting (sun, sky, clouds,\nfog, exposure).",
+      "instructions": "# Purpose\n\nThis skill defines the authoritative rules for setting up and modifying Unreal Engine's default outdoor lighting system. These rules must be followed when performing any lighting-related actions.\n\n---\n\n# Core System\n\nUnreal's default outdoor lighting is composed of six interdependent actors. The **Directional Light (Sun)** is the primary driver of the entire system.\n\n---\n\n# Actors and Rules\n\n## Directional Light (Sun)\n\nRepresents the Sun. Defines main lighting direction and intensity. Produces most direct lighting and shadowing in the scene. Many sky and atmosphere features require it to have non-zero intensity.\n\n## Sky Atmosphere\n\nGenerates the sky and large-scale atmospheric effects. Directly driven by the Directional Light's position and intensity. If the Directional Light intensity is zero, the Sky Atmosphere is black.\n\n## Exponential Height Fog\n\nAdds localized fog, usually near the ground. Strongly affects depth and contrast at short and medium distances. For large-scale or global fog, use Sky Atmosphere Aerial Perspective instead.\n\n## Sky Light\n\nProvides ambient lighting by capturing the sky. Fills shadows created by the Directional Light so they are not fully black. Produces shadowing mainly as an ambient occlusion effect, not as primary directional shadows.\n\n## Volumetric Clouds\n\nRenders clouds in the atmosphere. Cloud visibility and lighting depend directly on the Directional Light. If the Directional Light intensity is zero, clouds are not visible.\n\nVolumetric Cloud appearance is controlled both by the cloud component and its material instance. The engine default (when the material is pointing to the engine directory) must never be edited directly. If the component's assigned material already points to project content, tweak it in place. If it still points to engine content, duplicate it into the project first (near the level asset), assign the duplicate, then tweak.\n\n## Post Process Volume\n\nControls exposure, white balance, color temperature, and color grading. Not part of the sky system, but essential for correct lighting results.\n\n---\n\n# Directional Light Orientation Rules\n\nThe Directional Light rotation controls sun position.\n\n- **Y-axis (Pitch):** controls elevation\n  - `0°` = sun on horizon\n  - `-90°` = sun overhead\n\n- **Z-axis (Yaw):** controls compass direction\n  - `0°` = North\n  - `180°` = South\n\n---\n\n# Component Access Rule\n\n> **NEVER** read or set properties directly on a lighting actor. Properties are defined on the actor's **COMPONENT**, not the actor itself.\n\n**Recommended workflow:**\n1. Call `get_components` on the actor first to retrieve its component paths.\n2. Then call `get_properties` or `set_properties` on the relevant component.\n\n---\n\n# Sky Atmosphere - Color Shift Warning\n\nThe Sky Atmosphere automatically produces warm sunset/sunrise colors as the Directional Light pitches toward the horizon. Do not use Light Temperature or Post Process White Balance to drive or correct this - doing so stacks on top of the atmospheric shift and produces unnatural, over-saturated results. Light Temperature should remain near neutral (5500-6500K) and only be nudged (±500K) as a last-resort fine-tuning step after everything else is set.\n\n---\n\n# Volumetric Cloud Coverage - CRITICAL FOR SKY ASSESSMENT\n\nCloud coverage is one of the most impactful parameters in the scene and is frequently the cause of misdiagnosed sky color problems. A high global coverage value will blanket the entire sky, masking the atmosphere beneath. What appears to be a sky color problem (e.g. no blue, uniform orange) is very often simply too much cloud coverage hiding the actual atmosphere.\n\n**Before making any adjustments to sky color, light temperature, Rayleigh scattering, or Post Process:**\n\n- **ALWAYS** check the global coverage setting on the cloud material instance first.\n- Default is ~-0.2. Values above 0.1 will noticeably blanket the sky.\n- For a sunset with visible sky and scattered clouds, keep global coverage in the range -0.2 to 0.0.\n- Only increase coverage when the intent is a heavily clouded or overcast sky.\n- If the sky looks uniformly warm or colorless, reduce cloud coverage before touching any other parameter.\n\n**Sunset cloud material instance recommended values:**\n\n| Parameter | Value | Notes |\n|---|---|---|\n| Global Coverage | -0.2 to 0.0 | Scattered clouds, sky visible |\n| Global Density | 0.007 - 0.010 | Light, wispy clouds that catch sunset light |\n| Bottom Altitude | 3 - 5 km | Higher = more sky visible below the cloud base |\n| Layer Height | 5 - 8 km | |\n\n---\n\n# Exposure Compensation - CRITICAL RULES\n\nAlways use physically realistic lux values for the Directional Light (e.g. 80,000-120,000 lux for direct sun, 300-1,000 lux for sunset) - Unreal defaults (~100-150 lux) are far too low.\n\nExposure bias behaves very differently depending on whether the Post Process auto-exposure system is active or not. **Always read the current min and max brightness values from the Post Process settings before deciding on a bias value.**\n\n## Two Distinct Modes\n\n### Mode 1 - Auto-exposure ACTIVE\n*(both min and max brightness are overridden and set)*\n\nThe auto-exposure system adapts the scene brightness automatically. Exposure bias is then a fine-tuning **offset** on top of that adaptation - large negative values are **not** needed and will crush the image to black.\n\n- Use exposure bias in the range of **-2.0 to +2.0 EV** for fine-tuning only.\n- Start at 0.0 and adjust by small increments (±0.5 EV) per iteration.\n- This is the most common mode in a project with a configured Post Process Volume.\n\n### Mode 2 - Auto-exposure NOT ACTIVE\n*(no min/max brightness overrides)*\n\nLarge negative bias values are needed to bring realistic lux values to a visually correct brightness.\n\n| Lux Range | Exposure Bias |\n|---|---|\n| 80,000 - 120,000 lux (direct sun) | -10 to -14 EV |\n| 25,000 - 50,000 lux (hazy/partly cloudy) | -7 to -10 EV |\n| 5,000 - 15,000 lux (overcast) | -4 to -7 EV |\n| 1,000 - 6,000 lux (late afternoon) | -2 to -5 EV |\n| 300 - 1,000 lux (sunset) | -1 to -3 EV |\n\n## Recommended Workflow Before Setting Any Bias Value\n\n1. Read the Post Process settings to check whether the min and max brightness overrides are active and what they're set to, in order to determine which mode applies.\n2. Always enable the exposure bias override when setting the exposure bias value.\n3. Fine-tune during screenshot assessment cycles.\n\n---\n\n# Fog Density for Sunset - REFERENCE\n\nAt sunset, atmospheric haze is handled primarily by the Sky Atmosphere aerial perspective. Exponential Height Fog should be very subtle - used only for near-ground depth, not to simulate the horizon glow.\n\n- Fog density at sunset: 0.000002 - 0.00002\n- Use the start distance setting to push fog onset away from the camera (e.g. 2000-5000 units)\n- **DO NOT** use fog to simulate warm horizon glow - that is the Sky Atmosphere's job.\n\n---\n\n# Overcast Weather Recipe\n\nTrue overcast is driven primarily by the Volumetric Cloud layer combined with its material instance and soft shadow angles. A convincing overcast look **cannot** be achieved without tweaking the cloud material instance.\n\nThe five pillars of a convincing overcast look are:\n\n## 1. Volumetric Cloud Material Instance - first step\n\n1. Read the assigned material from the cloud component.\n2. If it points to engine content (`/Engine/...`): duplicate it into the project content near the level asset, name it clearly (e.g. `MI_VolumetricCloud_Overcast`), and assign the duplicate back to the component.\n3. If it already points to project content (`/Game/...`): use it directly - no duplication needed.\n4. Tweak the material instance parameters using the MaterialInstance tools.\n5. Save the asset when done.\n\n### Known Parameters\n\n**Scalar parameters:**\n\n| Parameter | Default | Overcast Range | Notes |\n|---|---|---|---|\n| Global Coverage | ~-0.2 | 0.5 - 0.75 | Controls sky coverage. Range: -1 (clear) to 1 (full) |\n| Global Density | ~0.008 | 0.02 - 0.04 | Controls opacity/thickness. Higher = more opaque |\n| Global Scale | 256 | 180 - 220 | Lower = tighter, less wispy clouds |\n| Storm Clouds Blend | 0 | 0 | Keep at 0 for standard overcast |\n\n**Vector parameters (RGBA channels each carry distinct meaning):**\n\n| Parameter | Channel | Default | Overcast Range | Notes |\n|---|---|---|---|---|\n| Albedo Color | RGB | ~(0.98, 0.98, 0.98) | (0.65-0.75, 0.65-0.75, 0.68-0.78) | Shift to cool grey |\n| | A | 0.5 | 0.5 | Leave at default |\n| Noise Bias | G | ~0.8 | 0.85 - 0.9 | Raising reduces erosion holes |\n| Noise Strength | G, B | - | Lower both | Smooths cloud silhouette |\n| Cloud Type | R, G | 1, 1 | Reduce | Controls lower/mid cloud type blend |\n\n## 2. Cloud Component Layer Settings - low and thick\n\n| Property | Overcast Value | Notes |\n|---|---|---|\n| Bottom Altitude | 0.5 - 2 km | Lower = more oppressive and dramatic |\n| Layer Height | 8 - 14 km | Taller = more sky coverage |\n| Sky Light Occlusion | 0.75 - 0.9 | Blocks ambient sky light from below |\n| Cast Cloud Shadows | yes | MUST be enabled for clouds to cast ground shadows |\n| Shadow Strength | 0.8 - 1.0 | |\n| Shadow on Surface Strength | 0.8 - 1.0 | |\n\n## 3. Directional Light Shadow Softening\n\n- **Light source angle:** 2-5° standard, up to 15-30° for fully overcast (when sun disc is not visible).\n- **Soft angle:** 40-70° (dramatically softens shadow penumbras).\n\n## 4. Sky Atmosphere Mie Scattering\n\n- Mie scattering scale sweet spot for overcast: **0.01 - 0.05**\n- Do **NOT** rely on Mie alone for overcast - clouds and shadow softness are the primary drivers.\n\n## 5. Sky Atmosphere Rayleigh Scattering Color - Recommended for overcast\n\n- Overcast: **R: 0.40-0.50, G: 0.52-0.60, B: 0.70-0.80** (preserve A channel)\n- Restore to default (~0.175, 0.41, 1.0) for clear sky.\n\n### Supporting Adjustments for Overcast\n\n| Setting | Value |\n|---|---|\n| Sky Light Intensity | 1.0 - 1.5 |\n| Height Fog Density | 0.01 - 0.02 |\n| Exposure Bias | Start at 0.0 and iterate |\n\n---\n\n# Screenshot Assessment Workflow - Recommended\n\n## Step 1 - Baseline Capture\n\nBefore making any changes, take a screenshot, then read it. Read the current property values from all relevant components. Also read:\n\n- The material assigned to the cloud component\n- The global coverage and density settings from the cloud material instance\n- The Post Process auto-exposure settings: whether min and max brightness overrides are active, their values, and the current exposure bias\n\nAssess the current lighting visually and numerically to understand the starting state, and determine which exposure mode (auto-adapting or manual) is active.\n\n## Step 2 - Apply Changes\n\nRead the user request. Based on the visual and numerical baseline assessment, compute and apply the new property values. Use the correct exposure mode based on the Post Process settings read in Step 1. Check cloud coverage first before diagnosing any sky color issues.\n\n## Step 3 - Result Capture and Assessment\n\nTake a new screenshot and read it. Visually assess whether the result matches the user's request. Describe what you see and whether it is satisfying.\n\n## Step 4 - Refinement Cycles (up to 3 total)\n\nIf the result is not satisfying after Step 3, adjust the values and take another screenshot to reassess. Repeat up to a maximum of **3 screenshot cycles total**. If after 3 cycles the result is still not satisfying, stop and report.\n\n---\n\n# Execution Constraint\n\nAlways respect these relationships when creating or modifying lighting. Changes to the Directional Light must be considered first, as they propagate through the entire system.",
+      "toolsets": []
+    },
+    {
+      "id": "MaterialBasicsSkill",
+      "desc": "Provides guidance on working with Materials and MaterialInstances in Unreal Engine.\nApply this skill whenever creating, modifying, or choosing between Material assets.",
+      "instructions": "Decision order when asked for a material:\n1. Search for an existing Material or MaterialInstance that already covers the need.\n2. If a suitable parent exists, create a MaterialInstance from it.\n3. Create a new Material only when nothing close enough exists.\n\nWhen creating a new Material:\n- Search for existing MaterialFunctions before writing graph logic by hand. Reuse what you find. Only create a new MaterialFunction when nothing suitable exists and the logic is worth sharing across materials.\n- Expose parameters for anything a user would want to vary per-instance. Group related parameters under a shared name so they appear organised in the Material Instance editor.\n\nCommon gotchas:\n- Neutral normal is (0, 0, 1) — pure blue, not zero.\n- Static switch parameters multiply permutations: 2 switches = 4 shaders, 4 switches = 16. Keep them minimal on parent materials.",
+      "toolsets": []
+    },
+    {
+      "id": "UnrealSkillBestPracticesSkill",
+      "desc": "Provides best practices for creating, updating, and reviewing skills in Unreal.\nApply this skill whenever creating, updating, or reviewing skills in Unreal.",
+      "instructions": "A good skill is:\n- Novel: content should be things the agent doesn't already know or can't learn by using tools.\n- Collegial: write like you're briefing a knowledgeable colleague, not authoring documentation.\n- Flexible: use conceptual explanations, step-by-step instructions, or a mix — whichever is clearest.\n- Durable: avoid embedding property names, tool names, or other details that change over time.\n- Agnostic: avoid referencing orchestration systems, role names, model names, or infrastructure specifics.\n- Parsimonious: every token costs context. Cut anything that isn't essential or evergreen.",
+      "toolsets": []
+    }
+  ]
+}

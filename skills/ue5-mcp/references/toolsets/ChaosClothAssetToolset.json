@@ -1,0 +1,49 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "UChaosClothAssetToolset",
+      "desc": "Provides tools for creating and assigning ChaosClothAsset clothing data to skeletal meshes. Replicates the workflow available via the SkeletalMesh Editor viewport context menu.",
+      "tools": [
+        {
+          "id": "CreateClothingAsset",
+          "desc": "Creates a UChaosClothAssetSKMClothingAsset from a Chaos Cloth/Outfit Asset and adds it to the skeletal mesh's clothing asset array, making it available to assign to sections. @param SkeletalMeshPath Object path to the target USkeletalMesh asset. @param ChaosClothAssetPath Object path to the source UChaosClothAssetBase (cloth or outfit asset). @return List of created clothing assets, or empty if failed.",
+          "signature": "UChaosClothAssetToolset.CreateClothingAsset(const FString&, const FString&) -> TArray<FString>"
+        },
+        {
+          "id": "AssignClothingToSection",
+          "desc": "Binds a clothing asset to a specific LOD and section on the skeletal mesh. Mirrors the SkeletalMesh Editor's \"Apply Clothing Data\" action. Any clothing already bound to the section is unbound first. @param SkeletalMeshPath Object path to the target USkeletalMesh asset. @param ClothingAssetName Name of the Clothing Asset on the mesh (e.g., from CreateClothingAsset or ListClothingAssets). @param LodIndex Skeletal mesh LOD index to bind to. @param SectionIndex Section index within the LOD to bind to. @param ClothingLodIndex LOD index within the clothing asset to bind. For ChaosClothAsset-derived types (bRequiresMatchingLodIndex == true in ListClothingAssets), pass the same value as LodIndex. For UClothingAssetCommon, pass the desired clothing LOD (0 to NumClothingLods-1 as reported by ListClothingAssets). @return True if the binding succeeded.",
+          "signature": "UChaosClothAssetToolset.AssignClothingToSection(const FString&, const FString&, int32, int32, int32) -> bool"
+        },
+        {
+          "id": "RemoveClothingFromSection",
+          "desc": "Removes the clothing binding from a specific LOD section on the skeletal mesh. Mirrors the SkeletalMesh Editor's \"Remove Clothing Data\" action. @param SkeletalMeshPath Object path to the target USkeletalMesh asset. @param LodIndex Skeletal mesh LOD index. @param SectionIndex Section index within the LOD. @return True if a binding was found and removed.",
+          "signature": "UChaosClothAssetToolset.RemoveClothingFromSection(const FString&, int32, int32) -> bool"
+        },
+        {
+          "id": "ListClothingAssets",
+          "desc": "Returns information about all Clothing Assets on a skeletal mesh. Use AssetName with AssignClothingToSection. Check bRequiresMatchingLodIndex to determine how to supply ClothingLodIndex: - true  (ChaosClothAsset): pass the same value as LodIndex - false (UClothingAssetCommon): pass any value in [0, NumClothingLods-1] @param SkeletalMeshPath Object path to the target USkeletalMesh asset. @return Array of clothing asset info structs.",
+          "signature": "UChaosClothAssetToolset.ListClothingAssets(const FString&) -> TArray<FClothingAssetInfo>"
+        },
+        {
+          "id": "GetSectionClothing",
+          "desc": "Returns the name of clothing bound for a specific LOD section (if any). @param SkeletalMeshPath Object path to the target USkeletalMesh asset. @param LodIndex Skeletal mesh LOD index. @param SectionIndex Section index within the LOD. @return The name of the clothing asset, or empty if none bound.",
+          "signature": "UChaosClothAssetToolset.GetSectionClothing(const FString&, int32, int32) -> FString"
+        },
+        {
+          "id": "ConvertClothingAssetCommonToChaosClothAsset",
+          "desc": "Converts a legacy UClothingAssetCommon (the cloth asset created via UChaosClothingSimulationFactory) into a new UChaosClothAsset whose embedded Dataflow graph mirrors the legacy UChaosClothConfig and UChaosClothSharedSimConfig values, with one WeightMap node per legacy weight map. @param SkeletalMeshPath  Object path to the USkeletalMesh that owns the legacy clothing asset. @param ClothingAssetName Name of the UClothingAssetCommon on the mesh (from ListClothingAssets). @param OutputPackagePath Folder where the new asset should be created (e.g. \"/Game/Cloth/\"). @param AssetName         Name of the new asset; empty for default (\"CA_Converted_<source>\"). @return Object path of the new UChaosClothAsset; empty on failure.",
+          "signature": "UChaosClothAssetToolset.ConvertClothingAssetCommonToChaosClothAsset(const FString&, const FString&, const FString&, const FString&) -> FString"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "UChaosClothAssetConversionSkill",
+      "desc": "Agent skill that documents the end-to-end workflow for converting a legacy UClothingAssetCommon on a SkeletalMesh into a new UChaosClothAsset using the ChaosClothAsset toolset.",
+      "instructions": "Workflow to convert legacy Chaos cloth to the new ChaosClothAsset format:\n1. Call ListClothingAssets(SkeletalMeshPath) and locate entries where bRequiresMatchingLodIndex == false; those are legacy UClothingAssetCommon assets.\n2. For each legacy asset, call ConvertClothingAssetCommonToChaosClothAsset(SkeletalMeshPath, ClothingAssetName, OutputPackagePath, AssetName). Use a content folder such as /Game/Cloth/ and pass an empty AssetName to use the default name.\n3. Validate the returned UChaosClothAsset and its embedded Dataflow graph. Use the ClothingAssetImport node's Reimport action after edits to the legacy asset.\n4. Call CreateClothingAsset(SkeletalMeshPath, NewClothAssetPath), then call AssignClothingToSection for each required LOD and section. Set ClothingLodIndex equal to LodIndex for UChaosClothAsset-derived assets.\n5. After validating the new binding, optionally call RemoveClothingFromSection to unbind the legacy clothing.",
+      "toolsets": []
+    }
+  ]
+}

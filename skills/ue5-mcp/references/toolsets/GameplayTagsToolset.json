@@ -1,0 +1,42 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "UGameplayTagsToolset",
+      "desc": "Provides tools for reading and managing gameplay tags in the project's GameplayTagsManager.",
+      "tools": [
+        {
+          "id": "ListTags",
+          "desc": "Returns gameplay tags registered in the project. @param ParentTag If non-empty, only tags that are descendants of this tag are returned. For example, passing \"Character.State\" returns \"Character.State.Dead\", \"Character.State.Stunned\", etc. Pass an empty string to return all tags. @return A sorted list of fully-qualified tag names.",
+          "signature": "UGameplayTagsToolset.ListTags(const FString&) -> TArray<FString>"
+        },
+        {
+          "id": "GetTagInfo",
+          "desc": "Returns detailed information about a specific gameplay tag. @param TagName The fully-qualified name of the tag, e.g. \"Character.State.Dead\". @return The tag's developer comment, source INI file, and immediate children. Raises a script error if the tag does not exist.",
+          "signature": "UGameplayTagsToolset.GetTagInfo(const FString&) -> FGameplayTagInfo"
+        },
+        {
+          "id": "AddTag",
+          "desc": "Adds a new gameplay tag to the project. This should ONLY be called after getting explicit direction or permission from the user. @param TagName The fully-qualified name of the tag to add, e.g. \"Character.State.Dead\". @param Comment An optional developer comment describing the tag's purpose. @param TagSource The INI source to add the tag to. Uses the default source if empty.",
+          "signature": "UGameplayTagsToolset.AddTag(const FString&, const FString&, const FString&) -> void"
+        },
+        {
+          "id": "RemoveTag",
+          "desc": "Removes a gameplay tag from the project. This should ONLY be called after getting explicit direction or permission from the user. @param TagName The fully-qualified name of the tag to remove, e.g. \"Character.State.Dead\".",
+          "signature": "UGameplayTagsToolset.RemoveTag(const FString&) -> void"
+        },
+        {
+          "id": "RenameTag",
+          "desc": "Renames a gameplay tag, updating all references in the project. This should ONLY be called after getting explicit direction or permission from the user. @param OldTagName The fully-qualified name of the tag to rename. @param NewTagName The new fully-qualified name for the tag.",
+          "signature": "UGameplayTagsToolset.RenameTag(const FString&, const FString&) -> void"
+        },
+        {
+          "id": "FindReferencersByTag",
+          "desc": "Returns assets that reference a gameplay tag. @param TagName The fully-qualified gameplay tag to search for, e.g. \"Character.State.Dead\". @return A list of package paths that reference the tag.",
+          "signature": "UGameplayTagsToolset.FindReferencersByTag(const FString&) -> TArray<FString>"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

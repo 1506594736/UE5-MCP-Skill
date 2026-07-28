@@ -1,0 +1,47 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "UDataRegistryTools",
+      "desc": "Provides tools for querying and inspecting Data Registries.",
+      "tools": [
+        {
+          "id": "ListRegistries",
+          "desc": "Returns the names of all registered Data Registries. @param StructFilter If non-null, only registries whose item struct inherits from this struct are returned. @return A list of registry names.",
+          "signature": "UDataRegistryTools.ListRegistries(const UScriptStruct*) -> TArray<FString>"
+        },
+        {
+          "id": "GetRegistryInfo",
+          "desc": "Returns detailed information about a specific registry. @param RegistryName The registry name. @return Detailed info including description and id format.",
+          "signature": "UDataRegistryTools.GetRegistryInfo(const FString&) -> FDataRegistryInfo"
+        },
+        {
+          "id": "GetSchema",
+          "desc": "Returns the item struct schema as JSON. @param RegistryName The registry name. @return A JSON string describing the struct's fields and types.",
+          "signature": "UDataRegistryTools.GetSchema(const FString&) -> FString"
+        },
+        {
+          "id": "ListItems",
+          "desc": "Returns all item names in a Data Registry. @param RegistryName The registry name. @return All item names defined on the registry, in registry order.",
+          "signature": "UDataRegistryTools.ListItems(const FString&) -> TArray<FString>"
+        },
+        {
+          "id": "ListDataSources",
+          "desc": "Returns the editor-defined sources configured on a Data Registry. These are the sources as authored on the registry asset, before any runtime expansion of meta sources. @param RegistryName The registry name. @return A list of source summaries, in definition order.",
+          "signature": "UDataRegistryTools.ListDataSources(const FString&) -> TArray<FDataRegistrySourceSummary>"
+        },
+        {
+          "id": "ListRuntimeSources",
+          "desc": "Returns the runtime sources for a Data Registry. This is the expanded list including transient child sources generated from meta sources. Will equal ListDataSources when the registry has no meta sources. @param RegistryName The registry name. @return A list of source summaries, in runtime order.",
+          "signature": "UDataRegistryTools.ListRuntimeSources(const FString&) -> TArray<FDataRegistrySourceSummary>"
+        },
+        {
+          "id": "GetItems",
+          "desc": "Returns cached item data. Items must be loaded in the registry cache to be returned. @param RegistryName The registry name. @param ItemNames Item names to retrieve. @return A map from item name to its struct data. Names that were not found in the cache are simply omitted from the result.",
+          "signature": "UDataRegistryTools.GetItems(const FString&, const TArray<FString>&) -> TMap<FString, FInstancedStruct>"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

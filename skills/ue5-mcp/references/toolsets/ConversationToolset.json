@@ -1,0 +1,47 @@
+{
+  "toolsets": [
+    {
+      "type": "Python",
+      "id": "ConversationTools",
+      "desc": "Inspect Conversation Graph (UConversationDatabase) dialogue assets.",
+      "tools": [
+        {
+          "id": "list_entry_points",
+          "desc": "Returns entry points (FConversationEntryList structs).",
+          "signature": "ConversationTools.list_entry_points(unreal.ConversationDatabase) -> list[unreal.ConversationEntryList]"
+        },
+        {
+          "id": "list_speakers",
+          "desc": "Returns speaker/participant information.",
+          "signature": "ConversationTools.list_speakers(unreal.ConversationDatabase) -> list[unreal.CommonDialogueBankParticipant]"
+        },
+        {
+          "id": "get_all_nodes",
+          "desc": "Returns all reachable nodes in the conversation.",
+          "signature": "ConversationTools.get_all_nodes(unreal.ConversationDatabase) -> list[unreal.ConversationNode]"
+        },
+        {
+          "id": "get_node_guids",
+          "desc": "Returns GUIDs of all reachable nodes, in map iteration order.",
+          "signature": "ConversationTools.get_node_guids(unreal.ConversationDatabase) -> list[unreal.Guid]"
+        },
+        {
+          "id": "get_node_by_guid",
+          "desc": "Returns a conversation node by its GUID.",
+          "signature": "ConversationTools.get_node_by_guid(unreal.ConversationDatabase, unreal.Guid) -> unreal.ConversationNode"
+        },
+        {
+          "id": "get_node_connections",
+          "desc": "Returns output connection GUIDs for a conversation node.",
+          "signature": "ConversationTools.get_node_connections(unreal.ConversationNodeWithLinks) -> list[unreal.Guid]"
+        },
+        {
+          "id": "get_sub_nodes",
+          "desc": "Returns sub-nodes (requirements, choices) attached to a task node.",
+          "signature": "ConversationTools.get_sub_nodes(unreal.ConversationTaskNode) -> list[unreal.ConversationSubNode]"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

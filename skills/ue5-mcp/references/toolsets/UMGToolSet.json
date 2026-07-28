@@ -1,0 +1,127 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "UUMGToolSet",
+      "desc": "UMG widget toolset for AI-driven widget creation and tree manipulation. IMPORTANT WORKFLOW - for every widget and slot returned by this toolset: 1. Call ObjectTools.list_properties(widget) to discover exact property names. 2. Call ObjectTools.get_properties(widget, [...]) with those exact names. 3. Call ObjectTools.set_properties(widget, {...}) with those exact names. Property names vary per widget class and CANNOT be guessed - list_properties is required. Skipping step 1 causes set_properties to silently fail or set wrong properties. Returns UObject pointers - ToolsetRegistry serializes them as {\"refPath\": \"...\"} automatically. Pass returned Widget, Slot, and Parent pointers directly to ObjectTools or back to this toolset.",
+      "tools": [
+        {
+          "id": "CreateWidgetBlueprint",
+          "desc": "Creates a new Widget Blueprint asset. Returns the blueprint or nullptr on failure. @param FolderPath Content folder path, e.g. \"/Game/UI/Widgets\". @param AssetName Name for the new blueprint asset. @param ParentClass The parent UUserWidget class. Get this from GetWidgets Info.ParentClass on the source blueprint.",
+          "signature": "UUMGToolSet.CreateWidgetBlueprint(const FString&, const FString&, TSubclassOf<UUserWidget>) -> UWidgetBlueprint*"
+        },
+        {
+          "id": "AddWidget",
+          "desc": "Adds a widget to the tree at the specified position. Returns full widget info including Slot pointer. When ParentWidget is null and no root exists, the new widget becomes the root of the tree. Use ObjectTools.list_properties on the returned Widget and Slot to get property names before calling set_properties. @param WidgetBlueprint The widget blueprint to modify. @param WidgetClass The widget class to instantiate. @param WidgetDisplayName Display name for the new widget instance. @param ParentWidget The panel widget to add to. Pass null to add to root, or to make this widget the root if the tree is empty. @param ChildIndex Position in parent's child list (0 = first child). -1 (default) appends to end.",
+          "signature": "UUMGToolSet.AddWidget(UWidgetBlueprint*, TSubclassOf<UWidget>, const FString&, UWidget*, int32) -> FUMGWidgetInfo"
+        },
+        {
+          "id": "SetNamedSlotContent",
+          "desc": "Sets content for a named slot. Returns full widget info including Slot pointer. @param WidgetBlueprint The widget blueprint to modify. @param HostWidget The widget that owns the named slot, or null to target the root WidgetTree. @param SlotName Name of the slot to fill (e.g., \"content\", \"header\"). @param WidgetClass The widget class to place in the slot. @param WidgetName Name for the new widget instance.",
+          "signature": "UUMGToolSet.SetNamedSlotContent(UWidgetBlueprint*, UWidget*, FName, TSubclassOf<UWidget>, FName) -> FUMGWidgetInfo"
+        },
+        {
+          "id": "GetWidgets",
+          "desc": "Returns blueprint info and all widgets in depth-first order. Children within each parent are in their panel slot order - this is the hierarchy order shown in the designer. Info contains ParentClass (pass to CreateWidgetBlueprint) and RootWidgetClass. Use ObjectTools.list_properties on each returned Widget and Slot to get property names before calling set_properties. @param WidgetBlueprint The widget blueprint asset (e.g. \"/Game/UI/WBP_MyWidget\"), excluding the \"_C\" suffix.",
+          "signature": "UUMGToolSet.GetWidgets(UWidgetBlueprint*) -> FUMGWidgetTreeInfo"
+        },
+        {
+          "id": "GetNamedSlots",
+          "desc": "Returns named slot bindings (separate from tree hierarchy). @param WidgetBlueprint The widget blueprint to query.",
+          "signature": "UUMGToolSet.GetNamedSlots(UWidgetBlueprint*) -> TArray<FUMGNamedSlotEntry>"
+        },
+        {
+          "id": "ListWidgetBlueprints",
+          "desc": "Lists widget blueprints in a content folder. @param FolderPath Content folder to search, e.g. \"/Game/UI\". Searches recursively.",
+          "signature": "UUMGToolSet.ListWidgetBlueprints(const FString&) -> TArray<FSoftObjectPath>"
+        },
+        {
+          "id": "ListWidgetClasses",
+          "desc": "Lists available widget classes, optionally filtered by name substring. @param Filter Substring to match against class names. Pass empty string to return all classes.",
+          "signature": "UUMGToolSet.ListWidgetClasses(const FString&) -> TArray<FUMGWidgetClassEntry>"
+        },
+        {
+          "id": "GetWidgetClassInfo",
+          "desc": "Returns the Category, Description and if it's a Panel for a single widget class. Same per-entry data as ListWidgetClasses, but lets callers query a class they already have without scanning every UClass. Returns an empty entry if WidgetClass is null. Can be used to get more information on the class from the Description and Category. @param WidgetClass The widget class to inspect.",
+          "signature": "UUMGToolSet.GetWidgetClassInfo(TSubclassOf<UWidget>) -> FUMGWidgetClassEntry"
+        },
+        {
+          "id": "MoveWidget",
+          "desc": "Moves a widget to a new parent panel at the specified position. Returns updated widget info with new Slot. @param WidgetBlueprint The widget blueprint to modify. @param Widget The widget to move. @param NewParent The destination panel widget. @param ChildIndex Position in new parent's child list (0 = first child). -1 (default) appends to end.",
+          "signature": "UUMGToolSet.MoveWidget(UWidgetBlueprint*, UWidget*, UPanelWidget*, int32) -> FUMGWidgetInfo"
+        },
+        {
+          "id": "RemoveWidget",
+          "desc": "Removes a widget and its children from the tree. @param WidgetBlueprint The widget blueprint to modify. @param Widget The widget to remove (along with its children).",
+          "signature": "UUMGToolSet.RemoveWidget(UWidgetBlueprint*, UWidget*) -> bool"
+        },
+        {
+          "id": "RenameWidget",
+          "desc": "Renames a widget. Returns updated widget info or empty on failure. @param WidgetBlueprint The widget blueprint to modify. @param Widget The widget to rename. @param NewDisplayName The new display name.",
+          "signature": "UUMGToolSet.RenameWidget(UWidgetBlueprint*, UWidget*, const FString&) -> FUMGWidgetInfo"
+        },
+        {
+          "id": "ToggleWidgetAsVariable",
+          "desc": "Sets the bIsVariable flag. @param WidgetBlueprint The widget blueprint to modify. @param Widget The widget to update. @param bIsVariable True to expose as a blueprint variable, false to hide it.",
+          "signature": "UUMGToolSet.ToggleWidgetAsVariable(UWidgetBlueprint*, UWidget*, bool) -> void"
+        },
+        {
+          "id": "BindToEventProperty",
+          "desc": "Adds a Blueprint event handler graph node bound to a widget's multicast delegate event, Typical events: UButton::OnClicked / OnPressed / OnReleased / OnHovered / OnUnhovered, UCheckBox::OnCheckStateChanged, USlider::OnValueChanged. The matching delegate UPROPERTY must exist on PropertyClass (or a parent of it). Preconditions: - PropertyName must exist in the blueprint. - PropertyClass must be the widget's class (or a parent class) that declares the delegate. @param WidgetBlueprint The widget blueprint that will own the event handler. @param EventName       Name of the multicast delegate UPROPERTY on PropertyClass (e.g. \"OnClicked\"). @param PropertyName    Name of the blueprint variable owning the event. @param PropertyClass   Class declaring the delegate, typically the widget's class (e.g. UButton::StaticClass()).",
+          "signature": "UUMGToolSet.BindToEventProperty(UWidgetBlueprint*, const FName, FName, UClass*) -> bool"
+        },
+        {
+          "id": "WrapWidgets",
+          "desc": "Wraps one or more widgets in a new panel widget of the specified class. Only the root-most widgets in the selection are wrapped — children of other selected widgets are skipped because their parent will be wrapped. Returns info for each newly created wrapper. Use ObjectTools.list_properties on each returned Widget and Slot to discover property names before calling set_properties (padding, alignment, anchors, etc. vary per panel class). @param WidgetBlueprint The widget blueprint to modify. @param Widgets         The widgets to wrap. Must all be in WidgetBlueprint's tree. @param WrapperClass    The panel widget class to wrap with (must be a UPanelWidget subclass).",
+          "signature": "UUMGToolSet.WrapWidgets(UWidgetBlueprint*, TArray<UWidget*>, TSubclassOf<UPanelWidget>) -> TArray<FUMGWidgetInfo>"
+        },
+        {
+          "id": "GetWidgetDescription",
+          "desc": "Full property dump of every widget in the tree. Each line: [N] Type Name  Prop:Value ...  slot:(SlotProp:Value ...) N is the 0-based index into result.Widgets -- use result.Widgets[N] to get the widget ref without text parsing. Same indentation format as GetTaggedWidgetDescription; richer per-widget detail. @param WidgetBlueprint  The WBP asset. @param StartWidget      nullptr = full tree from root. @param MaxDepth         -1 = no limit; 0 = StartWidget only; N = N levels.",
+          "signature": "UUMGToolSet.GetWidgetDescription(const UWidgetBlueprint*, const UWidget*, int32) -> FUMGWidgetDescriptionResult"
+        },
+        {
+          "id": "GetWidgetTreeDepth",
+          "desc": "Returns the maximum depth of the widget tree. Depth: root with no children = 0; root + children = 1; etc. @return Depth as int32; -1 on error.",
+          "signature": "UUMGToolSet.GetWidgetTreeDepth(const UWidgetBlueprint*, const UWidget*) -> int32"
+        },
+        {
+          "id": "AddUIComponent",
+          "desc": "Adds a UI component of the given class to the named widget. @param WidgetBlueprint The widget blueprint to modify. @param WidgetName Name of the widget instance to add the component to. @param ComponentClass The UIComponent subclass to add. @return Info for the widget the component was added to, including the populated UIComponents array. Returns an empty info on failure.",
+          "signature": "UUMGToolSet.AddUIComponent(UWidgetBlueprint*, FName, TSubclassOf<UUIComponent>) -> FUMGWidgetInfo"
+        },
+        {
+          "id": "RemoveUIComponent",
+          "desc": "Removes a UI component of the given class from the named widget. @param WidgetBlueprint The widget blueprint to modify. @param WidgetName Name of the widget instance to remove the component from. @param ComponentClass The UIComponent subclass to remove. @return True if the component was removed, false if it was not found.",
+          "signature": "UUMGToolSet.RemoveUIComponent(UWidgetBlueprint*, FName, TSubclassOf<UUIComponent>) -> bool"
+        },
+        {
+          "id": "MoveUIComponent",
+          "desc": "Moves a UI component before or after another component on the same widget. @param WidgetBlueprint The widget blueprint to modify. @param WidgetName Name of the widget instance whose component to move. @param ComponentClassToMove The UIComponent subclass to reorder. @param RelativeToComponentClass The UIComponent subclass to move relative to. @param bMoveAfter True to place after RelativeToComponentClass, false to place before. @return True if the component was moved, false if either component was not found.",
+          "signature": "UUMGToolSet.MoveUIComponent(UWidgetBlueprint*, FName, TSubclassOf<UUIComponent>, TSubclassOf<UUIComponent>, bool) -> bool"
+        },
+        {
+          "id": "ReplaceWidgetWithTemplate",
+          "desc": "Replaces a widget instance in the blueprint's widget tree with a new instance created from a different template widget class. Preserves references for members that exist on both classes with a compatible type/signature: bindings, BP graph variable references, animation bindings, and delegate bindings. Members without a compatible counterpart on the new class are listed in the returned report; references to those members in the outer blueprint will become orphaned graph nodes / dangling bindings. @param WidgetBlueprint    The widget blueprint containing the widget to replace. @param WidgetToReplace    The widget instance to replace (must be in WidgetBlueprint's tree). @param TemplateClass      The widget class to create the replacement from. @return Report whose bSuccess flag indicates whether the replacement happened, MissingReferencesWarning describes warnings that need action, and the Unmatched* arrays list members that have no compatible counterpart on the new class (with the *Referenced* subsets being the ones the blueprint actually uses today).",
+          "signature": "UUMGToolSet.ReplaceWidgetWithTemplate(UWidgetBlueprint*, UWidget*, TSubclassOf<UWidget>) -> FWidgetReplacementReport"
+        },
+        {
+          "id": "ReplaceWidgetWithNamedSlot",
+          "desc": "Replaces a host widget with the content of one of its named slots. The host must implement INamedSlotInterface (e.g., a UUserWidget exposing named slots). The slot's content widget is moved up to take the host's place in the tree. @param WidgetBlueprint    The widget blueprint containing the host widget. @param WidgetToReplace    The host widget to replace. @param NamedSlot          The slot whose content replaces WidgetToReplace. @return true on success, false if validation failed.",
+          "signature": "UUMGToolSet.ReplaceWidgetWithNamedSlot(UWidgetBlueprint*, UWidget*, FName) -> bool"
+        },
+        {
+          "id": "ReplaceWidgetWithChild",
+          "desc": "Replaces a panel widget with its first child, removing the panel from the tree. The widget to replace must be a UPanelWidget with only one child. @param WidgetBlueprint    The widget blueprint containing the panel widget. @param WidgetToReplace    The panel widget to replace with its first child. @return true on success, false if validation failed.",
+          "signature": "UUMGToolSet.ReplaceWidgetWithChild(UWidgetBlueprint*, UWidget*) -> bool"
+        },
+        {
+          "id": "CompileWidgetBlueprint",
+          "desc": "Compiles a widget blueprint. Returns false with error details if compilation fails. Errors include missing BindWidget bindings, type mismatches, and graph errors. Call after all widgets and properties are set. Save separately via AssetTools.save_asset. @param WidgetBlueprint The widget blueprint to compile.",
+          "signature": "UUMGToolSet.CompileWidgetBlueprint(UWidgetBlueprint*) -> bool"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

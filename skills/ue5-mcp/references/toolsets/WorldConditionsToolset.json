@@ -1,0 +1,22 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "UWorldConditionTools",
+      "desc": "Inspect WorldCondition (FWorldConditionQueryDefinition, FWorldConditionBase) structs.",
+      "tools": [
+        {
+          "id": "GetQueryDescription",
+          "desc": "Returns a human-readable description of a world condition query. @param QueryDefinition The query definition to describe. @return Text description of all conditions in the query.",
+          "signature": "UWorldConditionTools.GetQueryDescription(const FWorldConditionQueryDefinition&) -> FText"
+        },
+        {
+          "id": "GetConditionDescription",
+          "desc": "Returns a human-readable description of a single world condition. The condition must be passed as an FInstancedStruct containing an FWorldConditionBase-derived struct. @param Condition The instanced struct holding the world condition. @return Text description of the condition, or empty if invalid.",
+          "signature": "UWorldConditionTools.GetConditionDescription(const FInstancedStruct&) -> FText"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

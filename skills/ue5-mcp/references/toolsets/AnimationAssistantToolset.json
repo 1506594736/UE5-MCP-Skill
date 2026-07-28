@@ -1,0 +1,1656 @@
+{
+  "toolsets": [
+    {
+      "type": "Python",
+      "id": "SequencerConditionTools",
+      "desc": "Tools for managing runtime conditions on Sequencer tracks, sections, and",
+      "tools": [
+        {
+          "id": "get_section_condition",
+          "desc": "Get the condition on a section.",
+          "signature": "SequencerConditionTools.get_section_condition(unreal.MovieSceneSection) -> str"
+        },
+        {
+          "id": "set_section_condition",
+          "desc": "Set a condition on a section.",
+          "signature": "SequencerConditionTools.set_section_condition(unreal.MovieSceneSection, str) -> bool"
+        },
+        {
+          "id": "clear_section_condition",
+          "desc": "Remove the condition from a section.",
+          "signature": "SequencerConditionTools.clear_section_condition(unreal.MovieSceneSection) -> bool"
+        },
+        {
+          "id": "get_track_condition",
+          "desc": "Get the track-level condition.",
+          "signature": "SequencerConditionTools.get_track_condition(unreal.MovieSceneTrack) -> str"
+        },
+        {
+          "id": "set_track_condition",
+          "desc": "Set a condition on a track.",
+          "signature": "SequencerConditionTools.set_track_condition(unreal.MovieSceneTrack, str) -> bool"
+        },
+        {
+          "id": "clear_track_condition",
+          "desc": "Remove the condition from a track.",
+          "signature": "SequencerConditionTools.clear_track_condition(unreal.MovieSceneTrack) -> bool"
+        },
+        {
+          "id": "get_track_row_condition",
+          "desc": "Get the condition on a specific track row.",
+          "signature": "SequencerConditionTools.get_track_row_condition(unreal.MovieSceneTrack, int) -> str"
+        },
+        {
+          "id": "set_track_row_condition",
+          "desc": "Set a condition on a specific track row.",
+          "signature": "SequencerConditionTools.set_track_row_condition(unreal.MovieSceneTrack, int, str) -> bool"
+        },
+        {
+          "id": "clear_track_row_condition",
+          "desc": "Remove the condition from a specific track row.",
+          "signature": "SequencerConditionTools.clear_track_row_condition(unreal.MovieSceneTrack, int) -> bool"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "ControlRigTools",
+      "desc": "Tools for creating and editing Control Rig assets, including hierarchy",
+      "tools": [
+        {
+          "id": "create",
+          "desc": "Creates a new Control Rig at the given location.",
+          "signature": "ControlRigTools.create(str) -> unreal.ControlRigBlueprint"
+        },
+        {
+          "id": "import_bones_from_asset",
+          "desc": "Import bones from the given skeletal mesh to the Control Rig hierarchy.",
+          "signature": "ControlRigTools.import_bones_from_asset(unreal.ControlRigBlueprint, unreal.SkeletalMesh) -> list[unreal.RigElementKey]"
+        },
+        {
+          "id": "get_elements",
+          "desc": "Get hierarchy elements of the specified type.",
+          "signature": "ControlRigTools.get_elements(unreal.ControlRigBlueprint, Any) -> list[unreal.RigElementKey]"
+        },
+        {
+          "id": "get_all_bones",
+          "desc": "Get all bones in the Control Rig hierarchy.",
+          "signature": "ControlRigTools.get_all_bones(unreal.ControlRigBlueprint) -> list[unreal.RigElementKey]"
+        },
+        {
+          "id": "get_all_nulls",
+          "desc": "Get all nulls (locators) in the Control Rig hierarchy.",
+          "signature": "ControlRigTools.get_all_nulls(unreal.ControlRigBlueprint) -> list[unreal.RigElementKey]"
+        },
+        {
+          "id": "get_all_controls",
+          "desc": "Get all controls in the Control Rig hierarchy.",
+          "signature": "ControlRigTools.get_all_controls(unreal.ControlRigBlueprint) -> list[unreal.RigElementKey]"
+        },
+        {
+          "id": "add_element",
+          "desc": "Add a bone or null element to the Control Rig hierarchy.",
+          "signature": "ControlRigTools.add_element(unreal.ControlRigBlueprint, str, str, Any, Any) -> unreal.RigElementKey"
+        },
+        {
+          "id": "add_bone",
+          "desc": "Add a bone to the Control Rig hierarchy.",
+          "signature": "ControlRigTools.add_bone(unreal.ControlRigBlueprint, str, Any, Any) -> unreal.RigElementKey"
+        },
+        {
+          "id": "add_null",
+          "desc": "Add a null (locator) to the Control Rig hierarchy.",
+          "signature": "ControlRigTools.add_null(unreal.ControlRigBlueprint, str, Any, Any) -> unreal.RigElementKey"
+        },
+        {
+          "id": "add_control",
+          "desc": "Add a control to the hierarchy.",
+          "signature": "ControlRigTools.add_control(unreal.ControlRigBlueprint, str, Any, Any) -> unreal.RigElementKey"
+        },
+        {
+          "id": "get_global_transform",
+          "desc": "Get global transform of a hierarchy element.",
+          "signature": "ControlRigTools.get_global_transform(unreal.ControlRigBlueprint, unreal.RigElementKey, bool) -> unreal.Transform"
+        },
+        {
+          "id": "set_global_transform",
+          "desc": "Set global transform of a hierarchy element.",
+          "signature": "ControlRigTools.set_global_transform(unreal.ControlRigBlueprint, unreal.RigElementKey, unreal.Transform, bool) -> None"
+        },
+        {
+          "id": "get_local_transform",
+          "desc": "Get local transform of a hierarchy element.",
+          "signature": "ControlRigTools.get_local_transform(unreal.ControlRigBlueprint, unreal.RigElementKey, bool) -> unreal.Transform"
+        },
+        {
+          "id": "set_local_transform",
+          "desc": "Set local transform of a hierarchy element.",
+          "signature": "ControlRigTools.set_local_transform(unreal.ControlRigBlueprint, unreal.RigElementKey, unreal.Transform, bool) -> None"
+        },
+        {
+          "id": "get_parent",
+          "desc": "Get the parent of a hierarchy element.",
+          "signature": "ControlRigTools.get_parent(unreal.ControlRigBlueprint, unreal.RigElementKey) -> unreal.RigElementKey"
+        },
+        {
+          "id": "get_children",
+          "desc": "Get children of a hierarchy element.",
+          "signature": "ControlRigTools.get_children(unreal.ControlRigBlueprint, unreal.RigElementKey, bool) -> list[unreal.RigElementKey]"
+        },
+        {
+          "id": "get_graph",
+          "desc": "Get a specific graph from the Control Rig by name.",
+          "signature": "ControlRigTools.get_graph(unreal.ControlRigBlueprint, str) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "list_graphs",
+          "desc": "List all graphs in the Control Rig.",
+          "signature": "ControlRigTools.list_graphs(unreal.ControlRigBlueprint) -> list[unreal.RigVMGraph]"
+        },
+        {
+          "id": "add_graph",
+          "desc": "Create a new empty graph in the Control Rig.",
+          "signature": "ControlRigTools.add_graph(unreal.ControlRigBlueprint, str) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "get_forward_solve_graph",
+          "desc": "Get the forward solve graph (main execution graph).",
+          "signature": "ControlRigTools.get_forward_solve_graph(unreal.ControlRigBlueprint) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "get_event_graph",
+          "desc": "Get a graph containing the specified event type.",
+          "signature": "ControlRigTools.get_event_graph(unreal.ControlRigBlueprint, EventType) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "get_backward_solve_graph",
+          "desc": "Get the backward solve graph.",
+          "signature": "ControlRigTools.get_backward_solve_graph(unreal.ControlRigBlueprint) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "get_interaction_graph",
+          "desc": "Get the interaction graph.",
+          "signature": "ControlRigTools.get_interaction_graph(unreal.ControlRigBlueprint) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "add_event_graph",
+          "desc": "Create a new graph with the specified event type.",
+          "signature": "ControlRigTools.add_event_graph(unreal.ControlRigBlueprint, EventType, Any) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "add_backward_solve_graph",
+          "desc": "Create a backward solve graph with InverseExecution event.",
+          "signature": "ControlRigTools.add_backward_solve_graph(unreal.ControlRigBlueprint, Any) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "add_interaction_graph",
+          "desc": "Create an interaction graph with InteractionExecution event.",
+          "signature": "ControlRigTools.add_interaction_graph(unreal.ControlRigBlueprint, Any) -> unreal.RigVMGraph"
+        },
+        {
+          "id": "create_node",
+          "desc": "Create a new RigUnit node in the graph.",
+          "signature": "ControlRigTools.create_node(unreal.ControlRigBlueprint, unreal.RigVMGraph, str, Any, str) -> unreal.RigVMNode"
+        },
+        {
+          "id": "list_nodes",
+          "desc": "List all nodes in a graph.",
+          "signature": "ControlRigTools.list_nodes(unreal.ControlRigBlueprint, unreal.RigVMGraph) -> list[unreal.RigVMNode]"
+        },
+        {
+          "id": "delete_node",
+          "desc": "Delete a node from the graph.",
+          "signature": "ControlRigTools.delete_node(unreal.ControlRigBlueprint, unreal.RigVMGraph, unreal.RigVMNode) -> None"
+        },
+        {
+          "id": "get_node_position",
+          "desc": "Get the position of a node in the graph editor.",
+          "signature": "ControlRigTools.get_node_position(unreal.ControlRigBlueprint, unreal.RigVMNode) -> unreal.Vector2D"
+        },
+        {
+          "id": "set_node_position",
+          "desc": "Set the position of a node in the graph editor.",
+          "signature": "ControlRigTools.set_node_position(unreal.ControlRigBlueprint, unreal.RigVMGraph, unreal.RigVMNode, unreal.Vector2D) -> None"
+        },
+        {
+          "id": "add_event_node",
+          "desc": "Add an event node to the graph.",
+          "signature": "ControlRigTools.add_event_node(unreal.ControlRigBlueprint, unreal.RigVMGraph, EventType, Any) -> unreal.RigVMNode"
+        },
+        {
+          "id": "add_variable_node",
+          "desc": "Create a variable getter or setter node.",
+          "signature": "ControlRigTools.add_variable_node(unreal.ControlRigBlueprint, unreal.RigVMGraph, str, bool, Any) -> unreal.RigVMNode"
+        },
+        {
+          "id": "list_pins",
+          "desc": "List all pins on a node.",
+          "signature": "ControlRigTools.list_pins(unreal.ControlRigBlueprint, unreal.RigVMNode) -> list[unreal.RigVMPin]"
+        },
+        {
+          "id": "get_pin_value",
+          "desc": "Get the default value of a pin.",
+          "signature": "ControlRigTools.get_pin_value(unreal.ControlRigBlueprint, unreal.RigVMPin) -> str"
+        },
+        {
+          "id": "set_pin_value",
+          "desc": "Set the default value of a pin.",
+          "signature": "ControlRigTools.set_pin_value(unreal.ControlRigBlueprint, unreal.RigVMGraph, unreal.RigVMPin, str) -> None"
+        },
+        {
+          "id": "connect_pins",
+          "desc": "Connect two pins together.",
+          "signature": "ControlRigTools.connect_pins(unreal.ControlRigBlueprint, unreal.RigVMGraph, unreal.RigVMPin, unreal.RigVMPin) -> None"
+        },
+        {
+          "id": "disconnect_pins",
+          "desc": "Disconnect two pins.",
+          "signature": "ControlRigTools.disconnect_pins(unreal.ControlRigBlueprint, unreal.RigVMGraph, unreal.RigVMPin, unreal.RigVMPin) -> None"
+        },
+        {
+          "id": "get_connected_pins",
+          "desc": "Get all pins connected to this pin.",
+          "signature": "ControlRigTools.get_connected_pins(unreal.ControlRigBlueprint, unreal.RigVMPin) -> list[unreal.RigVMPin]"
+        },
+        {
+          "id": "add_variable",
+          "desc": "Add a member variable to the Control Rig.",
+          "signature": "ControlRigTools.add_variable(unreal.ControlRigBlueprint, str, str, bool, bool, str) -> None"
+        },
+        {
+          "id": "list_variables",
+          "desc": "List all member variables in the Control Rig.",
+          "signature": "ControlRigTools.list_variables(unreal.ControlRigBlueprint) -> list[unreal.RigVMGraphVariableDescription]"
+        },
+        {
+          "id": "get_variable",
+          "desc": "Get a specific variable by name.",
+          "signature": "ControlRigTools.get_variable(unreal.ControlRigBlueprint, str) -> unreal.RigVMGraphVariableDescription"
+        },
+        {
+          "id": "change_variable_type",
+          "desc": "Change the type of an existing variable.",
+          "signature": "ControlRigTools.change_variable_type(unreal.ControlRigBlueprint, str, str) -> None"
+        },
+        {
+          "id": "remove_variable",
+          "desc": "Remove a member variable from the Control Rig.",
+          "signature": "ControlRigTools.remove_variable(unreal.ControlRigBlueprint, str) -> None"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "SequencerControlRigTools",
+      "desc": "Tools for animating with Control Rig inside Sequencer. Use when adding",
+      "tools": [
+        {
+          "id": "get_float",
+          "desc": "Get a float control value at a specific frame.",
+          "signature": "SequencerControlRigTools.get_float(unreal.LevelSequence, str, str, int) -> float"
+        },
+        {
+          "id": "set_float",
+          "desc": "Set a float control value at a specific frame.",
+          "signature": "SequencerControlRigTools.set_float(unreal.LevelSequence, str, str, int, float, bool) -> bool"
+        },
+        {
+          "id": "get_bool",
+          "desc": "Get a bool control value at a specific frame.",
+          "signature": "SequencerControlRigTools.get_bool(unreal.LevelSequence, str, str, int) -> bool"
+        },
+        {
+          "id": "set_bool",
+          "desc": "Set a bool control value at a specific frame.",
+          "signature": "SequencerControlRigTools.set_bool(unreal.LevelSequence, str, str, int, bool, bool) -> bool"
+        },
+        {
+          "id": "get_int",
+          "desc": "Get an integer control value at a specific frame.",
+          "signature": "SequencerControlRigTools.get_int(unreal.LevelSequence, str, str, int) -> int"
+        },
+        {
+          "id": "set_int",
+          "desc": "Set an integer control value at a specific frame.",
+          "signature": "SequencerControlRigTools.set_int(unreal.LevelSequence, str, str, int, int, bool) -> bool"
+        },
+        {
+          "id": "get_vector2d",
+          "desc": "Get a Vector2D control value at a specific frame.",
+          "signature": "SequencerControlRigTools.get_vector2d(unreal.LevelSequence, str, str, int) -> str"
+        },
+        {
+          "id": "set_vector2d",
+          "desc": "Set a Vector2D control value at a specific frame.",
+          "signature": "SequencerControlRigTools.set_vector2d(unreal.LevelSequence, str, str, int, float, float, bool) -> bool"
+        },
+        {
+          "id": "get_position",
+          "desc": "Get a position control value at a specific frame.",
+          "signature": "SequencerControlRigTools.get_position(unreal.LevelSequence, str, str, int) -> str"
+        },
+        {
+          "id": "set_position",
+          "desc": "Set a position control value at a specific frame.",
+          "signature": "SequencerControlRigTools.set_position(unreal.LevelSequence, str, str, int, float, float, float, bool) -> bool"
+        },
+        {
+          "id": "get_rotator",
+          "desc": "Get a rotator control value at a specific frame.",
+          "signature": "SequencerControlRigTools.get_rotator(unreal.LevelSequence, str, str, int) -> str"
+        },
+        {
+          "id": "set_rotator",
+          "desc": "Set a rotator control value at a specific frame.",
+          "signature": "SequencerControlRigTools.set_rotator(unreal.LevelSequence, str, str, int, float, float, float, bool) -> bool"
+        },
+        {
+          "id": "get_scale",
+          "desc": "Get a scale control value at a specific frame.",
+          "signature": "SequencerControlRigTools.get_scale(unreal.LevelSequence, str, str, int) -> str"
+        },
+        {
+          "id": "set_scale",
+          "desc": "Set a scale control value at a specific frame.",
+          "signature": "SequencerControlRigTools.set_scale(unreal.LevelSequence, str, str, int, float, float, float, bool) -> bool"
+        },
+        {
+          "id": "get_euler_transform",
+          "desc": "Get an EulerTransform control value at a specific frame.",
+          "signature": "SequencerControlRigTools.get_euler_transform(unreal.LevelSequence, str, str, int) -> str"
+        },
+        {
+          "id": "set_euler_transform",
+          "desc": "Set an EulerTransform control value at a specific frame.",
+          "signature": "SequencerControlRigTools.set_euler_transform(unreal.LevelSequence, str, str, int, float, float, float, float, float, float, float, float, float, bool) -> bool"
+        },
+        {
+          "id": "get_world_transform",
+          "desc": "Get a control's world-space transform at a specific frame.",
+          "signature": "SequencerControlRigTools.get_world_transform(unreal.LevelSequence, str, str, int) -> str"
+        },
+        {
+          "id": "set_world_transform",
+          "desc": "Set a control's world-space transform at a specific frame.",
+          "signature": "SequencerControlRigTools.set_world_transform(unreal.LevelSequence, str, str, int, float, float, float, float, float, float, bool) -> bool"
+        },
+        {
+          "id": "get_actor_transform_at_frame",
+          "desc": "Get an actor's world transform at a specific frame.",
+          "signature": "SequencerControlRigTools.get_actor_transform_at_frame(unreal.LevelSequence, str, int) -> str"
+        },
+        {
+          "id": "key_controls",
+          "desc": "Key the specified controls on the section at the current Sequencer time.",
+          "signature": "SequencerControlRigTools.key_controls(unreal.MovieSceneSection, list[str]) -> bool"
+        },
+        {
+          "id": "key_controls_at_frames",
+          "desc": "Key the specified controls at specific frame numbers.",
+          "signature": "SequencerControlRigTools.key_controls_at_frames(unreal.MovieSceneSection, list[str], list[int]) -> bool"
+        },
+        {
+          "id": "bake_to_control_rig",
+          "desc": "Bake existing animation on a binding into a Control Rig track.",
+          "signature": "SequencerControlRigTools.bake_to_control_rig(unreal.LevelSequence, unreal.SequencerBindingProxy, str, bool, float, bool) -> bool"
+        },
+        {
+          "id": "load_anim_into_rig",
+          "desc": "Load an animation sequence into a Control Rig section.",
+          "signature": "SequencerControlRigTools.load_anim_into_rig(unreal.MovieSceneSection, str, int, bool, bool, float) -> bool"
+        },
+        {
+          "id": "collapse_anim_layers",
+          "desc": "Collapse all sections and layers on a Control Rig track into one section.",
+          "signature": "SequencerControlRigTools.collapse_anim_layers(unreal.LevelSequence, str, bool, float) -> bool"
+        },
+        {
+          "id": "get_controls_mask",
+          "desc": "Check if a control is visible (unmasked) on a section.",
+          "signature": "SequencerControlRigTools.get_controls_mask(unreal.MovieSceneSection, str) -> bool"
+        },
+        {
+          "id": "set_controls_mask",
+          "desc": "Set the visibility mask for the specified controls on a section.",
+          "signature": "SequencerControlRigTools.set_controls_mask(unreal.MovieSceneSection, list[str], bool) -> bool"
+        },
+        {
+          "id": "show_all_controls",
+          "desc": "Show all controls on a Control Rig section (unmask everything).",
+          "signature": "SequencerControlRigTools.show_all_controls(unreal.MovieSceneSection) -> bool"
+        },
+        {
+          "id": "hide_all_controls",
+          "desc": "Hide all controls on a Control Rig section (mask everything).",
+          "signature": "SequencerControlRigTools.hide_all_controls(unreal.MovieSceneSection) -> bool"
+        },
+        {
+          "id": "is_layered_control_rig",
+          "desc": "Check if a Control Rig in the sequence is in layered mode.",
+          "signature": "SequencerControlRigTools.is_layered_control_rig(unreal.LevelSequence, str) -> bool"
+        },
+        {
+          "id": "set_layered_mode",
+          "desc": "Set a Control Rig track to layered or absolute mode.",
+          "signature": "SequencerControlRigTools.set_layered_mode(unreal.LevelSequence, str, bool) -> bool"
+        },
+        {
+          "id": "get_priority_order",
+          "desc": "Get the evaluation priority order of a Control Rig track.",
+          "signature": "SequencerControlRigTools.get_priority_order(unreal.LevelSequence, str) -> int"
+        },
+        {
+          "id": "set_priority_order",
+          "desc": "Set the evaluation priority order of a Control Rig track.",
+          "signature": "SequencerControlRigTools.set_priority_order(unreal.LevelSequence, str, int) -> bool"
+        },
+        {
+          "id": "is_fk_control_rig",
+          "desc": "Check if a Control Rig is an FK Control Rig.",
+          "signature": "SequencerControlRigTools.is_fk_control_rig(unreal.LevelSequence, str) -> bool"
+        },
+        {
+          "id": "set_space",
+          "desc": "Set the space for a Control Rig control at a given frame.",
+          "signature": "SequencerControlRigTools.set_space(unreal.LevelSequence, str, str, str, int, str) -> bool"
+        },
+        {
+          "id": "move_space",
+          "desc": "Move a space-switch key from one frame to another.",
+          "signature": "SequencerControlRigTools.move_space(unreal.LevelSequence, str, str, int, int) -> bool"
+        },
+        {
+          "id": "delete_space",
+          "desc": "Delete a space-switch key at a specific frame.",
+          "signature": "SequencerControlRigTools.delete_space(unreal.LevelSequence, str, str, int) -> bool"
+        },
+        {
+          "id": "bake_space",
+          "desc": "Bake Control Rig controls' space over a frame range.",
+          "signature": "SequencerControlRigTools.bake_space(unreal.LevelSequence, str, list[str], int, int, bool, float) -> bool"
+        },
+        {
+          "id": "tween_control_rig",
+          "desc": "Perform a tween operation on a Control Rig at the current Sequencer time.",
+          "signature": "SequencerControlRigTools.tween_control_rig(unreal.LevelSequence, str, float) -> bool"
+        },
+        {
+          "id": "blend_values_on_selected",
+          "desc": "Perform a blend operation on selected keys or controls.",
+          "signature": "SequencerControlRigTools.blend_values_on_selected(unreal.LevelSequence, str, float) -> bool"
+        },
+        {
+          "id": "snap_control_rig",
+          "desc": "Snap Control Rig controls to a target actor over a frame range.",
+          "signature": "SequencerControlRigTools.snap_control_rig(unreal.LevelSequence, str, list[str], str, int, int, bool, bool, bool, bool) -> bool"
+        },
+        {
+          "id": "get_anim_layers",
+          "desc": "Get all animation layers from the active Sequencer.",
+          "signature": "SequencerControlRigTools.get_anim_layers() -> str"
+        },
+        {
+          "id": "add_layer_from_selection",
+          "desc": "Add an animation layer from the currently selected objects in Sequencer.",
+          "signature": "SequencerControlRigTools.add_layer_from_selection() -> int"
+        },
+        {
+          "id": "delete_anim_layer",
+          "desc": "Delete an animation layer at the specified index.",
+          "signature": "SequencerControlRigTools.delete_anim_layer(int) -> bool"
+        },
+        {
+          "id": "duplicate_anim_layer",
+          "desc": "Duplicate an animation layer at the specified index.",
+          "signature": "SequencerControlRigTools.duplicate_anim_layer(int) -> int"
+        },
+        {
+          "id": "reorder_anim_layers",
+          "desc": "Move an animation layer from one index to another.",
+          "signature": "SequencerControlRigTools.reorder_anim_layers(int, int) -> bool"
+        },
+        {
+          "id": "merge_anim_layers",
+          "desc": "Merge specified animation layers into one.",
+          "signature": "SequencerControlRigTools.merge_anim_layers(list[int]) -> bool"
+        },
+        {
+          "id": "select_mirrored_controls",
+          "desc": "Select the mirrored counterparts of the currently selected controls.",
+          "signature": "SequencerControlRigTools.select_mirrored_controls() -> bool"
+        },
+        {
+          "id": "mirror_selected_controls",
+          "desc": "Apply a mirrored pose to the currently selected controls.",
+          "signature": "SequencerControlRigTools.mirror_selected_controls() -> bool"
+        },
+        {
+          "id": "zero_transforms",
+          "desc": "Reset Control Rig transforms to their default (usually zero) values.",
+          "signature": "SequencerControlRigTools.zero_transforms(bool, bool) -> bool"
+        },
+        {
+          "id": "get_selected_controls",
+          "desc": "Get the currently selected controls on a Control Rig.",
+          "signature": "SequencerControlRigTools.get_selected_controls(unreal.LevelSequence, str) -> list[str]"
+        },
+        {
+          "id": "select_control",
+          "desc": "Select or deselect a control on a Control Rig.",
+          "signature": "SequencerControlRigTools.select_control(unreal.LevelSequence, str, str, bool) -> bool"
+        },
+        {
+          "id": "clear_selection",
+          "desc": "Clear the current Control Rig control selection.",
+          "signature": "SequencerControlRigTools.clear_selection() -> bool"
+        },
+        {
+          "id": "frame_selection",
+          "desc": "Frame the viewport to the current Control Rig control selection.",
+          "signature": "SequencerControlRigTools.frame_selection() -> bool"
+        },
+        {
+          "id": "export_fbx_from_rig",
+          "desc": "Export an FBX file from a Control Rig section.",
+          "signature": "SequencerControlRigTools.export_fbx_from_rig(unreal.LevelSequence, str, str, bool) -> bool"
+        },
+        {
+          "id": "import_fbx_to_rig",
+          "desc": "Import an FBX file onto a Control Rig track.",
+          "signature": "SequencerControlRigTools.import_fbx_to_rig(unreal.LevelSequence, str, str, list[str]) -> bool"
+        },
+        {
+          "id": "find_or_create_track",
+          "desc": "Add a Control Rig track to a binding using a Control Rig asset.",
+          "signature": "SequencerControlRigTools.find_or_create_track(unreal.LevelSequence, unreal.SequencerBindingProxy, str, bool) -> str"
+        },
+        {
+          "id": "get_control_rigs",
+          "desc": "Get all Control Rigs currently in the sequence.",
+          "signature": "SequencerControlRigTools.get_control_rigs(unreal.LevelSequence) -> str"
+        },
+        {
+          "id": "get_controls_info",
+          "desc": "Get all controls on a Control Rig with their names and types.",
+          "signature": "SequencerControlRigTools.get_controls_info(unreal.LevelSequence, str) -> str"
+        },
+        {
+          "id": "set_transform",
+          "desc": "Set a transform value on a Control Rig control and optionally key it.",
+          "signature": "SequencerControlRigTools.set_transform(unreal.LevelSequence, str, str, int, float, float, float, float, float, float, bool) -> bool"
+        },
+        {
+          "id": "get_transform",
+          "desc": "Get the transform value of a Control Rig control at a frame.",
+          "signature": "SequencerControlRigTools.get_transform(unreal.LevelSequence, str, str, int) -> str"
+        },
+        {
+          "id": "get_anim_mode_gizmo_scale",
+          "desc": "Get the editor's transform gizmo size.",
+          "signature": "SequencerControlRigTools.get_anim_mode_gizmo_scale() -> float"
+        },
+        {
+          "id": "set_anim_mode_gizmo_scale",
+          "desc": "Set the editor's transform gizmo size.",
+          "signature": "SequencerControlRigTools.set_anim_mode_gizmo_scale(float) -> bool"
+        },
+        {
+          "id": "get_anim_mode_hierarchy",
+          "desc": "Get whether the Animation Mode draws hierarchy lines/dots.",
+          "signature": "SequencerControlRigTools.get_anim_mode_hierarchy() -> bool"
+        },
+        {
+          "id": "set_anim_mode_hierarchy",
+          "desc": "Toggle the Animation Mode hierarchy lines/dots display.",
+          "signature": "SequencerControlRigTools.set_anim_mode_hierarchy(bool) -> bool"
+        },
+        {
+          "id": "get_anim_mode_nulls",
+          "desc": "Get whether the Animation Mode draws nulls.",
+          "signature": "SequencerControlRigTools.get_anim_mode_nulls() -> bool"
+        },
+        {
+          "id": "set_anim_mode_nulls",
+          "desc": "Toggle the Animation Mode nulls display.",
+          "signature": "SequencerControlRigTools.set_anim_mode_nulls(bool) -> bool"
+        },
+        {
+          "id": "get_anim_mode_hide_manips",
+          "desc": "Get whether Animation Mode hides all manipulators.",
+          "signature": "SequencerControlRigTools.get_anim_mode_hide_manips() -> bool"
+        },
+        {
+          "id": "set_anim_mode_hide_manips",
+          "desc": "Toggle whether Animation Mode hides all manipulators.",
+          "signature": "SequencerControlRigTools.set_anim_mode_hide_manips(bool) -> bool"
+        },
+        {
+          "id": "get_anim_mode_only_rig_sel",
+          "desc": "Get whether Animation Mode restricts viewport selection to rig controls.",
+          "signature": "SequencerControlRigTools.get_anim_mode_only_rig_sel() -> bool"
+        },
+        {
+          "id": "set_anim_mode_only_rig_sel",
+          "desc": "Toggle Animation Mode restricting viewport selection to rig controls.",
+          "signature": "SequencerControlRigTools.set_anim_mode_only_rig_sel(bool) -> bool"
+        },
+        {
+          "id": "get_anim_mode_local_spaces",
+          "desc": "Get whether multi-select transforms act in each control's own space.",
+          "signature": "SequencerControlRigTools.get_anim_mode_local_spaces() -> bool"
+        },
+        {
+          "id": "set_anim_mode_local_spaces",
+          "desc": "Toggle multi-select transforms acting in each control's own space.",
+          "signature": "SequencerControlRigTools.set_anim_mode_local_spaces(bool) -> bool"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "SequencerCustomBindingTools",
+      "desc": "Tools for converting and managing custom binding types in Sequencer. Use",
+      "tools": [
+        {
+          "id": "convert_to_spawnable",
+          "desc": "Convert a possessable binding to a spawnable.",
+          "signature": "SequencerCustomBindingTools.convert_to_spawnable(unreal.SequencerBindingProxy) -> list[unreal.SequencerBindingProxy]"
+        },
+        {
+          "id": "convert_to_possessable",
+          "desc": "Convert a spawnable binding to a possessable.",
+          "signature": "SequencerCustomBindingTools.convert_to_possessable(unreal.SequencerBindingProxy) -> unreal.SequencerBindingProxy"
+        },
+        {
+          "id": "convert_to_custom_binding",
+          "desc": "Convert a binding to a custom binding type.",
+          "signature": "SequencerCustomBindingTools.convert_to_custom_binding(unreal.SequencerBindingProxy, str) -> unreal.SequencerBindingProxy"
+        },
+        {
+          "id": "get_custom_binding_type",
+          "desc": "Get the custom binding class for a binding.",
+          "signature": "SequencerCustomBindingTools.get_custom_binding_type(unreal.SequencerBindingProxy) -> str"
+        },
+        {
+          "id": "get_custom_binding_objects",
+          "desc": "Get the custom binding instances for a binding.",
+          "signature": "SequencerCustomBindingTools.get_custom_binding_objects(unreal.SequencerBindingProxy) -> list[unreal.MovieSceneCustomBinding]"
+        },
+        {
+          "id": "get_custom_bindings_of_type",
+          "desc": "Find all bindings of a given custom type in the current sequence.",
+          "signature": "SequencerCustomBindingTools.get_custom_bindings_of_type(str) -> list[unreal.SequencerBindingProxy]"
+        },
+        {
+          "id": "change_actor_template_class",
+          "desc": "Set the actor class for a spawnable or replaceable template.",
+          "signature": "SequencerCustomBindingTools.change_actor_template_class(unreal.SequencerBindingProxy, str) -> bool"
+        },
+        {
+          "id": "save_default_spawnable_state",
+          "desc": "Save the current state of a spawnable as its default.",
+          "signature": "SequencerCustomBindingTools.save_default_spawnable_state(unreal.SequencerBindingProxy) -> bool"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "SequencerImportExportTools",
+      "desc": "Tools for importing and exporting animation data to and from Sequencer.",
+      "tools": [
+        {
+          "id": "export_fbx",
+          "desc": "Export a level sequence to FBX.",
+          "signature": "SequencerImportExportTools.export_fbx(unreal.World, unreal.LevelSequence, list[unreal.SequencerBindingProxy], str, Any) -> bool"
+        },
+        {
+          "id": "import_fbx",
+          "desc": "Import FBX data into a level sequence.",
+          "signature": "SequencerImportExportTools.import_fbx(unreal.World, unreal.LevelSequence, list[unreal.SequencerBindingProxy], unreal.MovieSceneUserImportFBXSettings, str) -> bool"
+        },
+        {
+          "id": "export_anim_sequence",
+          "desc": "Export animation from a sequence binding to an AnimSequence asset.",
+          "signature": "SequencerImportExportTools.export_anim_sequence(unreal.World, unreal.LevelSequence, unreal.AnimSequence, unreal.SequencerBindingProxy, bool) -> bool"
+        },
+        {
+          "id": "link_anim_sequence",
+          "desc": "Link an AnimSequence asset to a level sequence binding.",
+          "signature": "SequencerImportExportTools.link_anim_sequence(unreal.LevelSequence, unreal.AnimSequence, unreal.SequencerBindingProxy) -> bool"
+        },
+        {
+          "id": "get_linked_anim_sequences",
+          "desc": "Get content paths of all AnimSequences linked to a LevelSequence.",
+          "signature": "SequencerImportExportTools.get_linked_anim_sequences(unreal.LevelSequence) -> list[str]"
+        },
+        {
+          "id": "get_linked_level_sequence",
+          "desc": "Get the content path of the LevelSequence linked to an AnimSequence.",
+          "signature": "SequencerImportExportTools.get_linked_level_sequence(unreal.AnimSequence) -> str"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "SequencerKeyframingTools",
+      "desc": "Tools for keyframing and animating properties on the Sequencer",
+      "tools": [
+        {
+          "id": "get_channel_names",
+          "desc": "Get the names of all channels on a section.",
+          "signature": "SequencerKeyframingTools.get_channel_names(unreal.MovieSceneSection) -> list[str]"
+        },
+        {
+          "id": "add_key_float",
+          "desc": "Add a float key to a channel on a section.",
+          "signature": "SequencerKeyframingTools.add_key_float(unreal.MovieSceneSection, str, int, float, str) -> bool"
+        },
+        {
+          "id": "add_key_bool",
+          "desc": "Add a bool key to a channel on a section.",
+          "signature": "SequencerKeyframingTools.add_key_bool(unreal.MovieSceneSection, str, int, bool) -> bool"
+        },
+        {
+          "id": "add_key_integer",
+          "desc": "Add an integer key to a channel on a section.",
+          "signature": "SequencerKeyframingTools.add_key_integer(unreal.MovieSceneSection, str, int, int) -> bool"
+        },
+        {
+          "id": "add_key_string",
+          "desc": "Add a string key to a channel on a section.",
+          "signature": "SequencerKeyframingTools.add_key_string(unreal.MovieSceneSection, str, int, str) -> bool"
+        },
+        {
+          "id": "get_keys",
+          "desc": "Get all keys on a channel, returned as a JSON array.",
+          "signature": "SequencerKeyframingTools.get_keys(unreal.MovieSceneSection, str) -> str"
+        },
+        {
+          "id": "remove_key_at_frame",
+          "desc": "Remove a key at a specific frame from a channel.",
+          "signature": "SequencerKeyframingTools.remove_key_at_frame(unreal.MovieSceneSection, str, int) -> bool"
+        },
+        {
+          "id": "set_default_value",
+          "desc": "Set the default value of a channel.",
+          "signature": "SequencerKeyframingTools.set_default_value(unreal.MovieSceneSection, str, float) -> bool"
+        },
+        {
+          "id": "get_default_value",
+          "desc": "Get the default value of a float channel.",
+          "signature": "SequencerKeyframingTools.get_default_value(unreal.MovieSceneSection, str) -> float"
+        },
+        {
+          "id": "get_selected_channels",
+          "desc": "Get the currently selected channels in the Sequencer editor.",
+          "signature": "SequencerKeyframingTools.get_selected_channels() -> list[unreal.SequencerChannelProxy]"
+        },
+        {
+          "id": "select_channels",
+          "desc": "Set the channel selection in the Sequencer editor.",
+          "signature": "SequencerKeyframingTools.select_channels(list[unreal.SequencerChannelProxy]) -> bool"
+        },
+        {
+          "id": "open_curve_editor",
+          "desc": "Open the Sequencer Curve Editor panel.",
+          "signature": "SequencerKeyframingTools.open_curve_editor() -> bool"
+        },
+        {
+          "id": "close_curve_editor",
+          "desc": "Close the Sequencer Curve Editor panel.",
+          "signature": "SequencerKeyframingTools.close_curve_editor() -> bool"
+        },
+        {
+          "id": "is_curve_editor_open",
+          "desc": "Check whether the Curve Editor panel is currently open.",
+          "signature": "SequencerKeyframingTools.is_curve_editor_open() -> bool"
+        },
+        {
+          "id": "get_selected_key_channels",
+          "desc": "Get channels that have selected keys in the Curve Editor.",
+          "signature": "SequencerKeyframingTools.get_selected_key_channels() -> list[unreal.SequencerChannelProxy]"
+        },
+        {
+          "id": "get_curve_editor_selected_keys",
+          "desc": "Get selected key indices for a channel in the Curve Editor.",
+          "signature": "SequencerKeyframingTools.get_curve_editor_selected_keys(unreal.SequencerChannelProxy) -> list[int]"
+        },
+        {
+          "id": "curve_editor_select_keys",
+          "desc": "Select keys by index in the Curve Editor.",
+          "signature": "SequencerKeyframingTools.curve_editor_select_keys(unreal.SequencerChannelProxy, list[int]) -> bool"
+        },
+        {
+          "id": "curve_editor_empty_selection",
+          "desc": "Clear all key selection in the Curve Editor.",
+          "signature": "SequencerKeyframingTools.curve_editor_empty_selection() -> bool"
+        },
+        {
+          "id": "show_curve",
+          "desc": "Show or hide a curve in the Curve Editor.",
+          "signature": "SequencerKeyframingTools.show_curve(unreal.SequencerChannelProxy, bool) -> bool"
+        },
+        {
+          "id": "is_curve_shown",
+          "desc": "Check if a curve is visible in the Curve Editor.",
+          "signature": "SequencerKeyframingTools.is_curve_shown(unreal.SequencerChannelProxy) -> bool"
+        },
+        {
+          "id": "bake_channel_keys",
+          "desc": "Bake a channel's values over a frame range.",
+          "signature": "SequencerKeyframingTools.bake_channel_keys(unreal.MovieSceneSection, str, int, int) -> list[float]"
+        },
+        {
+          "id": "get_keys_by_index",
+          "desc": "Get specific keys on a channel by their indices, returned as JSON.",
+          "signature": "SequencerKeyframingTools.get_keys_by_index(unreal.MovieSceneSection, str, list[int]) -> str"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "SequencerOutlinerTools",
+      "desc": "Tools for inspecting and managing the Sequencer outliner tree. Use when",
+      "tools": [
+        {
+          "id": "get_outliner_tree",
+          "desc": "Get a full snapshot of the Sequencer outliner tree.",
+          "signature": "SequencerOutlinerTools.get_outliner_tree() -> str"
+        },
+        {
+          "id": "get_outliner_children",
+          "desc": "Get child nodes of an outliner node.",
+          "signature": "SequencerOutlinerTools.get_outliner_children(unreal.SequencerViewModelScriptingStruct, Any) -> list[unreal.SequencerViewModelScriptingStruct]"
+        },
+        {
+          "id": "get_outliner_selection",
+          "desc": "Get the currently selected nodes in the outliner.",
+          "signature": "SequencerOutlinerTools.get_outliner_selection() -> list[unreal.SequencerViewModelScriptingStruct]"
+        },
+        {
+          "id": "set_outliner_selection",
+          "desc": "Set the outliner selection.",
+          "signature": "SequencerOutlinerTools.set_outliner_selection(list[unreal.SequencerViewModelScriptingStruct]) -> bool"
+        },
+        {
+          "id": "get_node_label",
+          "desc": "Get the display label of an outliner node.",
+          "signature": "SequencerOutlinerTools.get_node_label(unreal.SequencerViewModelScriptingStruct) -> str"
+        },
+        {
+          "id": "set_node_expanded",
+          "desc": "Expand or collapse outliner nodes.",
+          "signature": "SequencerOutlinerTools.set_node_expanded(list[unreal.SequencerViewModelScriptingStruct], bool) -> bool"
+        },
+        {
+          "id": "is_node_expanded",
+          "desc": "Check whether an outliner node is expanded.",
+          "signature": "SequencerOutlinerTools.is_node_expanded(unreal.SequencerViewModelScriptingStruct) -> bool"
+        },
+        {
+          "id": "set_node_muted",
+          "desc": "Mute or unmute outliner nodes.",
+          "signature": "SequencerOutlinerTools.set_node_muted(list[unreal.SequencerViewModelScriptingStruct], bool) -> bool"
+        },
+        {
+          "id": "set_node_solo",
+          "desc": "Solo or unsolo outliner nodes.",
+          "signature": "SequencerOutlinerTools.set_node_solo(list[unreal.SequencerViewModelScriptingStruct], bool) -> bool"
+        },
+        {
+          "id": "get_muted_nodes",
+          "desc": "Get the currently muted outliner nodes.",
+          "signature": "SequencerOutlinerTools.get_muted_nodes() -> list[unreal.SequencerViewModelScriptingStruct]"
+        },
+        {
+          "id": "get_soloed_nodes",
+          "desc": "Get the currently soloed outliner nodes.",
+          "signature": "SequencerOutlinerTools.get_soloed_nodes() -> list[unreal.SequencerViewModelScriptingStruct]"
+        },
+        {
+          "id": "set_node_deactivated",
+          "desc": "Deactivate or reactivate outliner nodes.",
+          "signature": "SequencerOutlinerTools.set_node_deactivated(list[unreal.SequencerViewModelScriptingStruct], bool) -> bool"
+        },
+        {
+          "id": "get_deactivated_nodes",
+          "desc": "Get the currently deactivated outliner nodes.",
+          "signature": "SequencerOutlinerTools.get_deactivated_nodes() -> list[unreal.SequencerViewModelScriptingStruct]"
+        },
+        {
+          "id": "set_node_locked",
+          "desc": "Lock or unlock outliner nodes for editing.",
+          "signature": "SequencerOutlinerTools.set_node_locked(list[unreal.SequencerViewModelScriptingStruct], bool) -> bool"
+        },
+        {
+          "id": "get_locked_nodes",
+          "desc": "Get the currently locked outliner nodes.",
+          "signature": "SequencerOutlinerTools.get_locked_nodes() -> list[unreal.SequencerViewModelScriptingStruct]"
+        },
+        {
+          "id": "set_node_pinned",
+          "desc": "Pin or unpin outliner nodes.",
+          "signature": "SequencerOutlinerTools.set_node_pinned(list[unreal.SequencerViewModelScriptingStruct], bool) -> bool"
+        },
+        {
+          "id": "get_pinned_nodes",
+          "desc": "Get the currently pinned outliner nodes.",
+          "signature": "SequencerOutlinerTools.get_pinned_nodes() -> list[unreal.SequencerViewModelScriptingStruct]"
+        },
+        {
+          "id": "get_sections_for_nodes",
+          "desc": "Get sections associated with the given outliner nodes.",
+          "signature": "SequencerOutlinerTools.get_sections_for_nodes(list[unreal.SequencerViewModelScriptingStruct]) -> list[unreal.MovieSceneSection]"
+        }
+      ]
+    },
+    {
+      "type": "Python",
+      "id": "SequencerTools",
+      "desc": "Core tools for creating and editing Level Sequences in Sequencer. Use",
+      "tools": [
+        {
+          "id": "create_level_sequence",
+          "desc": "Create a new Level Sequence asset.",
+          "signature": "SequencerTools.create_level_sequence(str, str) -> unreal.LevelSequence"
+        },
+        {
+          "id": "get_current_sequence",
+          "desc": "Get the root level sequence currently open in the Sequencer editor.",
+          "signature": "SequencerTools.get_current_sequence() -> unreal.LevelSequence"
+        },
+        {
+          "id": "get_focused_sequence",
+          "desc": "Get the currently focused level sequence in the hierarchy.",
+          "signature": "SequencerTools.get_focused_sequence() -> unreal.LevelSequence"
+        },
+        {
+          "id": "open_sequence",
+          "desc": "Open a level sequence asset in the Sequencer editor.",
+          "signature": "SequencerTools.open_sequence(unreal.LevelSequence) -> bool"
+        },
+        {
+          "id": "close_sequence",
+          "desc": "Close the currently open level sequence editor.",
+          "signature": "SequencerTools.close_sequence() -> bool"
+        },
+        {
+          "id": "refresh_sequence",
+          "desc": "Force refresh the Sequencer editor UI on the next tick.",
+          "signature": "SequencerTools.refresh_sequence() -> bool"
+        },
+        {
+          "id": "play",
+          "desc": "Start playback of the current sequence.",
+          "signature": "SequencerTools.play() -> bool"
+        },
+        {
+          "id": "pause",
+          "desc": "Pause playback of the current sequence.",
+          "signature": "SequencerTools.pause() -> bool"
+        },
+        {
+          "id": "is_playing",
+          "desc": "Check whether the sequence is currently playing.",
+          "signature": "SequencerTools.is_playing() -> bool"
+        },
+        {
+          "id": "set_playhead_frame",
+          "desc": "Set the playhead position in display rate frames.",
+          "signature": "SequencerTools.set_playhead_frame(int) -> bool"
+        },
+        {
+          "id": "get_playhead_frame",
+          "desc": "Get the current playhead position in display rate frames.",
+          "signature": "SequencerTools.get_playhead_frame() -> int"
+        },
+        {
+          "id": "set_playback_speed",
+          "desc": "Set the playback speed multiplier.",
+          "signature": "SequencerTools.set_playback_speed(float) -> bool"
+        },
+        {
+          "id": "get_playback_speed",
+          "desc": "Get the current playback speed multiplier.",
+          "signature": "SequencerTools.get_playback_speed() -> float"
+        },
+        {
+          "id": "set_loop_mode",
+          "desc": "Enable or disable loop playback.",
+          "signature": "SequencerTools.set_loop_mode(bool) -> bool"
+        },
+        {
+          "id": "get_loop_mode",
+          "desc": "Get the current loop playback mode.",
+          "signature": "SequencerTools.get_loop_mode() -> bool"
+        },
+        {
+          "id": "get_display_rate",
+          "desc": "Get the display frame rate of a sequence.",
+          "signature": "SequencerTools.get_display_rate(unreal.LevelSequence) -> unreal.FrameRate"
+        },
+        {
+          "id": "set_display_rate",
+          "desc": "Set the display frame rate of a sequence.",
+          "signature": "SequencerTools.set_display_rate(unreal.LevelSequence, int, int) -> bool"
+        },
+        {
+          "id": "get_playback_range",
+          "desc": "Get the playback start and end frames of a sequence.",
+          "signature": "SequencerTools.get_playback_range(unreal.LevelSequence) -> str"
+        },
+        {
+          "id": "set_playback_range",
+          "desc": "Set the playback start and end frames of a sequence.",
+          "signature": "SequencerTools.set_playback_range(unreal.LevelSequence, int, int) -> bool"
+        },
+        {
+          "id": "set_view_range",
+          "desc": "Set the visible time range in the Sequencer timeline.",
+          "signature": "SequencerTools.set_view_range(unreal.LevelSequence, float, float) -> bool"
+        },
+        {
+          "id": "get_view_range",
+          "desc": "Get the visible time range in the Sequencer timeline.",
+          "signature": "SequencerTools.get_view_range(unreal.LevelSequence) -> str"
+        },
+        {
+          "id": "set_work_range",
+          "desc": "Set the work range of the sequence.",
+          "signature": "SequencerTools.set_work_range(unreal.LevelSequence, float, float) -> bool"
+        },
+        {
+          "id": "get_work_range",
+          "desc": "Get the work range of the sequence.",
+          "signature": "SequencerTools.get_work_range(unreal.LevelSequence) -> str"
+        },
+        {
+          "id": "add_marked_frame",
+          "desc": "Add a marked frame (bookmark) to the sequence.",
+          "signature": "SequencerTools.add_marked_frame(unreal.LevelSequence, int) -> int"
+        },
+        {
+          "id": "get_marked_frames",
+          "desc": "Get all marked frames (bookmarks) in the sequence.",
+          "signature": "SequencerTools.get_marked_frames(unreal.LevelSequence) -> list[unreal.MovieSceneMarkedFrame]"
+        },
+        {
+          "id": "delete_marked_frame",
+          "desc": "Delete a marked frame by index.",
+          "signature": "SequencerTools.delete_marked_frame(unreal.LevelSequence, int) -> bool"
+        },
+        {
+          "id": "delete_all_marked_frames",
+          "desc": "Delete all marked frames from the sequence.",
+          "signature": "SequencerTools.delete_all_marked_frames(unreal.LevelSequence) -> bool"
+        },
+        {
+          "id": "find_marked_frame_by_label",
+          "desc": "Find a marked frame by label.",
+          "signature": "SequencerTools.find_marked_frame_by_label(unreal.LevelSequence, str) -> int"
+        },
+        {
+          "id": "get_tick_resolution",
+          "desc": "Get the internal tick resolution of a sequence.",
+          "signature": "SequencerTools.get_tick_resolution(unreal.LevelSequence) -> unreal.FrameRate"
+        },
+        {
+          "id": "set_tick_resolution",
+          "desc": "Set the internal tick resolution of a sequence.",
+          "signature": "SequencerTools.set_tick_resolution(unreal.LevelSequence, int, int) -> bool"
+        },
+        {
+          "id": "get_evaluation_type",
+          "desc": "Get the evaluation type of a sequence.",
+          "signature": "SequencerTools.get_evaluation_type(unreal.LevelSequence) -> str"
+        },
+        {
+          "id": "set_evaluation_type",
+          "desc": "Set the evaluation type of a sequence.",
+          "signature": "SequencerTools.set_evaluation_type(unreal.LevelSequence, str) -> bool"
+        },
+        {
+          "id": "get_clock_source",
+          "desc": "Get the clock source for the sequence.",
+          "signature": "SequencerTools.get_clock_source(unreal.LevelSequence) -> str"
+        },
+        {
+          "id": "set_clock_source",
+          "desc": "Set the clock source for the sequence.",
+          "signature": "SequencerTools.set_clock_source(unreal.LevelSequence, str) -> bool"
+        },
+        {
+          "id": "is_playback_range_locked",
+          "desc": "Check if the playback range is locked.",
+          "signature": "SequencerTools.is_playback_range_locked(unreal.LevelSequence) -> bool"
+        },
+        {
+          "id": "set_playback_range_locked",
+          "desc": "Lock or unlock the playback range.",
+          "signature": "SequencerTools.set_playback_range_locked(unreal.LevelSequence, bool) -> bool"
+        },
+        {
+          "id": "add_actors",
+          "desc": "Add actors from the level to the currently open sequence.",
+          "signature": "SequencerTools.add_actors(list[unreal.Actor]) -> list[unreal.SequencerBindingProxy]"
+        },
+        {
+          "id": "add_spawnable_from_instance",
+          "desc": "Create a spawnable binding from an existing object instance.",
+          "signature": "SequencerTools.add_spawnable_from_instance(unreal.LevelSequence, unreal.Object) -> unreal.SequencerBindingProxy"
+        },
+        {
+          "id": "add_spawnable_from_class",
+          "desc": "Create a spawnable binding from an actor class.",
+          "signature": "SequencerTools.add_spawnable_from_class(unreal.LevelSequence, str) -> unreal.SequencerBindingProxy"
+        },
+        {
+          "id": "create_camera",
+          "desc": "Create a new cine camera actor in the sequence.",
+          "signature": "SequencerTools.create_camera(bool) -> unreal.SequencerBindingProxy"
+        },
+        {
+          "id": "get_bindings",
+          "desc": "Get all bindings in the sequence.",
+          "signature": "SequencerTools.get_bindings(unreal.LevelSequence) -> list[unreal.SequencerBindingProxy]"
+        },
+        {
+          "id": "find_binding_by_name",
+          "desc": "Find a binding by its display name.",
+          "signature": "SequencerTools.find_binding_by_name(unreal.LevelSequence, str) -> unreal.SequencerBindingProxy"
+        },
+        {
+          "id": "get_binding_name",
+          "desc": "Get the display name of a binding.",
+          "signature": "SequencerTools.get_binding_name(unreal.SequencerBindingProxy) -> str"
+        },
+        {
+          "id": "set_binding_name",
+          "desc": "Set the display name of a binding.",
+          "signature": "SequencerTools.set_binding_name(unreal.SequencerBindingProxy, str) -> bool"
+        },
+        {
+          "id": "remove_binding",
+          "desc": "Remove a binding from the sequence.",
+          "signature": "SequencerTools.remove_binding(unreal.SequencerBindingProxy) -> bool"
+        },
+        {
+          "id": "get_bound_objects",
+          "desc": "Get the objects currently resolved by a binding.",
+          "signature": "SequencerTools.get_bound_objects(unreal.SequencerBindingProxy) -> list[unreal.Object]"
+        },
+        {
+          "id": "add_track_to_binding",
+          "desc": "Add a track of the given type to a binding.",
+          "signature": "SequencerTools.add_track_to_binding(unreal.SequencerBindingProxy, unreal.Class) -> unreal.MovieSceneTrack"
+        },
+        {
+          "id": "add_track_to_sequence",
+          "desc": "Add a sequence-level (master) track.",
+          "signature": "SequencerTools.add_track_to_sequence(unreal.LevelSequence, unreal.Class) -> unreal.MovieSceneTrack"
+        },
+        {
+          "id": "get_tracks_on_binding",
+          "desc": "Get all tracks on a binding.",
+          "signature": "SequencerTools.get_tracks_on_binding(unreal.SequencerBindingProxy) -> list[unreal.MovieSceneTrack]"
+        },
+        {
+          "id": "get_tracks_on_sequence",
+          "desc": "Get all sequence-level (master) tracks.",
+          "signature": "SequencerTools.get_tracks_on_sequence(unreal.LevelSequence) -> list[unreal.MovieSceneTrack]"
+        },
+        {
+          "id": "find_tracks_by_type",
+          "desc": "Find all tracks of a specific type on a binding.",
+          "signature": "SequencerTools.find_tracks_by_type(unreal.SequencerBindingProxy, unreal.Class) -> list[unreal.MovieSceneTrack]"
+        },
+        {
+          "id": "remove_track",
+          "desc": "Remove a track from a binding.",
+          "signature": "SequencerTools.remove_track(unreal.SequencerBindingProxy, unreal.MovieSceneTrack) -> bool"
+        },
+        {
+          "id": "remove_track_from_sequence",
+          "desc": "Remove a sequence-level (master) track.",
+          "signature": "SequencerTools.remove_track_from_sequence(unreal.LevelSequence, unreal.MovieSceneTrack) -> bool"
+        },
+        {
+          "id": "get_track_display_name",
+          "desc": "Get the display name of a track.",
+          "signature": "SequencerTools.get_track_display_name(unreal.MovieSceneTrack) -> str"
+        },
+        {
+          "id": "set_track_display_name",
+          "desc": "Set the display name of a track.",
+          "signature": "SequencerTools.set_track_display_name(unreal.MovieSceneTrack, str) -> bool"
+        },
+        {
+          "id": "add_section",
+          "desc": "Add a new section to a track.",
+          "signature": "SequencerTools.add_section(unreal.MovieSceneTrack) -> unreal.MovieSceneSection"
+        },
+        {
+          "id": "get_sections",
+          "desc": "Get all sections on a track.",
+          "signature": "SequencerTools.get_sections(unreal.MovieSceneTrack) -> list[unreal.MovieSceneSection]"
+        },
+        {
+          "id": "remove_section",
+          "desc": "Remove a section from a track.",
+          "signature": "SequencerTools.remove_section(unreal.MovieSceneTrack, unreal.MovieSceneSection) -> bool"
+        },
+        {
+          "id": "set_section_range",
+          "desc": "Set the frame range of a section.",
+          "signature": "SequencerTools.set_section_range(unreal.MovieSceneSection, int, int) -> bool"
+        },
+        {
+          "id": "get_section_range",
+          "desc": "Get the frame range of a section.",
+          "signature": "SequencerTools.get_section_range(unreal.MovieSceneSection) -> str"
+        },
+        {
+          "id": "has_section_start_frame",
+          "desc": "Check if a section has a bounded start frame (vs infinite).",
+          "signature": "SequencerTools.has_section_start_frame(unreal.MovieSceneSection) -> bool"
+        },
+        {
+          "id": "has_section_end_frame",
+          "desc": "Check if a section has a bounded end frame (vs infinite).",
+          "signature": "SequencerTools.has_section_end_frame(unreal.MovieSceneSection) -> bool"
+        },
+        {
+          "id": "set_section_start_bounded",
+          "desc": "Set whether the section start frame is bounded or infinite.",
+          "signature": "SequencerTools.set_section_start_bounded(unreal.MovieSceneSection, bool) -> bool"
+        },
+        {
+          "id": "set_section_end_bounded",
+          "desc": "Set whether the section end frame is bounded or infinite.",
+          "signature": "SequencerTools.set_section_end_bounded(unreal.MovieSceneSection, bool) -> bool"
+        },
+        {
+          "id": "set_camera_cut_binding",
+          "desc": "Set which camera a camera cut section uses.",
+          "signature": "SequencerTools.set_camera_cut_binding(unreal.MovieSceneCameraCutSection, str) -> bool"
+        },
+        {
+          "id": "set_section_ease_in",
+          "desc": "Set the ease-in duration of a section in frames.",
+          "signature": "SequencerTools.set_section_ease_in(unreal.MovieSceneSection, int) -> bool"
+        },
+        {
+          "id": "set_section_ease_out",
+          "desc": "Set the ease-out duration of a section in frames.",
+          "signature": "SequencerTools.set_section_ease_out(unreal.MovieSceneSection, int) -> bool"
+        },
+        {
+          "id": "get_section_ease_in",
+          "desc": "Get the effective ease-in duration of a section in frames.",
+          "signature": "SequencerTools.get_section_ease_in(unreal.MovieSceneSection) -> int"
+        },
+        {
+          "id": "get_section_ease_out",
+          "desc": "Get the effective ease-out duration of a section in frames.",
+          "signature": "SequencerTools.get_section_ease_out(unreal.MovieSceneSection) -> int"
+        },
+        {
+          "id": "set_section_blend_type",
+          "desc": "Set the blend type of a section.",
+          "signature": "SequencerTools.set_section_blend_type(unreal.MovieSceneSection, str) -> bool"
+        },
+        {
+          "id": "get_section_blend_type",
+          "desc": "Get the blend type of a section.",
+          "signature": "SequencerTools.get_section_blend_type(unreal.MovieSceneSection) -> str"
+        },
+        {
+          "id": "set_section_completion_mode",
+          "desc": "Set the completion mode of a section.",
+          "signature": "SequencerTools.set_section_completion_mode(unreal.MovieSceneSection, str) -> bool"
+        },
+        {
+          "id": "get_section_completion_mode",
+          "desc": "Get the completion mode of a section.",
+          "signature": "SequencerTools.get_section_completion_mode(unreal.MovieSceneSection) -> str"
+        },
+        {
+          "id": "get_section_properties",
+          "desc": "Get all common properties of a section in a single call.",
+          "signature": "SequencerTools.get_section_properties(unreal.MovieSceneSection) -> str"
+        },
+        {
+          "id": "get_selected_tracks",
+          "desc": "Get the currently selected tracks in the Sequencer editor.",
+          "signature": "SequencerTools.get_selected_tracks() -> list[unreal.MovieSceneTrack]"
+        },
+        {
+          "id": "get_selected_sections",
+          "desc": "Get the currently selected sections in the Sequencer editor.",
+          "signature": "SequencerTools.get_selected_sections() -> list[unreal.MovieSceneSection]"
+        },
+        {
+          "id": "get_selected_bindings",
+          "desc": "Get the currently selected bindings in the Sequencer editor.",
+          "signature": "SequencerTools.get_selected_bindings() -> list[unreal.SequencerBindingProxy]"
+        },
+        {
+          "id": "get_selected_folders",
+          "desc": "Get the currently selected folders in the Sequencer editor.",
+          "signature": "SequencerTools.get_selected_folders() -> list[unreal.MovieSceneFolder]"
+        },
+        {
+          "id": "select_tracks",
+          "desc": "Set the track selection in the Sequencer editor.",
+          "signature": "SequencerTools.select_tracks(list[unreal.MovieSceneTrack]) -> bool"
+        },
+        {
+          "id": "select_sections",
+          "desc": "Set the section selection in the Sequencer editor.",
+          "signature": "SequencerTools.select_sections(list[unreal.MovieSceneSection]) -> bool"
+        },
+        {
+          "id": "select_bindings",
+          "desc": "Set the binding selection in the Sequencer editor.",
+          "signature": "SequencerTools.select_bindings(list[unreal.SequencerBindingProxy]) -> bool"
+        },
+        {
+          "id": "empty_selection",
+          "desc": "Clear all selection in the Sequencer editor.",
+          "signature": "SequencerTools.empty_selection() -> bool"
+        },
+        {
+          "id": "force_evaluate",
+          "desc": "Force the Sequencer to evaluate and update the viewport.",
+          "signature": "SequencerTools.force_evaluate() -> bool"
+        },
+        {
+          "id": "set_camera_lock",
+          "desc": "Lock or unlock the camera cut to the viewport.",
+          "signature": "SequencerTools.set_camera_lock(bool) -> bool"
+        },
+        {
+          "id": "select_folders",
+          "desc": "Set the folder selection in the Sequencer editor.",
+          "signature": "SequencerTools.select_folders(list[unreal.MovieSceneFolder]) -> bool"
+        },
+        {
+          "id": "is_camera_cut_locked",
+          "desc": "Check if the camera cut is locked to the viewport.",
+          "signature": "SequencerTools.is_camera_cut_locked() -> bool"
+        },
+        {
+          "id": "play_to",
+          "desc": "Play from the current position to a specific frame, then stop.",
+          "signature": "SequencerTools.play_to(int) -> bool"
+        },
+        {
+          "id": "get_selection_range",
+          "desc": "Get the selection range (green bar) start and end frames.",
+          "signature": "SequencerTools.get_selection_range() -> str"
+        },
+        {
+          "id": "set_selection_range",
+          "desc": "Set the selection range (green bar) start and end frames.",
+          "signature": "SequencerTools.set_selection_range(int, int) -> bool"
+        },
+        {
+          "id": "add_actors_by_name",
+          "desc": "Add actors to the sequence by their names in the level.",
+          "signature": "SequencerTools.add_actors_by_name(list[str]) -> list[unreal.SequencerBindingProxy]"
+        },
+        {
+          "id": "add_root_folder",
+          "desc": "Create a new root-level folder in the sequence.",
+          "signature": "SequencerTools.add_root_folder(unreal.LevelSequence, str) -> unreal.MovieSceneFolder"
+        },
+        {
+          "id": "get_root_folders",
+          "desc": "Get all root-level folders in the sequence.",
+          "signature": "SequencerTools.get_root_folders(unreal.LevelSequence) -> list[unreal.MovieSceneFolder]"
+        },
+        {
+          "id": "remove_root_folder",
+          "desc": "Remove a root-level folder from the sequence.",
+          "signature": "SequencerTools.remove_root_folder(unreal.LevelSequence, unreal.MovieSceneFolder) -> bool"
+        },
+        {
+          "id": "add_track_to_folder",
+          "desc": "Add a track into a folder for organization.",
+          "signature": "SequencerTools.add_track_to_folder(unreal.MovieSceneFolder, unreal.MovieSceneTrack) -> bool"
+        },
+        {
+          "id": "add_binding_to_folder",
+          "desc": "Add a binding into a folder for organization.",
+          "signature": "SequencerTools.add_binding_to_folder(unreal.MovieSceneFolder, unreal.SequencerBindingProxy) -> bool"
+        },
+        {
+          "id": "get_folder_contents",
+          "desc": "Get the tracks and bindings inside a folder.",
+          "signature": "SequencerTools.get_folder_contents(unreal.MovieSceneFolder) -> str"
+        },
+        {
+          "id": "focus_sub_sequence",
+          "desc": "Navigate into a sub-sequence via its sub-section.",
+          "signature": "SequencerTools.focus_sub_sequence(unreal.MovieSceneSubSection) -> bool"
+        },
+        {
+          "id": "focus_parent_sequence",
+          "desc": "Navigate up one level in the sub-sequence hierarchy.",
+          "signature": "SequencerTools.focus_parent_sequence() -> bool"
+        },
+        {
+          "id": "get_sub_sequence_hierarchy",
+          "desc": "Get the current sub-sequence hierarchy path.",
+          "signature": "SequencerTools.get_sub_sequence_hierarchy() -> list[unreal.MovieSceneSubSection]"
+        },
+        {
+          "id": "get_sequence_lock_state",
+          "desc": "Check whether the current level sequence is locked.",
+          "signature": "SequencerTools.get_sequence_lock_state() -> bool"
+        },
+        {
+          "id": "add_event_trigger_section",
+          "desc": "Add an event trigger section to an event track.",
+          "signature": "SequencerTools.add_event_trigger_section(unreal.MovieSceneEventTrack) -> unreal.MovieSceneEventTriggerSection"
+        },
+        {
+          "id": "add_event_repeater_section",
+          "desc": "Add an event repeater section to an event track.",
+          "signature": "SequencerTools.add_event_repeater_section(unreal.MovieSceneEventTrack) -> unreal.MovieSceneEventRepeaterSection"
+        },
+        {
+          "id": "add_actors_to_binding",
+          "desc": "Add actors to an existing binding.",
+          "signature": "SequencerTools.add_actors_to_binding(list[unreal.Actor], unreal.SequencerBindingProxy) -> bool"
+        },
+        {
+          "id": "replace_binding_with_actors",
+          "desc": "Replace all bound actors on a binding with new ones.",
+          "signature": "SequencerTools.replace_binding_with_actors(list[unreal.Actor], unreal.SequencerBindingProxy) -> bool"
+        },
+        {
+          "id": "remove_actors_from_binding",
+          "desc": "Remove specific actors from a binding.",
+          "signature": "SequencerTools.remove_actors_from_binding(list[unreal.Actor], unreal.SequencerBindingProxy) -> bool"
+        },
+        {
+          "id": "remove_all_bindings",
+          "desc": "Remove all bound actors from a binding.",
+          "signature": "SequencerTools.remove_all_bindings(unreal.SequencerBindingProxy) -> bool"
+        },
+        {
+          "id": "remove_invalid_bindings",
+          "desc": "Remove missing or broken actor references from a binding.",
+          "signature": "SequencerTools.remove_invalid_bindings(unreal.SequencerBindingProxy) -> bool"
+        },
+        {
+          "id": "rebind_component",
+          "desc": "Rebind component bindings to a named component.",
+          "signature": "SequencerTools.rebind_component(list[unreal.SequencerBindingProxy], str) -> bool"
+        },
+        {
+          "id": "fix_actor_references",
+          "desc": "Attempt to auto-fix broken actor references in the current sequence.",
+          "signature": "SequencerTools.fix_actor_references() -> bool"
+        },
+        {
+          "id": "get_track_filter_names",
+          "desc": "Get all available track filter names.",
+          "signature": "SequencerTools.get_track_filter_names() -> list[str]"
+        },
+        {
+          "id": "is_track_filter_active",
+          "desc": "Check whether a track filter is currently active.",
+          "signature": "SequencerTools.is_track_filter_active(str) -> bool"
+        },
+        {
+          "id": "set_track_filter_active",
+          "desc": "Enable or disable a track filter.",
+          "signature": "SequencerTools.set_track_filter_active(str, bool) -> bool"
+        },
+        {
+          "id": "is_sequence_locked",
+          "desc": "Check if the current sequence and its descendants are locked.",
+          "signature": "SequencerTools.is_sequence_locked() -> bool"
+        },
+        {
+          "id": "set_sequence_locked",
+          "desc": "Lock or unlock the current sequence and its descendants.",
+          "signature": "SequencerTools.set_sequence_locked(bool) -> bool"
+        },
+        {
+          "id": "bake_transform",
+          "desc": "Bake transforms for the given bindings at every frame.",
+          "signature": "SequencerTools.bake_transform(list[unreal.SequencerBindingProxy]) -> bool"
+        },
+        {
+          "id": "get_child_possessables",
+          "desc": "Get component bindings under an actor binding.",
+          "signature": "SequencerTools.get_child_possessables(unreal.SequencerBindingProxy) -> list[unreal.SequencerBindingProxy]"
+        },
+        {
+          "id": "get_binding_id",
+          "desc": "Get the binding ID for a binding proxy.",
+          "signature": "SequencerTools.get_binding_id(unreal.LevelSequence, unreal.SequencerBindingProxy) -> unreal.MovieSceneObjectBindingID"
+        },
+        {
+          "id": "get_section_to_key",
+          "desc": "Get the active section that receives new keys on a track.",
+          "signature": "SequencerTools.get_section_to_key(unreal.MovieSceneTrack) -> unreal.MovieSceneSection"
+        },
+        {
+          "id": "set_property_name_and_path",
+          "desc": "Configure a property track to animate a specific UProperty.",
+          "signature": "SequencerTools.set_property_name_and_path(unreal.MovieScenePropertyTrack, str, str) -> bool"
+        },
+        {
+          "id": "set_byte_track_enum",
+          "desc": "Configure a byte track to use a specific enum type.",
+          "signature": "SequencerTools.set_byte_track_enum(unreal.MovieSceneByteTrack, str) -> bool"
+        },
+        {
+          "id": "set_section_animation",
+          "desc": "Set the animation asset on a skeletal animation section.",
+          "signature": "SequencerTools.set_section_animation(unreal.MovieSceneSkeletalAnimationSection, str) -> bool"
+        },
+        {
+          "id": "set_section_pre_roll_frames",
+          "desc": "Set the number of frames to pre-roll this section before it starts.",
+          "signature": "SequencerTools.set_section_pre_roll_frames(unreal.MovieSceneSection, int) -> bool"
+        },
+        {
+          "id": "get_section_pre_roll_frames",
+          "desc": "Get the number of pre-roll frames configured on a section.",
+          "signature": "SequencerTools.get_section_pre_roll_frames(unreal.MovieSceneSection) -> int"
+        },
+        {
+          "id": "set_section_post_roll_frames",
+          "desc": "Set the number of frames to post-roll this section after it ends.",
+          "signature": "SequencerTools.set_section_post_roll_frames(unreal.MovieSceneSection, int) -> bool"
+        },
+        {
+          "id": "get_section_post_roll_frames",
+          "desc": "Get the number of post-roll frames configured on a section.",
+          "signature": "SequencerTools.get_section_post_roll_frames(unreal.MovieSceneSection) -> int"
+        },
+        {
+          "id": "find_binding_by_tag",
+          "desc": "Find the first binding with the given tag in the sequence.",
+          "signature": "SequencerTools.find_binding_by_tag(unreal.LevelSequence, str) -> unreal.MovieSceneObjectBindingID"
+        },
+        {
+          "id": "find_bindings_by_tag",
+          "desc": "Find all bindings with the given tag in the sequence.",
+          "signature": "SequencerTools.find_bindings_by_tag(unreal.LevelSequence, str) -> list[unreal.MovieSceneObjectBindingID]"
+        },
+        {
+          "id": "get_all_binding_tags",
+          "desc": "Get every tag name registered in the sequence.",
+          "signature": "SequencerTools.get_all_binding_tags(unreal.LevelSequence) -> list[str]"
+        },
+        {
+          "id": "get_binding_tags",
+          "desc": "Get the tags currently attached to a specific binding.",
+          "signature": "SequencerTools.get_binding_tags(unreal.SequencerBindingProxy) -> list[str]"
+        },
+        {
+          "id": "tag_binding",
+          "desc": "Attach a tag to a binding.",
+          "signature": "SequencerTools.tag_binding(unreal.SequencerBindingProxy, str) -> bool"
+        },
+        {
+          "id": "untag_binding",
+          "desc": "Remove a tag from a binding.",
+          "signature": "SequencerTools.untag_binding(unreal.SequencerBindingProxy, str) -> bool"
+        },
+        {
+          "id": "remove_binding_tag",
+          "desc": "Remove a tag from the sequence entirely.",
+          "signature": "SequencerTools.remove_binding_tag(unreal.LevelSequence, str) -> bool"
+        },
+        {
+          "id": "copy_bindings",
+          "desc": "Copy one or more bindings to the Sequencer clipboard.",
+          "signature": "SequencerTools.copy_bindings(list[unreal.SequencerBindingProxy]) -> str"
+        },
+        {
+          "id": "paste_bindings",
+          "desc": "Paste bindings from the clipboard (or a token returned by copy_bindings).",
+          "signature": "SequencerTools.paste_bindings(str, unreal.LevelSequence, Any) -> list[unreal.SequencerBindingProxy]"
+        },
+        {
+          "id": "copy_tracks",
+          "desc": "Copy one or more tracks to the Sequencer clipboard.",
+          "signature": "SequencerTools.copy_tracks(list[unreal.MovieSceneTrack]) -> str"
+        },
+        {
+          "id": "paste_tracks",
+          "desc": "Paste tracks from the clipboard onto the given bindings.",
+          "signature": "SequencerTools.paste_tracks(str, unreal.LevelSequence, list[unreal.SequencerBindingProxy], unreal.MovieSceneFolder) -> list[unreal.MovieSceneTrack]"
+        },
+        {
+          "id": "copy_sections",
+          "desc": "Copy one or more sections to the Sequencer clipboard.",
+          "signature": "SequencerTools.copy_sections(list[unreal.MovieSceneSection]) -> str"
+        },
+        {
+          "id": "paste_sections",
+          "desc": "Paste sections from the clipboard onto the given tracks.",
+          "signature": "SequencerTools.paste_sections(str, list[unreal.MovieSceneTrack], int) -> list[unreal.MovieSceneSection]"
+        },
+        {
+          "id": "copy_folders",
+          "desc": "Copy one or more folders to the Sequencer clipboard.",
+          "signature": "SequencerTools.copy_folders(list[unreal.MovieSceneFolder]) -> str"
+        },
+        {
+          "id": "paste_folders",
+          "desc": "Paste folders from the clipboard into the sequence.",
+          "signature": "SequencerTools.paste_folders(str, unreal.LevelSequence, Any) -> list[unreal.MovieSceneFolder]"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

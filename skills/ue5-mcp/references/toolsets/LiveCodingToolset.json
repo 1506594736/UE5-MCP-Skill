@@ -1,0 +1,17 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "ULiveCodingToolset",
+      "desc": "Live Coding compile toolset. Exposes an MCP tool that triggers a Live Coding compile from the running editor and waits for the result, returning the compile status together with any captured LogLiveCoding output and UBT compiler diagnostics.",
+      "tools": [
+        {
+          "id": "CompileLiveCoding",
+          "desc": "Live Coding must be enabled in Editor Preferences. * @return The compile result status followed by any compiler output (errors, warnings, etc).",
+          "signature": "ULiveCodingToolset.CompileLiveCoding() -> FString"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

@@ -1,0 +1,57 @@
+{
+  "toolsets": [
+    {
+      "type": "Python",
+      "id": "StateTreeTools",
+      "desc": "Inspect StateTree (ST) assets.",
+      "tools": [
+        {
+          "id": "get_editor_data",
+          "desc": "Returns the editor data for a StateTree asset.",
+          "signature": "StateTreeTools.get_editor_data(unreal.StateTree) -> unreal.StateTreeEditorData"
+        },
+        {
+          "id": "get_root_states",
+          "desc": "Returns top-level states of a StateTree.",
+          "signature": "StateTreeTools.get_root_states(unreal.StateTree) -> list[unreal.StateTreeState]"
+        },
+        {
+          "id": "get_children",
+          "desc": "Returns child states of a state.",
+          "signature": "StateTreeTools.get_children(unreal.StateTreeState) -> list[unreal.StateTreeState]"
+        },
+        {
+          "id": "get_tasks",
+          "desc": "Returns tasks on a state.",
+          "signature": "StateTreeTools.get_tasks(unreal.StateTreeState) -> list[unreal.StateTreeEditorNode]"
+        },
+        {
+          "id": "get_enter_conditions",
+          "desc": "Returns enter conditions on a state.",
+          "signature": "StateTreeTools.get_enter_conditions(unreal.StateTreeState) -> list[unreal.StateTreeEditorNode]"
+        },
+        {
+          "id": "get_transitions",
+          "desc": "Returns transitions on a state.",
+          "signature": "StateTreeTools.get_transitions(unreal.StateTreeState) -> list[unreal.StateTreeTransition]"
+        },
+        {
+          "id": "get_global_tasks",
+          "desc": "Returns global tasks that run across all states.",
+          "signature": "StateTreeTools.get_global_tasks(unreal.StateTree) -> list[unreal.StateTreeEditorNode]"
+        },
+        {
+          "id": "get_evaluators",
+          "desc": "Returns global evaluators.",
+          "signature": "StateTreeTools.get_evaluators(unreal.StateTree) -> list[unreal.StateTreeEditorNode]"
+        },
+        {
+          "id": "get_node_description",
+          "desc": "Returns a human-readable description for a node.",
+          "signature": "StateTreeTools.get_node_description(unreal.StateTree, unreal.StateTreeEditorNode) -> str"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

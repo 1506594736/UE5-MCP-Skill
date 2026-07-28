@@ -1,0 +1,493 @@
+{
+  "format": "ue5-toolsets-clean-v1",
+  "stats": {
+    "plugins": 26,
+    "toolsets": 55,
+    "tools": 865,
+    "skills": 12
+  },
+  "plugins": [
+    {
+      "file": "AIAssistant.json",
+      "toolsets": [
+        {
+          "id": "UAIAssistantToolset",
+          "desc": "These functions help the AI assistant inspect its state as it relates to the larger Unreal Editor.",
+          "tools": 2
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "AIModuleToolset.json",
+      "toolsets": [
+        {
+          "id": "BehaviorTreeTools",
+          "desc": "Inspect BehaviorTree (BT) assets.",
+          "tools": 7
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "AnimationAssistantToolset.json",
+      "toolsets": [
+        {
+          "id": "SequencerConditionTools",
+          "desc": "Tools for managing runtime conditions on Sequencer tracks, sections, and",
+          "tools": 9
+        },
+        {
+          "id": "ControlRigTools",
+          "desc": "Tools for creating and editing Control Rig assets, including hierarchy",
+          "tools": 44
+        },
+        {
+          "id": "SequencerControlRigTools",
+          "desc": "Tools for animating with Control Rig inside Sequencer. Use when adding",
+          "tools": 72
+        },
+        {
+          "id": "SequencerCustomBindingTools",
+          "desc": "Tools for converting and managing custom binding types in Sequencer. Use",
+          "tools": 8
+        },
+        {
+          "id": "SequencerImportExportTools",
+          "desc": "Tools for importing and exporting animation data to and from Sequencer.",
+          "tools": 6
+        },
+        {
+          "id": "SequencerKeyframingTools",
+          "desc": "Tools for keyframing and animating properties on the Sequencer",
+          "tools": 22
+        },
+        {
+          "id": "SequencerOutlinerTools",
+          "desc": "Tools for inspecting and managing the Sequencer outliner tree. Use when",
+          "tools": 18
+        },
+        {
+          "id": "SequencerTools",
+          "desc": "Core tools for creating and editing Level Sequences in Sequencer. Use",
+          "tools": 140
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "AutomationTestToolset.json",
+      "toolsets": [
+        {
+          "id": "UAutomationTestToolset",
+          "desc": "Automation test discovery and execution toolset. Wraps the IAutomationControllerManager API (the same backend the Session Frontend uses) to let MCP clients list available tests, run them, and retrieve results. Typical workflow: 1. DiscoverTests() once per session to initialize workers and load the test list. 2. ListTests() to find tests by name or tag. 3. RunTests() with the desired test names. 4. GetTestStatus() / GetTestResults() to monitor and retrieve results. 5. StopTests() to abort if needed.",
+          "tools": 7
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "ChaosClothAssetToolset.json",
+      "toolsets": [
+        {
+          "id": "UChaosClothAssetToolset",
+          "desc": "Provides tools for creating and assigning ChaosClothAsset clothing data to skeletal meshes. Replicates the workflow available via the SkeletalMesh Editor viewport context menu.",
+          "tools": 6
+        }
+      ],
+      "skills": [
+        {
+          "id": "UChaosClothAssetConversionSkill",
+          "desc": "Agent skill that documents the end-to-end workflow for converting a legacy UClothingAssetCommon on a SkeletalMesh into a new UChaosClothAsset using the ChaosClothAsset toolset."
+        }
+      ]
+    },
+    {
+      "file": "ConfigSettingsToolset.json",
+      "toolsets": [
+        {
+          "id": "UConfigSettingsToolset",
+          "desc": "Tools for listing, inspecting, and editing Config Settings sections",
+          "tools": 8
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "ConversationToolset.json",
+      "toolsets": [
+        {
+          "id": "ConversationTools",
+          "desc": "Inspect Conversation Graph (UConversationDatabase) dialogue assets.",
+          "tools": 7
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "DataflowAgent.json",
+      "toolsets": [
+        {
+          "id": "UDataflowAgentToolset",
+          "desc": "Dataflow Agent Toolset - exposes Dataflow graph editing operations as AI agent tools.",
+          "tools": 22
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "DataRegistryToolset.json",
+      "toolsets": [
+        {
+          "id": "UDataRegistryTools",
+          "desc": "Provides tools for querying and inspecting Data Registries.",
+          "tools": 7
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "EditorToolset.json",
+      "toolsets": [
+        {
+          "id": "ActorTools",
+          "desc": "Provides tools for inspecting and modifying actors, including",
+          "tools": 17
+        },
+        {
+          "id": "AssetTools",
+          "desc": "Provides tools for interacting with assets in the Unreal project and files on disk.",
+          "tools": 21
+        },
+        {
+          "id": "BlueprintTools",
+          "desc": "Provides tools for working with Blueprints.",
+          "tools": 53
+        },
+        {
+          "id": "CurveTableTools",
+          "desc": "Provides tools for creating and editing CurveTable assets.",
+          "tools": 9
+        },
+        {
+          "id": "DataAssetTools",
+          "desc": "Provides tools for working with Data Assets.",
+          "tools": 1
+        },
+        {
+          "id": "DataTableTools",
+          "desc": "Provides tools for creating and editing DataTable assets.",
+          "tools": 10
+        },
+        {
+          "id": "MaterialTools",
+          "desc": "Provides tools for creating and editing Material and MaterialFunction assets.",
+          "tools": 22
+        },
+        {
+          "id": "MaterialInstanceTools",
+          "desc": "Provides tools for creating and modifying MaterialInstanceConstant assets.",
+          "tools": 13
+        },
+        {
+          "id": "ObjectTools",
+          "desc": "Provides tools for inspecting and modifying the properties of",
+          "tools": 6
+        },
+        {
+          "id": "PrimitiveTools",
+          "desc": "Provides tools for adding primitive geometry components to actors.",
+          "tools": 4
+        },
+        {
+          "id": "SceneTools",
+          "desc": "Provides tools for working with the currently loaded level, including",
+          "tools": 20
+        },
+        {
+          "id": "SkeletalMeshTools",
+          "desc": "Provides tools for inspecting and modifying skeletal mesh assets, including",
+          "tools": 22
+        },
+        {
+          "id": "StaticMeshTools",
+          "desc": "Provides tools for inspecting and modifying static mesh assets.",
+          "tools": 16
+        },
+        {
+          "id": "StringTableTools",
+          "desc": "Provides tools for creating and editing StringTable assets.",
+          "tools": 8
+        },
+        {
+          "id": "TextureTools",
+          "desc": "Provides tools for working with Texture assets.",
+          "tools": 2
+        },
+        {
+          "id": "UEditorAppToolset",
+          "desc": "Tools for querying and modifying Unreal Editor state: console variables, asset imaging, actor and asset selection, viewport camera, content browser navigation, and Play-In-Editor session control.",
+          "tools": 21
+        },
+        {
+          "id": "ULogsToolset",
+          "desc": "Provides tools for reading the Unreal Engine output log and controlling log category verbosity.",
+          "tools": 4
+        }
+      ],
+      "skills": [
+        {
+          "id": "BlueprintBasicsSkill",
+          "desc": "Provides guidance on creating and editing Blueprints in Unreal Engine.\nApply this skill whenever creating, modifying, or reviewing Blueprint assets."
+        },
+        {
+          "id": "DefaultOutdoorLightingSkill",
+          "desc": "Skill that is dedicated at adjusting the default outdoor lighting setup in Unreal.\nApply this skill whenever setting up or modifying outdoor lighting (sun, sky, clouds,\nfog, exposure)."
+        },
+        {
+          "id": "MaterialBasicsSkill",
+          "desc": "Provides guidance on working with Materials and MaterialInstances in Unreal Engine.\nApply this skill whenever creating, modifying, or choosing between Material assets."
+        },
+        {
+          "id": "UnrealSkillBestPracticesSkill",
+          "desc": "Provides best practices for creating, updating, and reviewing skills in Unreal.\nApply this skill whenever creating, updating, or reviewing skills in Unreal."
+        }
+      ]
+    },
+    {
+      "file": "GameFeaturesToolset.json",
+      "toolsets": [
+        {
+          "id": "UGameFeaturesToolset",
+          "desc": "Provides tools for listing, activating, and deactivating Game Feature Plugins.",
+          "tools": 7
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "GameplayTagsToolset.json",
+      "toolsets": [
+        {
+          "id": "UGameplayTagsToolset",
+          "desc": "Provides tools for reading and managing gameplay tags in the project's GameplayTagsManager.",
+          "tools": 6
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "GASToolsets.json",
+      "toolsets": [
+        {
+          "id": "UAbilitySystemInspectorToolset",
+          "desc": "Provides tools for inspecting the runtime state of an AbilitySystemComponent. Each function takes a direct actor pointer and raises a script error if the actor is null or has no AbilitySystemComponent.",
+          "tools": 4
+        },
+        {
+          "id": "UAttributeSetToolset",
+          "desc": "Provides tools for discovering AttributeSet classes and their gameplay attributes.",
+          "tools": 2
+        },
+        {
+          "id": "UGameplayCueToolset",
+          "desc": "Provides tools for inspecting, executing, and managing gameplay cues and their notify assets.",
+          "tools": 8
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "LiveCodingToolset.json",
+      "toolsets": [
+        {
+          "id": "ULiveCodingToolset",
+          "desc": "Live Coding compile toolset. Exposes an MCP tool that triggers a Live Coding compile from the running editor and waits for the result, returning the compile status together with any captured LogLiveCoding output and UBT compiler diagnostics.",
+          "tools": 1
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "MetaHumanGenerator.json",
+      "toolsets": [
+        {
+          "id": "MetaHumanToolset",
+          "desc": "Tools for creating and editing MetaHuman characters",
+          "tools": 9
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "NiagaraToolsets.json",
+      "toolsets": [
+        {
+          "id": "UNiagaraToolset_Assets",
+          "desc": "Niagara Toolset for discovery of Niagara script assets. Provides: - GetAssetDiscoveryInfo: project-configured asset discovery groups - FindNiagaraScripts: asset registry search filtered by usage, visibility, name, and module usage bitmask - GetNiagaraScriptDigest: decoded asset-registry tags for a single script All functions read from the asset registry without LoadObject. Pair with NiagaraToolset_System.AddModule to drop discovered modules into a stack. Note: FAssetData JSON serialization does not include the TagsAndValues map (it is not a UPROPERTY), so callers wanting decoded metadata for a result row from FindNiagaraScripts must round-trip through GetNiagaraScriptDigest.",
+          "tools": 3
+        },
+        {
+          "id": "UNiagaraToolset_Blueprint",
+          "desc": "Niagara Toolset for Niagara and Blueprint integration. Provides utilities for creating Blueprint wrappers around Niagara Systems, making it easier to expose Niagara effects as reusable Blueprint actors. Use this toolset when you need to create Blueprint-based FX actors from Niagara systems.",
+          "tools": 2
+        },
+        {
+          "id": "UNiagaraToolset_Component",
+          "desc": "Niagara Toolset for Niagara Component operations. Use this toolset when working with: - Niagara Components on actors - Runtime Niagara system manipulation - User variable overrides on component instances - FX-related operations in levels or blueprints This is the primary toolset for runtime Niagara operations.",
+          "tools": 4
+        },
+        {
+          "id": "UNiagaraToolset_Info",
+          "desc": "Niagara Toolset for general Niagara information and guidance. Provides: - Enum value lookups - General usage information Call these functions when you need context about Niagara types.",
+          "tools": 1
+        },
+        {
+          "id": "UNiagaraToolset_System",
+          "desc": "Niagara Toolset for Niagara System operations. Provides comprehensive access to Niagara System editing, including: - System, emitter, and module creation and modification - Schema discovery for understanding structure - Topology and Summary inspection for viewing current configuration - Data access for reading and writing properties - Dependency rollups via GetSystemDependencies - Dynamic-input chain traversal via GetDynamicInputChain This is the primary toolset for working with Niagara Systems in the editor.",
+          "tools": 46
+        }
+      ],
+      "skills": [
+        {
+          "id": "NiagaraBlueprintInteropSkill",
+          "desc": "Covers driving Niagara Systems from Blueprint at runtime -- spawn-mechanism choice, parameter binding, and pooling and lifetime."
+        },
+        {
+          "id": "NiagaraCleanupSkill",
+          "desc": "Covers inspecting a Niagara System for cleanup candidates -- orphaned modules, unused User Parameters, and leftover state after modifications -- and presenting them to the user before removal."
+        },
+        {
+          "id": "NiagaraCustomHLSLSkill",
+          "desc": "Covers writing inline HLSL expressions in Niagara dynamic inputs -- single-rvalue syntax, CPU VM and GPU intrinsic compatibility, and Particle/Emitter/System scope rules."
+        },
+        {
+          "id": "NiagaraFundamentalsSkill",
+          "desc": "Covers the foundational rules for authoring Niagara systems -- templates, sim target, script stack ordering, lifecycle and initialization, parameter namespaces, randomness, coordinate spaces, HLSL expressions, User Parameters, and materials."
+        },
+        {
+          "id": "NiagaraLevelPlacementSkill",
+          "desc": "Triggers when the user asks to place or spawn a gameplay VFX -- smoke, plume, fire, explosion, spark, trail, beam, muzzle flash, impact, burst, dust, cloud, ember, projectile, hit, ability, status effect. Enforces the search-present-confirm gate before placing an existing asset."
+        },
+        {
+          "id": "NiagaraOptimizationSkill",
+          "desc": "Covers reducing the CPU and GPU cost of Niagara effects -- sim target, emitter consolidation, bounds, scalability and Effect Types, pooling, system-level cheap wins, particle-only mesh stripping, and burst spawning."
+        },
+        {
+          "id": "NiagaraRenderersSkill",
+          "desc": "Covers choosing and configuring Niagara renderers -- per-type rules (Sprite, Mesh, Ribbon, Light, Decal, Component), source mode, sprite alignment, visibility-tag and mesh-variant differentiation, sort mode, and silent-failure material dependencies."
+        }
+      ]
+    },
+    {
+      "file": "PCGToolset.json",
+      "toolsets": [
+        {
+          "id": "UPCGToolset",
+          "desc": "Toolset for building and modifying PCG graphs",
+          "tools": 29
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "PhysicsToolsets.json",
+      "toolsets": [
+        {
+          "id": "UPhysicsAssetToolset",
+          "desc": "Provides tools for creating and managing Physics Assets.",
+          "tools": 17
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "PluginToolset.json",
+      "toolsets": [
+        {
+          "id": "UPluginToolset",
+          "desc": "Tools for creating, editing, enabling, and querying Unreal plugins",
+          "tools": 17
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "SemanticSearchToolset.json",
+      "toolsets": [
+        {
+          "id": "USemanticSearchToolset",
+          "desc": "Toolset exposing the SemanticSearch plugin's hybrid vector + BM25 asset search to the AI Toolset Registry.",
+          "tools": 2
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "SequencerAnimMixerToolset.json",
+      "toolsets": [
+        {
+          "id": "SequencerAnimMixerTools",
+          "desc": "Tools for working with the Animation Mixer in Sequencer.",
+          "tools": 21
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "SlateInspectorToolset.json",
+      "toolsets": [
+        {
+          "id": "USlateInspectorToolset",
+          "desc": "Playwright-style Slate UI automation toolset. Exposes snapshot, screenshot, and interaction tools for driving the Unreal Editor UI programmatically.  Registered via UToolsetRegistry so the ModelContextProtocol plugin picks them up automatically. A shallow root observer (depth 0) continuously tracks top-level windows.  Before working with a specific window or panel, call Observe() on it to get deep widget coverage, then Unobserve() when done.  Observers walk their subtree every ~100ms, assigning refs to newly appeared widgets and keeping the ref cache current. Input simulation uses direct Slate event APIs (ProcessKeyCharEvent, ProcessMouseButtonDownEvent, etc.) rather than the AutomationDriver, because AutomationDriver's synchronous API deadlocks when called from the game thread (which is where MCP tool calls execute).",
+          "tools": 14
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "StateTreeToolset.json",
+      "toolsets": [
+        {
+          "id": "StateTreeTools",
+          "desc": "Inspect StateTree (ST) assets.",
+          "tools": 9
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "ToolsetRegistry.json",
+      "toolsets": [
+        {
+          "id": "UAgentSkillToolset",
+          "desc": "Provides tools for listing, reading, and creating/updating skills.",
+          "tools": 4
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "UMGToolSet.json",
+      "toolsets": [
+        {
+          "id": "UUMGToolSet",
+          "desc": "UMG widget toolset for AI-driven widget creation and tree manipulation. IMPORTANT WORKFLOW - for every widget and slot returned by this toolset: 1. Call ObjectTools.list_properties(widget) to discover exact property names. 2. Call ObjectTools.get_properties(widget, [...]) with those exact names. 3. Call ObjectTools.set_properties(widget, {...}) with those exact names. Property names vary per widget class and CANNOT be guessed - list_properties is required. Skipping step 1 causes set_properties to silently fail or set wrong properties. Returns UObject pointers - ToolsetRegistry serializes them as {\"refPath\": \"...\"} automatically. Pass returned Widget, Slot, and Parent pointers directly to ObjectTools or back to this toolset.",
+          "tools": 23
+        }
+      ],
+      "skills": []
+    },
+    {
+      "file": "WorldConditionsToolset.json",
+      "toolsets": [
+        {
+          "id": "UWorldConditionTools",
+          "desc": "Inspect WorldCondition (FWorldConditionQueryDefinition, FWorldConditionBase) structs.",
+          "tools": 2
+        }
+      ],
+      "skills": []
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+interface:
+  display_name: "UE5 MCP"
+  short_description: "Drive Unreal Editor through UE5 MCP"
+  default_prompt: "Use $ue5-mcp to inspect and modify my Unreal Engine project safely."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "unreal-mcp"
+      description: "Unreal Engine Model Context Protocol server"
+      transport: "streamable_http"
+      url: "http://127.0.0.1:8000/mcp"
+
+policy:
+  allow_implicit_invocation: true

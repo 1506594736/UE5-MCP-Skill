@@ -1,0 +1,97 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "UPhysicsAssetToolset",
+      "desc": "Provides tools for creating and managing Physics Assets.",
+      "tools": [
+        {
+          "id": "CreateFromMesh",
+          "desc": "Creates a physics asset from a skeletal mesh, auto-generating collision bodies for each bone. The asset is placed in the same folder as the mesh with the suffix \"_PhysicsAsset\". @param MeshPath Content-browser path to the skeletal mesh, e.g. '/Game/Characters/SKM_Hero'. @param bAssignToMesh If true, assigns the new physics asset to the mesh. @return The newly created physics asset.",
+          "signature": "UPhysicsAssetToolset.CreateFromMesh(const FString&, bool) -> UPhysicsAsset*"
+        },
+        {
+          "id": "GetBodyNames",
+          "desc": "Returns the bone name for each rigid body in a physics asset. @param PhysicsAsset The physics asset to query. @return A list of bone names, one per body.",
+          "signature": "UPhysicsAssetToolset.GetBodyNames(UPhysicsAsset*) -> TArray<FString>"
+        },
+        {
+          "id": "GetBodyShapes",
+          "desc": "Returns all collision shapes assigned to a body. @param PhysicsAsset The physics asset to query. @param BoneName The name of the bone whose body shapes to retrieve. @return A list of shape descriptors. Raises a script error if no body exists for the bone.",
+          "signature": "UPhysicsAssetToolset.GetBodyShapes(UPhysicsAsset*, const FString&) -> TArray<FPhysicsShapeInfo>"
+        },
+        {
+          "id": "SetSphere",
+          "desc": "Adds or replaces a sphere collision primitive on a body. If any shape with the given name already exists on the body it is removed first. @param PhysicsAsset The physics asset to modify. @param BoneName The name of the bone whose body to modify. @param ShapeName A name that uniquely identifies this shape on the body. @param Center Center of the sphere in bone-local space (cm). @param Radius Radius of the sphere (cm). Must be greater than zero.",
+          "signature": "UPhysicsAssetToolset.SetSphere(UPhysicsAsset*, const FString&, const FString&, const FVector&, float) -> void"
+        },
+        {
+          "id": "SetCapsule",
+          "desc": "Adds or replaces a capsule collision primitive on a body. If any shape with the given name already exists on the body it is removed first. The capsule's long axis is its local Z after applying Rotation. @param PhysicsAsset The physics asset to modify. @param BoneName The name of the bone whose body to modify. @param ShapeName A name that uniquely identifies this shape on the body. @param Center Center of the capsule in bone-local space (cm). @param Rotation Orientation of the capsule in bone-local space. @param Radius Radius of the capsule end-caps (cm). Must be greater than zero. @param Length Length of the cylindrical section (cm). Must be non-negative. Total capsule height = Length + 2 * Radius.",
+          "signature": "UPhysicsAssetToolset.SetCapsule(UPhysicsAsset*, const FString&, const FString&, const FVector&, const FRotator&, float, float) -> void"
+        },
+        {
+          "id": "SetBox",
+          "desc": "Adds or replaces a box collision primitive on a body. If any shape with the given name already exists on the body it is removed first. @param PhysicsAsset The physics asset to modify. @param BoneName The name of the bone whose body to modify. @param ShapeName A name that uniquely identifies this shape on the body. @param Center Center of the box in bone-local space (cm). @param Rotation Orientation of the box in bone-local space. @param ExtentX Full extent along local X (cm). Must be greater than zero. @param ExtentY Full extent along local Y (cm). Must be greater than zero. @param ExtentZ Full extent along local Z (cm). Must be greater than zero.",
+          "signature": "UPhysicsAssetToolset.SetBox(UPhysicsAsset*, const FString&, const FString&, const FVector&, const FRotator&, float, float, float) -> void"
+        },
+        {
+          "id": "RemoveShape",
+          "desc": "Removes a collision primitive from a body by name. @param PhysicsAsset The physics asset to modify. @param BoneName The name of the bone whose body to modify. @param ShapeName The name of the shape to remove.",
+          "signature": "UPhysicsAssetToolset.RemoveShape(UPhysicsAsset*, const FString&, const FString&) -> void"
+        },
+        {
+          "id": "AddBody",
+          "desc": "Adds a new empty body for the given bone. @param PhysicsAsset The physics asset to modify. @param BoneName The name of the bone to add a body for.",
+          "signature": "UPhysicsAssetToolset.AddBody(UPhysicsAsset*, const FString&) -> void"
+        },
+        {
+          "id": "RemoveBody",
+          "desc": "Removes the body for the given bone along with any constraints that reference it. Raises a script error if PhysicsAsset is null or no body exists for BoneName. @param PhysicsAsset The physics asset to modify. @param BoneName The name of the bone whose body to remove.",
+          "signature": "UPhysicsAssetToolset.RemoveBody(UPhysicsAsset*, const FString&) -> void"
+        },
+        {
+          "id": "GetBodyPhysicsMode",
+          "desc": "Returns the physics simulation mode for the given body. @param PhysicsAsset The physics asset to query. @param BoneName The name of the bone whose body to query.",
+          "signature": "UPhysicsAssetToolset.GetBodyPhysicsMode(UPhysicsAsset*, const FString&) -> EBodyPhysicsMode"
+        },
+        {
+          "id": "SetBodyPhysicsMode",
+          "desc": "Sets the physics simulation mode for the given body. @param PhysicsAsset The physics asset to modify. @param BoneName The name of the bone whose body to modify. @param Mode The desired simulation mode.",
+          "signature": "UPhysicsAssetToolset.SetBodyPhysicsMode(UPhysicsAsset*, const FString&, EBodyPhysicsMode) -> void"
+        },
+        {
+          "id": "GetBodyMassScale",
+          "desc": "Returns the mass-scale multiplier for the given body. @param PhysicsAsset The physics asset to query. @param BoneName The name of the bone whose body to query.",
+          "signature": "UPhysicsAssetToolset.GetBodyMassScale(UPhysicsAsset*, const FString&) -> float"
+        },
+        {
+          "id": "SetBodyMassScale",
+          "desc": "Sets the mass-scale multiplier for the given body. @param PhysicsAsset The physics asset to modify. @param BoneName The name of the bone whose body to modify. @param MassScale Multiplier applied to the computed mass. Must be greater than zero.",
+          "signature": "UPhysicsAssetToolset.SetBodyMassScale(UPhysicsAsset*, const FString&, float) -> void"
+        },
+        {
+          "id": "GetConstraints",
+          "desc": "Returns all constraints in the physics asset with their current angular limits. @param PhysicsAsset The physics asset to query. @return A list of constraint descriptors.",
+          "signature": "UPhysicsAssetToolset.GetConstraints(UPhysicsAsset*) -> TArray<FPhysicsConstraintInfo>"
+        },
+        {
+          "id": "AddConstraint",
+          "desc": "Adds a new constraint between two bodies. Both bodies must already exist. @param PhysicsAsset The physics asset to modify. @param Bone1Name Name of the child bone. @param Bone2Name Name of the parent bone.",
+          "signature": "UPhysicsAssetToolset.AddConstraint(UPhysicsAsset*, const FString&, const FString&) -> void"
+        },
+        {
+          "id": "SetConstraintLimits",
+          "desc": "Updates the angular limits for an existing constraint. @param PhysicsAsset The physics asset to modify. @param Info Constraint descriptor. Bone1Name and Bone2Name identify the constraint.",
+          "signature": "UPhysicsAssetToolset.SetConstraintLimits(UPhysicsAsset*, FPhysicsConstraintInfo) -> void"
+        },
+        {
+          "id": "RemoveConstraint",
+          "desc": "Removes the constraint between two bodies. @param PhysicsAsset The physics asset to modify. @param Bone1Name Name of the child bone. @param Bone2Name Name of the parent bone.",
+          "signature": "UPhysicsAssetToolset.RemoveConstraint(UPhysicsAsset*, const FString&, const FString&) -> void"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

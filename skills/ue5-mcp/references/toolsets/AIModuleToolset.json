@@ -1,0 +1,47 @@
+{
+  "toolsets": [
+    {
+      "type": "Python",
+      "id": "BehaviorTreeTools",
+      "desc": "Inspect BehaviorTree (BT) assets.",
+      "tools": [
+        {
+          "id": "get_blackboard",
+          "desc": "Returns the blackboard asset for this behavior tree.",
+          "signature": "BehaviorTreeTools.get_blackboard(unreal.BehaviorTree) -> unreal.BlackboardData"
+        },
+        {
+          "id": "get_root_decorators",
+          "desc": "Returns root-level decorators on this tree.",
+          "signature": "BehaviorTreeTools.get_root_decorators(unreal.BehaviorTree) -> list[unreal.BTDecorator]"
+        },
+        {
+          "id": "list_nodes",
+          "desc": "Returns a flat list of all node UObjects in tree order.",
+          "signature": "BehaviorTreeTools.list_nodes(unreal.BehaviorTree) -> list[unreal.BTNode]"
+        },
+        {
+          "id": "get_node_depth",
+          "desc": "Returns the tree depth of a node by its list_nodes index.",
+          "signature": "BehaviorTreeTools.get_node_depth(unreal.BehaviorTree, int) -> int"
+        },
+        {
+          "id": "get_node_depths",
+          "desc": "Returns tree depths for all nodes, matching list_nodes order.",
+          "signature": "BehaviorTreeTools.get_node_depths(unreal.BehaviorTree) -> list[int]"
+        },
+        {
+          "id": "get_children",
+          "desc": "Returns direct child nodes of a composite node.",
+          "signature": "BehaviorTreeTools.get_children(unreal.BTCompositeNode) -> list[unreal.BTNode]"
+        },
+        {
+          "id": "get_subtree",
+          "desc": "Returns the sub-BT asset referenced by a RunBehavior task.",
+          "signature": "BehaviorTreeTools.get_subtree(unreal.BTNode) -> unreal.BehaviorTree"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

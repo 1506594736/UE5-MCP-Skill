@@ -1,0 +1,82 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "USlateInspectorToolset",
+      "desc": "Playwright-style Slate UI automation toolset. Exposes snapshot, screenshot, and interaction tools for driving the Unreal Editor UI programmatically.  Registered via UToolsetRegistry so the ModelContextProtocol plugin picks them up automatically. A shallow root observer (depth 0) continuously tracks top-level windows.  Before working with a specific window or panel, call Observe() on it to get deep widget coverage, then Unobserve() when done.  Observers walk their subtree every ~100ms, assigning refs to newly appeared widgets and keeping the ref cache current. Input simulation uses direct Slate event APIs (ProcessKeyCharEvent, ProcessMouseButtonDownEvent, etc.) rather than the AutomationDriver, because AutomationDriver's synchronous API deadlocks when called from the game thread (which is where MCP tool calls execute).",
+      "tools": [
+        {
+          "id": "Snapshot",
+          "desc": "widget tree and discover refs for action tools (Click, Type, Hover, etc.). A shallow root observer (depth 0) covers top-level windows automatically. Before interacting with a specific window or panel, call Observe() on it to get deep coverage, then Snapshot that subtree to see its contents. Refs discovered by a previous Snapshot remain usable. You do NOT need to call Snapshot again before every action. @param Ref                      Subtree root ref. Empty = all windows. @param MaxDepth                 Maximum depth (default 30). * @param bIncludeSourceLocations  Include [src=File:Line] tags showing where each widget was created in C++.",
+          "signature": "USlateInspectorToolset.Snapshot(const FString&, int32, bool) -> FString"
+        },
+        {
+          "id": "Observe",
+          "desc": "kept up to date (~100ms tick).  Call this on the window or panel you are about to work with. It ensures new widgets appearing in that subtree are assigned refs automatically.  Unobserve when you are done. A shallow root observer (depth 0) already covers top-level windows. @param Ref       Root widget ref to observe. Empty = all visible windows. * @param MaxDepth  Maximum depth to walk from the root.",
+          "signature": "USlateInspectorToolset.Observe(const FString&, int32) -> FString"
+        },
+        {
+          "id": "Unobserve",
+          "desc": "* @param Identifier  The identifier returned by Observe().",
+          "signature": "USlateInspectorToolset.Unobserve(const FString&) -> bool"
+        },
+        {
+          "id": "ListObservers",
+          "desc": "Each entry includes the observer identifier, whether it is the root observer, * the root widget ref (if any), max depth, and cached snapshot size.",
+          "signature": "USlateInspectorToolset.ListObservers() -> FString"
+        },
+        {
+          "id": "Screenshot",
+          "desc": "SceneTools.take_screenshot for Editor UI; use SceneTools only for 3D viewport. * @param Ref  Slate widget ref. Empty = active window.",
+          "signature": "USlateInspectorToolset.Screenshot(const FString&) -> FToolsetImage"
+        },
+        {
+          "id": "Click",
+          "desc": "@param Ref         Slate widget ref. @param Button      \"left\", \"right\", or \"middle\". @param DoubleClick True for double-click. * @param Modifiers   Modifier keys held during the click.",
+          "signature": "USlateInspectorToolset.Click(const FString&, const FString&) -> bool"
+        },
+        {
+          "id": "Hover",
+          "desc": "* @param Ref  Slate widget ref.",
+          "signature": "USlateInspectorToolset.Hover(const FString&) -> bool"
+        },
+        {
+          "id": "Type",
+          "desc": "then sends one key event per character. @param Ref    Slate textbox ref. @param Text   Text to type. * @param Submit Press Enter after typing.",
+          "signature": "USlateInspectorToolset.Type(const FString&, const FString&, bool) -> bool"
+        },
+        {
+          "id": "PressKey",
+          "desc": "Supports modifier prefixes: \"Ctrl+C\", \"Shift+1\". * @param Key  Key name with optional modifiers, e.g. \"Enter\", \"Ctrl+A\", \"Shift+Tab\".",
+          "signature": "USlateInspectorToolset.PressKey(const FString&) -> bool"
+        },
+        {
+          "id": "SelectOption",
+          "desc": "Opens the dropdown, finds the matching text, and clicks it. @param Ref    Slate combobox ref. * @param Value  Exact option text to select.",
+          "signature": "USlateInspectorToolset.SelectOption(const FString&, const FString&) -> bool"
+        },
+        {
+          "id": "Drag",
+          "desc": "@param StartRef   Slate widget ref for the drag source. @param EndRef     Slate widget ref for the drop target. * @param Modifiers  Modifier keys held during the drag.",
+          "signature": "USlateInspectorToolset.Drag(const FString&, const FString&, const FSlateInspectorToolsetModifierKeys&) -> bool"
+        },
+        {
+          "id": "Windows",
+          "desc": "@param Action  \"list\" returns JSON array, \"select\" brings to front, \"close\" destroys. * @param Index   Window index for select/close.",
+          "signature": "USlateInspectorToolset.Windows(const FString&) -> FString"
+        },
+        {
+          "id": "WaitFor",
+          "desc": "Non-blocking: checks once and returns immediately. Poll to wait. @param Text       Text that must be present (empty = skip). * @param TextGone   Text that must be absent (empty = skip).",
+          "signature": "USlateInspectorToolset.WaitFor(const FString&) -> bool"
+        },
+        {
+          "id": "FillForm",
+          "desc": "@param Fields  Array of {Ref, Value, FieldType} where FieldType is *                \"textbox\", \"checkbox\", or \"combobox\".",
+          "signature": "USlateInspectorToolset.FillForm(const TArray<FSlateInspectorToolsetFormField>&) -> bool"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

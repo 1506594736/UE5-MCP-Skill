@@ -1,0 +1,57 @@
+{
+  "toolsets": [
+    {
+      "type": "Python",
+      "id": "MetaHumanToolset",
+      "desc": "Tools for creating and editing MetaHuman characters",
+      "tools": [
+        {
+          "id": "begin_edit",
+          "desc": "Begin editing a MetaHuman character. Call this FIRST before any other MetaHuman tools.",
+          "signature": "MetaHumanToolset.begin_edit(str) -> MetaHumanEditSession"
+        },
+        {
+          "id": "end_edit",
+          "desc": "End editing a MetaHuman character. Call this LAST after all modifications.",
+          "signature": "MetaHumanToolset.end_edit(MetaHumanEditSession) -> None"
+        },
+        {
+          "id": "get_body_shape",
+          "desc": "Get MetaHuman body shape parameters.",
+          "signature": "MetaHumanToolset.get_body_shape(MetaHumanEditSession) -> BodyShape"
+        },
+        {
+          "id": "set_body_shape",
+          "desc": "Set MetaHuman body shape.",
+          "signature": "MetaHumanToolset.set_body_shape(MetaHumanEditSession, BodyShape) -> None"
+        },
+        {
+          "id": "get_skin_tone",
+          "desc": "Get MetaHuman skin tone.",
+          "signature": "MetaHumanToolset.get_skin_tone(MetaHumanEditSession) -> SkinTone"
+        },
+        {
+          "id": "set_skin_tone",
+          "desc": "Set MetaHuman skin tone.",
+          "signature": "MetaHumanToolset.set_skin_tone(MetaHumanEditSession, SkinTone) -> None"
+        },
+        {
+          "id": "get_eye_color",
+          "desc": "Get MetaHuman eye color.",
+          "signature": "MetaHumanToolset.get_eye_color(MetaHumanEditSession) -> EyeColor"
+        },
+        {
+          "id": "set_eye_color",
+          "desc": "Set MetaHuman eye color.",
+          "signature": "MetaHumanToolset.set_eye_color(MetaHumanEditSession, EyeColor) -> None"
+        },
+        {
+          "id": "create",
+          "desc": "Create a new MetaHuman character asset.",
+          "signature": "MetaHumanToolset.create(str) -> unreal.MetaHumanCharacter"
+        }
+      ]
+    }
+  ],
+  "skills": []
+}

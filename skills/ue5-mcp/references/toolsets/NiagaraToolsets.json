@@ -1,0 +1,393 @@
+{
+  "toolsets": [
+    {
+      "type": "C++",
+      "id": "UNiagaraToolset_Assets",
+      "desc": "Niagara Toolset for discovery of Niagara script assets. Provides: - GetAssetDiscoveryInfo: project-configured asset discovery groups - FindNiagaraScripts: asset registry search filtered by usage, visibility, name, and module usage bitmask - GetNiagaraScriptDigest: decoded asset-registry tags for a single script All functions read from the asset registry without LoadObject. Pair with NiagaraToolset_System.AddModule to drop discovered modules into a stack. Note: FAssetData JSON serialization does not include the TagsAndValues map (it is not a UPROPERTY), so callers wanting decoded metadata for a result row from FindNiagaraScripts must round-trip through GetNiagaraScriptDigest.",
+      "tools": [
+        {
+          "id": "GetAssetDiscoveryInfo",
+          "desc": "Returns the project's configured asset discovery groups. Each group describes a content directory's purpose and paths. @return Configured asset discovery groups, or an empty array if none are configured in NiagaraToolsetsSettings.",
+          "signature": "UNiagaraToolset_Assets.GetAssetDiscoveryInfo() -> TArray<FNiagaraToolsetAssetDiscoveryGroup>"
+        },
+        {
+          "id": "FindNiagaraScripts",
+          "desc": "Searches for UNiagaraScript assets matching the given filters. Reads filterable metadata from asset registry tags only - no LoadObject required. Tags reflect the exposed (published) version of versioned scripts; this function does not need a version filter and there is no way to discover non-exposed versions through the asset registry. @param FolderPath The folder to search within. Pass an empty string to search the entire project. @param Name If non-empty, only return assets whose name contains this substring (case-insensitive). @param Usages If non-empty, only return assets whose Usage matches one of the listed values. Empty array = all usages allowed. @param Visibilities If non-empty, only return assets whose LibraryVisibility matches one of the listed values. Empty array defaults to {Library} (the editor's \"Exposed\") - explicit override required to surface Unexposed or Hidden scripts. @param ModuleUsageBitmask If non-zero, restricts results to Module scripts whose ModuleUsageBitmask shares at least one bit with this argument (any-match). Non-Module scripts are excluded when this is non-zero. Pass 0 to disable the bitmask gate. @param bRecursive Whether to search subfolders. Ignored when FolderPath is empty (whole-project scan is always exhaustive). @param bIncludeDeprecated If false (default usage), assets whose exposed version has bDeprecated=true are excluded. Pass true only when the caller explicitly wants to surface deprecated assets (e.g. searching for the canonical replacement of a known deprecated module). @return Array of AssetData entries for matching scripts. Use GetNiagaraScriptDigest to decode tag metadata for any row.",
+          "signature": "UNiagaraToolset_Assets.FindNiagaraScripts(FString, FString, TArray<ENiagaraScriptUsage>, TArray<ENiagaraScriptLibraryVisibility>, int32, bool, bool) -> TArray<FAssetData>"
+        },
+        {
+          "id": "GetNiagaraScriptDigest",
+          "desc": "Returns the decoded asset-registry tag metadata for a Niagara script asset. Looks up the asset by object path in the asset registry and reads its tags; no LoadObject is performed. Returned fields reflect the exposed (published) version when the script uses FVersionedNiagaraScriptData versioning - the registry never carries non-exposed-version metadata. @param ObjectPath Full object path of the script (e.g. \"/Niagara/Modules/Spawn/Initialize Particle.Initialize Particle\"). @return Decoded digest. If the path is invalid or not a UNiagaraScript, an error is raised and a default-initialized digest is returned.",
+          "signature": "UNiagaraToolset_Assets.GetNiagaraScriptDigest(FString) -> FNiagaraExt_ScriptDigest"
+        }
+      ]
+    },
+    {
+      "type": "C++",
+      "id": "UNiagaraToolset_Blueprint",
+      "desc": "Niagara Toolset for Niagara and Blueprint integration. Provides utilities for creating Blueprint wrappers around Niagara Systems, making it easier to expose Niagara effects as reusable Blueprint actors. Use this toolset when you need to create Blueprint-based FX actors from Niagara systems.",
+      "tools": [
+        {
+          "id": "ConstructNiagaraBPWrapperFromSystem",
+          "desc": "Creates a Blueprint actor wrapper around a Niagara System. This generates a new Blueprint actor with a Niagara component configured to use the specified system. Naming convention: NS_MyEffect -> B_MyEffect @param NewAssetPath Full path for the new Blueprint asset (prefer same directory as System) @param System The Niagara System to wrap in the Blueprint @param ParentClass The parent Actor class for the Blueprint (e.g., AActor) @return The newly created Blueprint actor asset",
+          "signature": "UNiagaraToolset_Blueprint.ConstructNiagaraBPWrapperFromSystem(const FString&, UNiagaraSystem*, UClass*) -> UBlueprint*"
+        },
+        {
+          "id": "ConstructNiagaraBPWrapperFromComponent",
+          "desc": "Creates a Blueprint actor wrapper from a Niagara Component. This generates a new Blueprint actor and preserves all component property values and user variable overrides. Naming convention: NS_MyEffect -> B_MyEffect @param NewAssetPath Full path for the new Blueprint asset (prefer same directory as System) @param Component The Niagara Component with configured properties and overrides to preserve @param ParentClass The parent Actor class for the Blueprint (e.g., AActor) @return The newly created Blueprint actor asset",
+          "signature": "UNiagaraToolset_Blueprint.ConstructNiagaraBPWrapperFromComponent(const FString&, UNiagaraComponent*, UClass*) -> UBlueprint*"
+        }
+      ]
+    },
+    {
+      "type": "C++",
+      "id": "UNiagaraToolset_Component",
+      "desc": "Niagara Toolset for Niagara Component operations. Use this toolset when working with: - Niagara Components on actors - Runtime Niagara system manipulation - User variable overrides on component instances - FX-related operations in levels or blueprints This is the primary toolset for runtime Niagara operations.",
+      "tools": [
+        {
+          "id": "SetSystem",
+          "desc": "Sets the Niagara System for a component. Use this instead of setting the Asset property directly to ensure proper initialization. @param NiagaraComponent The Niagara component to set the system on @param System The Niagara system asset to assign to the component @param bResetExistingOverrideParameters If true, reset all user variables to system defaults; if false, preserve matching overrides",
+          "signature": "UNiagaraToolset_Component.SetSystem(UNiagaraComponent*, UNiagaraSystem*, bool) -> void"
+        },
+        {
+          "id": "GetUserVariables",
+          "desc": "Returns all user variable values currently set on the component. This retrieves the current values of all user-exposed parameters that can be overridden at the component level. @param Component The Niagara component to retrieve user variables from @return Array of user variable instances with their current values",
+          "signature": "UNiagaraToolset_Component.GetUserVariables(UNiagaraComponent*) -> TArray<FNiagaraExt_VariableInst>"
+        },
+        {
+          "id": "SetVariable",
+          "desc": "Sets the value of a user variable on the component. This overrides the default value of a user-exposed parameter on a specific component instance. @param Component The Niagara component to set the variable on @param Variable The variable instance containing the name and new value to set",
+          "signature": "UNiagaraToolset_Component.SetVariable(UNiagaraComponent*, FNiagaraExt_VariableInst) -> void"
+        },
+        {
+          "id": "GetVariable",
+          "desc": "Gets the current value of a specific user variable on the component. This retrieves the current value of a user-exposed parameter, including any component-level overrides. @param Component The Niagara component to retrieve the variable from @param Var The variable definition (name and type) to look up @return The variable instance containing the current value",
+          "signature": "UNiagaraToolset_Component.GetVariable(UNiagaraComponent*, FNiagaraExt_Variable) -> FNiagaraExt_VariableInst"
+        }
+      ]
+    },
+    {
+      "type": "C++",
+      "id": "UNiagaraToolset_Info",
+      "desc": "Niagara Toolset for general Niagara information and guidance. Provides: - Enum value lookups - General usage information Call these functions when you need context about Niagara types.",
+      "tools": [
+        {
+          "id": "UEnum_Info",
+          "desc": "Returns information about a UEnum and all its values. ALWAYS call this when working with a UEnum type to see valid values.",
+          "signature": "UNiagaraToolset_Info.UEnum_Info(UEnum*) -> FString"
+        }
+      ]
+    },
+    {
+      "type": "C++",
+      "id": "UNiagaraToolset_System",
+      "desc": "Niagara Toolset for Niagara System operations. Provides comprehensive access to Niagara System editing, including: - System, emitter, and module creation and modification - Schema discovery for understanding structure - Topology and Summary inspection for viewing current configuration - Data access for reading and writing properties - Dependency rollups via GetSystemDependencies - Dynamic-input chain traversal via GetDynamicInputChain This is the primary toolset for working with Niagara Systems in the editor.",
+      "tools": [
+        {
+          "id": "GetAvailableDynamicInputs",
+          "desc": "Returns all available Dynamic Input Module assets compatible with the given type. Dynamic inputs provide procedural value generation for module parameters. @param Type The Niagara type definition to find compatible dynamic inputs for @return Array of dynamic input script assets that can be used with the specified type",
+          "signature": "UNiagaraToolset_System.GetAvailableDynamicInputs(const FNiagaraTypeDefinition&) -> TArray<UNiagaraScript*>"
+        },
+        {
+          "id": "CreateNiagaraSystem",
+          "desc": "Creates a new Niagara System asset. The new system will be based on the template system, inheriting its configuration and emitters. @param AssetName Name of the new asset (without path or extension) @param AssetPath Directory path where the new asset will be created @param TemplateSystem Template system to base the new system on (required) @return The newly created Niagara System asset if successful, nullptr otherwise",
+          "signature": "UNiagaraToolset_System.CreateNiagaraSystem(FString, FString, UNiagaraSystem*) -> UNiagaraSystem*"
+        },
+        {
+          "id": "GetSystemSchema",
+          "desc": "Returns property schema for Niagara System. Describes all available properties and their types that can be set on a Niagara System. @return Schema describing all system-level properties",
+          "signature": "UNiagaraToolset_System.GetSystemSchema() -> FNiagaraExt_SystemSchema"
+        },
+        {
+          "id": "GetEmitterSchema",
+          "desc": "Returns property schema for Niagara Emitter. Describes all available properties and their types that can be set on a Niagara Emitter. @return Schema describing all emitter-level properties",
+          "signature": "UNiagaraToolset_System.GetEmitterSchema() -> FNiagaraExt_EmitterSchema"
+        },
+        {
+          "id": "GetRendererSchema",
+          "desc": "Returns property schema for a specific Renderer class. Describes all available properties and their types for the given renderer type. @param RendererClass The renderer class to get the schema for (e.g., UNiagaraSpriteRendererProperties) @return Schema describing all properties for the specified renderer class",
+          "signature": "UNiagaraToolset_System.GetRendererSchema(TSubclassOf<UNiagaraRendererProperties>) -> FNiagaraExt_RendererSchema"
+        },
+        {
+          "id": "GetDataInterfaceSchema",
+          "desc": "Returns property schema for a specific Data Interface class. Describes all available properties and their types for the given data interface type. @param DataInterfaceClass The data interface class to get the schema for @return Schema describing all properties for the specified data interface class",
+          "signature": "UNiagaraToolset_System.GetDataInterfaceSchema(TSubclassOf<UNiagaraDataInterface>) -> FNiagaraExt_DataInterfaceSchema"
+        },
+        {
+          "id": "GetStackInputSchema",
+          "desc": "Returns schema for a single module input in the stack. Describes the type, metadata, and configuration options for a specific input parameter. @param InputReference Reference to the stack input to get the schema for @return Schema describing the input's type and available configuration",
+          "signature": "UNiagaraToolset_System.GetStackInputSchema(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_StackInputSchema"
+        },
+        {
+          "id": "GetModuleSchema",
+          "desc": "Returns schema for a module and all its inputs. Call this after seeing a module in topology to understand what inputs it exposes. @param ModuleReference Reference to the module to get the schema for @return Schema describing the module's inputs and their types",
+          "signature": "UNiagaraToolset_System.GetModuleSchema(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_ModuleSchema"
+        },
+        {
+          "id": "GetDynamicInputSchema",
+          "desc": "Returns schema for a dynamic input module in the stack. Describes the inputs and configuration for a procedural value generator. @param DynamicInputReference Reference to the dynamic input to get the schema for @return Schema describing the dynamic input's parameters and their types",
+          "signature": "UNiagaraToolset_System.GetDynamicInputSchema(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_DynamicInputSchema"
+        },
+        {
+          "id": "GetModuleSchemaFromAsset",
+          "desc": "Returns schema for a module asset. Standalone function that doesn't require a system context - useful for browsing available modules. @param ModuleAsset The module script asset to get the schema for @return Schema describing the module's inputs and their types",
+          "signature": "UNiagaraToolset_System.GetModuleSchemaFromAsset(const UNiagaraScript*) -> FNiagaraExt_ModuleSchema"
+        },
+        {
+          "id": "GetDynamicInputSchemaFromAsset",
+          "desc": "Returns schema for a dynamic input asset. Standalone function that doesn't require a system context - useful for browsing available dynamic inputs. @param DynamicInputAsset The dynamic input script asset to get the schema for @return Schema describing the dynamic input's parameters and their types",
+          "signature": "UNiagaraToolset_System.GetDynamicInputSchemaFromAsset(const UNiagaraScript*) -> FNiagaraExt_DynamicInputSchema"
+        },
+        {
+          "id": "GetSystemSummary",
+          "desc": "Returns lightweight system metadata: name, user variables, and one summary entry per emitter. Use this for first contact with an unfamiliar system. For full structural detail call GetEmitterTopology per emitter. @param System The Niagara System to summarise. @return Summary containing system name, user variables, and per-emitter metadata.",
+          "signature": "UNiagaraToolset_System.GetSystemSummary(UNiagaraSystem*) -> FNiagaraExt_SystemSummary"
+        },
+        {
+          "id": "GetEmitterSummary",
+          "desc": "Returns lightweight emitter metadata: name, enabled state, sim target, renderer classes. Use this when you only need to check metadata without walking the full emitter structure. @param EmitterRef Reference to the emitter to summarise. @return Summary containing emitter name, enabled, sim target, de-duplicated renderer classes.",
+          "signature": "UNiagaraToolset_System.GetEmitterSummary(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_EmitterSummary"
+        },
+        {
+          "id": "GetEmitterTopology",
+          "desc": "Returns full emitter topology: four script stacks with all modules and inputs, renderer references. All fields always populated. The returned topology carries no input values; call GetEmitterInputValues in parallel. Note: mutation endpoints (AddEmitter, AddModule) also return topology structs — input values require a separate data call. @param EmitterRef Reference to the emitter to describe. @return Emitter topology with all four script stacks and renderer references fully walked.",
+          "signature": "UNiagaraToolset_System.GetEmitterTopology(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_EmitterTopology"
+        },
+        {
+          "id": "GetScriptStackTopology",
+          "desc": "Returns script stack topology: all modules and their inputs in execution order. All fields always populated. @param ScriptRef Reference to the script stack to describe. @return Script stack topology with all modules and inputs fully walked.",
+          "signature": "UNiagaraToolset_System.GetScriptStackTopology(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_ScriptStackTopology"
+        },
+        {
+          "id": "GetModuleTopology",
+          "desc": "Returns module topology: metadata and all inputs (name/type/visibility only, no values). All fields always populated. @param ModuleRef Reference to the module to describe. @return Module topology with all inputs in walk order.",
+          "signature": "UNiagaraToolset_System.GetModuleTopology(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_ModuleTopology"
+        },
+        {
+          "id": "GetStackInputTopology",
+          "desc": "Returns stack input topology: name, type, visibility, editability. No value payload. For the resolved value call GetStackInputData. For a dynamic-input chain call GetDynamicInputChain. @param StackInputRef Reference to the stack input to describe. @return Input topology with structural metadata only.",
+          "signature": "UNiagaraToolset_System.GetStackInputTopology(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_StackInputTopology"
+        },
+        {
+          "id": "GetUserVariables",
+          "desc": "Returns all user variables defined on the system. User variables are parameters exposed for external control and can be overridden per component instance. @param System The Niagara System to retrieve user variables from @return Collection of all user variables with their names, types, and default values",
+          "signature": "UNiagaraToolset_System.GetUserVariables(UNiagaraSystem*) -> FNiagaraExt_UserVariables"
+        },
+        {
+          "id": "GetSystemData",
+          "desc": "Returns system property values. Retrieves the current values of all configurable system-level properties. @param System The Niagara System to retrieve data from @return Data structure containing all system property values",
+          "signature": "UNiagaraToolset_System.GetSystemData(UNiagaraSystem*) -> FNiagaraExt_SystemData"
+        },
+        {
+          "id": "GetEmitterData",
+          "desc": "Returns emitter property values as a single JSON-string blob in PropertyValues. The blob contains the full FVersionedNiagaraEmitterData (SimTarget, bLocalSpace, RandomSeed, FixedBounds, etc.) — fields use C++ PascalCase, must be parsed to read individual values. For typed access to common metadata (SimTarget, EmitterName, bEnabled, RendererClasses) prefer GetEmitterSummary — it returns those as named fields directly and avoids a JSON parse step. Use this endpoint when you need the full property set or a less-common field. @param EmitterRef Reference to the emitter to retrieve data from @return Data structure with PropertyValues set to a JSON blob of all emitter properties",
+          "signature": "UNiagaraToolset_System.GetEmitterData(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_EmitterData"
+        },
+        {
+          "id": "GetRendererData",
+          "desc": "Returns renderer property values. Retrieves the current values of all configurable renderer properties. @param RendererRef Reference to the renderer to retrieve data from @return Data structure containing all renderer property values",
+          "signature": "UNiagaraToolset_System.GetRendererData(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_RendererData"
+        },
+        {
+          "id": "GetStackInputData",
+          "desc": "Returns the value of a stack module input. Retrieves the current value and configuration for a specific module input parameter. @param StackInputRef Reference to the stack input to retrieve data from @return The current value and configuration of the input",
+          "signature": "UNiagaraToolset_System.GetStackInputData(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_StackInputValue"
+        },
+        {
+          "id": "GetEmitterInputValues",
+          "desc": "Returns all resolved input values for every module across all four emitter script stacks. One FNiagaraExt_ModuleInputValues entry per module, each carrying all its resolved input values. Call this in parallel with GetEmitterTopology to get both structure and values in two passes. @param EmitterRef Reference to the emitter to retrieve input values from @return Array of per-module input value bundles across all four script stacks",
+          "signature": "UNiagaraToolset_System.GetEmitterInputValues(const FNiagaraExt_StackItemReference&) -> TArray<FNiagaraExt_ModuleInputValues>"
+        },
+        {
+          "id": "GetScriptStackInputValues",
+          "desc": "Returns all resolved input values for every module in the given script stack. One FNiagaraExt_ModuleInputValues entry per module. @param ScriptRef Reference to the script stack @return Array of per-module input value bundles in execution order",
+          "signature": "UNiagaraToolset_System.GetScriptStackInputValues(const FNiagaraExt_StackItemReference&) -> TArray<FNiagaraExt_ModuleInputValues>"
+        },
+        {
+          "id": "GetModuleInputValues",
+          "desc": "Returns resolved input values for a single module. Use when you need values for one specific module without walking the whole emitter. @param ModuleRef Reference to the module @return Input value bundle for the module",
+          "signature": "UNiagaraToolset_System.GetModuleInputValues(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_ModuleInputValues"
+        },
+        {
+          "id": "GetDynamicInputChain",
+          "desc": "Returns the full recursive chain for a dynamic input: topology metadata and resolved values at every level. The starting input must have value mode Dynamic; an error is surfaced otherwise. The schema expands one full level and emits a typed recursion stub at deeper levels; the wire format recurses to arbitrary depth matching the underlying chain. @param StackInputRef Reference to the dynamic input to traverse @return Recursive chain of entries, each carrying topology metadata and a resolved Value payload",
+          "signature": "UNiagaraToolset_System.GetDynamicInputChain(const FNiagaraExt_StackItemReference&) -> FNiagaraExt_DynamicInputChainRef"
+        },
+        {
+          "id": "GetSystemDependencies",
+          "desc": "Returns the four Used* sets (renderers, data interfaces, modules, dynamic inputs) gathered across all emitters and system scripts. These sets are not included in topology structs; call this endpoint separately when needed. @param System The Niagara System to scan @return Dependency rollup with four distinct asset sets",
+          "signature": "UNiagaraToolset_System.GetSystemDependencies(UNiagaraSystem*) -> FNiagaraExt_SystemDependencies"
+        },
+        {
+          "id": "SetSystemData",
+          "desc": "Sets property values on a Niagara System. Applies new values to system-level properties based on the provided data structure. @param System The Niagara System to modify @param SystemData Data structure containing the property values to set",
+          "signature": "UNiagaraToolset_System.SetSystemData(UNiagaraSystem*, const FNiagaraExt_SystemData&) -> void"
+        },
+        {
+          "id": "SetEmitterData",
+          "desc": "Sets property values on a Niagara Emitter. Applies new values to emitter-level properties based on the provided data structure. @param Emitter Reference to the emitter to modify @param EmitterData Data structure containing the property values to set",
+          "signature": "UNiagaraToolset_System.SetEmitterData(const FNiagaraExt_StackItemReference&, const FNiagaraExt_EmitterData&) -> void"
+        },
+        {
+          "id": "SetRendererData",
+          "desc": "Sets property values on a Niagara Renderer. Applies new values to renderer properties based on the provided data structure. Payload shape varies with the concrete renderer class; call GetRendererSchema for the renderer's class to inspect valid properties before writing. @param Renderer Reference to the renderer to modify @param RendererData Data structure containing the property values to set",
+          "signature": "UNiagaraToolset_System.SetRendererData(const FNiagaraExt_StackItemReference&, const FNiagaraExt_RendererData&) -> void"
+        },
+        {
+          "id": "AddUserVariables",
+          "desc": "Adds or updates user variables on a system. If a variable with the same name already exists, it will be replaced with the new definition. @param System The Niagara System to add variables to @param VariablesToAdd Array of user variables to add or update",
+          "signature": "UNiagaraToolset_System.AddUserVariables(UNiagaraSystem*, const TArray<FNiagaraExt_UserVariable>&) -> void"
+        },
+        {
+          "id": "RemoveUserVariables",
+          "desc": "Removes user variables from a system. Deletes the specified user variables from the system's user parameter collection. @param System The Niagara System to remove variables from @param VariablesToRemove Array of variable definitions identifying which variables to remove",
+          "signature": "UNiagaraToolset_System.RemoveUserVariables(UNiagaraSystem*, const TArray<FNiagaraExt_Variable>&) -> void"
+        },
+        {
+          "id": "AddEmitter",
+          "desc": "Adds an emitter to a Niagara System. The new emitter will be based on the template emitter, inheriting its configuration and modules. Returns the full emitter topology (no input values — call GetEmitterInputValues for values). @param System The Niagara System to add the emitter to @param TemplateEmitter The emitter asset to use as a template for the new emitter @param EmitterName Name for the new emitter instance @return Topology of the newly added emitter with all scripts and modules walked",
+          "signature": "UNiagaraToolset_System.AddEmitter(UNiagaraSystem*, UNiagaraEmitter*, FName) -> FNiagaraExt_EmitterTopology"
+        },
+        {
+          "id": "RemoveEmitter",
+          "desc": "Removes an emitter from a system. Deletes the specified emitter and all its associated scripts, modules, and renderers. @param EmitterToRemove Reference to the emitter to remove from the system",
+          "signature": "UNiagaraToolset_System.RemoveEmitter(const FNiagaraExt_StackItemReference&) -> void"
+        },
+        {
+          "id": "AddRenderer",
+          "desc": "Adds a renderer to an emitter. Creates a new renderer of the specified type and adds it to the emitter's renderer list. Returns an FNiagaraExt_RendererRef with the new renderer's Index and RendererClass, usable directly with SetRendererData / GetRendererData without a follow-up topology call. @param NewRendererLocation Reference specifying which emitter to add the renderer to @param RendererClass The class of renderer to create (e.g., UNiagaraSpriteRendererProperties) @return Renderer reference (Index + RendererClass) for the newly added renderer.",
+          "signature": "UNiagaraToolset_System.AddRenderer(const FNiagaraExt_StackItemReference&, const TSubclassOf<UNiagaraRendererProperties>) -> FNiagaraExt_RendererRef"
+        },
+        {
+          "id": "RemoveRenderer",
+          "desc": "Removes a renderer from an emitter. Deletes the specified renderer from the emitter's renderer list. @param RendererToRemove Reference to the renderer to remove",
+          "signature": "UNiagaraToolset_System.RemoveRenderer(const FNiagaraExt_StackItemReference&) -> void"
+        },
+        {
+          "id": "AddModule",
+          "desc": "Adds a module to a script stack. The module will be inserted into the specified script's execution stack. Returns the module topology with all inputs walked (no input values — call GetModuleInputValues for values). @param ModuleLocationRef Reference specifying where to add the module @param ModuleAsset The module script asset to add to the stack @return Topology of the newly added module with all inputs populated",
+          "signature": "UNiagaraToolset_System.AddModule(const FNiagaraExt_StackItemReference&, const UNiagaraScript*) -> FNiagaraExt_ModuleTopology"
+        },
+        {
+          "id": "RemoveModule",
+          "desc": "Removes a module from a script stack. Deletes the specified module and all its inputs from the script's execution stack. @param ModuleToRemove Reference to the module to remove from the stack",
+          "signature": "UNiagaraToolset_System.RemoveModule(const FNiagaraExt_StackItemReference&) -> void"
+        },
+        {
+          "id": "SetModuleEnabled",
+          "desc": "Sets whether a module is enabled. Disabled modules remain in the stack but don't execute. Current state is visible in module topology. @param ModuleRef Reference to the module to enable or disable @param bEnabled True to enable the module, false to disable it",
+          "signature": "UNiagaraToolset_System.SetModuleEnabled(const FNiagaraExt_StackItemReference&, bool) -> void"
+        },
+        {
+          "id": "AddSetParametersModule",
+          "desc": "Adds a SetParameters module to a script stack. Unlike AddModule which requires a script asset, a SetParameters module dynamically assigns values to named parameters and generates its own internal script. Use this when you need to set one or more particle/emitter/system parameters directly in the stack. @param ModuleLocationRef Reference specifying where to add the module @param Parameters Array of parameter entries, each with a variable (name + type) and an optional default value string @return Topology of the newly added module, including all its inputs",
+          "signature": "UNiagaraToolset_System.AddSetParametersModule(const FNiagaraExt_StackItemReference&, const TArray<FNiagaraExt_SetParameterEntry>&) -> FNiagaraExt_ModuleTopology"
+        },
+        {
+          "id": "AddSetParameterEntry",
+          "desc": "Adds a single parameter to an existing SetParameters module. The module referenced by ModuleRef must be a SetParameters (UNiagaraNodeAssignment) module. Use bIsSetParametersModule in the module topology to confirm before calling. @param ModuleRef Reference to the existing SetParameters module @param Entry The parameter to add (variable name, type, and optional default value string) @return Updated topology of the module after the parameter is added",
+          "signature": "UNiagaraToolset_System.AddSetParameterEntry(const FNiagaraExt_StackItemReference&, const FNiagaraExt_SetParameterEntry&) -> FNiagaraExt_ModuleTopology"
+        },
+        {
+          "id": "RemoveSetParameterEntry",
+          "desc": "Removes a parameter from an existing SetParameters module by name. The module referenced by ModuleRef must be a SetParameters (UNiagaraNodeAssignment) module. Use bIsSetParametersModule in the module topology to confirm before calling. @param ModuleRef Reference to the existing SetParameters module @param ParameterName Name of the parameter to remove",
+          "signature": "UNiagaraToolset_System.RemoveSetParameterEntry(const FNiagaraExt_StackItemReference&, FName) -> void"
+        },
+        {
+          "id": "SetStackInputData",
+          "desc": "Sets the value of a stack module input and returns the resulting stored value. Updates the value and configuration for a specific module input parameter. @param StackInputRef Reference to the stack input to modify @param InputData The new value and configuration to apply to the input @return The value now stored on the input after the operation",
+          "signature": "UNiagaraToolset_System.SetStackInputData(const FNiagaraExt_StackItemReference&, const FNiagaraExt_StackInputValue&) -> FNiagaraExt_StackInputValue"
+        },
+        {
+          "id": "GetSystemCompileState",
+          "desc": "Returns the current compile state of a Niagara System: aggregate status, per-script compile events, and summary flags. Waits for any in-flight compile to complete before collecting. @param System The Niagara System to query. @return Async result whose Value carries aggregate and per-script compile state.",
+          "signature": "UNiagaraToolset_System.GetSystemCompileState(UNiagaraSystem*) -> UNiagaraToolset_AsyncSystemCompileState*"
+        },
+        {
+          "id": "GetStackIssues",
+          "desc": "Returns all stack issues (errors, warnings, info) from the Niagara module stack, including dismissed ones. Waits for any in-flight compile to complete before collecting. @param System The Niagara System to query. @return Async result whose Value carries all stack issues across the system and its emitters.",
+          "signature": "UNiagaraToolset_System.GetStackIssues(UNiagaraSystem*) -> UNiagaraToolset_AsyncStackIssues*"
+        },
+        {
+          "id": "ApplyStackIssueFix",
+          "desc": "Applies a Fix-style stack issue fix identified by IssueId and FixId. Link-style fixes are rejected. The fix is undoable via the editor undo stack. Applying a fix may trigger a recompile; the result waits for that compile to complete so post-fix state is valid. @param System  The Niagara System to apply the fix to. @param IssueId IssueId from a prior FNiagaraExt_StackIssue. @param FixId   FixId from a prior FNiagaraExt_StackIssueFix. @return Async result carrying the fix outcome and a post-fix stack-issues snapshot.",
+          "signature": "UNiagaraToolset_System.ApplyStackIssueFix(UNiagaraSystem*, FString, FString) -> UNiagaraToolset_AsyncApplyStackIssueFixResult*"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "NiagaraBlueprintInteropSkill",
+      "desc": "Covers driving Niagara Systems from Blueprint at runtime -- spawn-mechanism choice, parameter binding, and pooling and lifetime.",
+      "instructions": "## Spawn mechanism\nMatch the mechanism to the effect's lifetime, ownership, and trigger source. Don't stack mechanisms.\n\n- **Component on the actor BP** -- the effect is part of the actor's identity (projectile trail, weapon idle, carried-item glow). Construction amortizes across the actor's lifetime. If the BP triggers the start manually (e.g. fuse delay), turn off auto-activate.\n- **Spawn at location** -- one-shot world FX with no owning actor. Capture the return value if parameters need setting post-spawn or for early deactivate.\n- **Spawn attached** -- one-shot following a moving target the spawner doesn't own. Pays per-frame transform parenting; only use when the FX must follow a target you don't own.\n- **Gameplay Cue Notify** -- whenever a Gameplay Tag association exists. Data-driven and decouples gameplay from the BP that defines the FX. Requires the Gameplay Abilities plugin.\n- **Anim notify (one-shot or timed)** -- start, duration, and end are dictated by an animation clip.\n- **Niagara Data Channel** -- a high-frequency repeating event class (footsteps, bullet impacts, projectile trails at scale) that an existing channel already covers. Publish to the channel; don't author a per-event spawn call competing with it.\n\n## Parameter binding\nDrive User Parameters from BP via the typed Set Niagara Variable nodes on a component reference (component on the BP, spawn return value, or Get Spawned Effect on an anim notify).\n\n- Pass the bare parameter name -- no `User.` prefix.\n- No enum setter exists. Set the underlying int and let Niagara reinterpret.\n- Type must match exactly. A wrong-type set is a silent no-op, not an error. World-space anchors are Position (LWC-aware), not Vector3; directions, normals, velocities, and offsets are Vector3.\n\n## Pooling and lifetime\nPooling is set by the spawner, not on the asset.\n\n- Repeating one-shots must use auto-release pooling. The default leaks component allocations one per spawn.\n- Auto-destroy lives on the spawn node (not on the component) and only applies to fire-and-forget spawns. Set it true unless the BP itself calls deactivate. Components placed on a BP class don't have this pin -- they persist with the actor.\n\nThe performance skill covers pooling cost trade-offs and when pooling pays off.",
+      "toolsets": [
+        "NiagaraToolset_Info",
+        "NiagaraToolset_System",
+        "NiagaraToolset_Blueprint",
+        "NiagaraToolset_Component"
+      ]
+    },
+    {
+      "id": "NiagaraCleanupSkill",
+      "desc": "Covers inspecting a Niagara System for cleanup candidates -- orphaned modules, unused User Parameters, and leftover state after modifications -- and presenting them to the user before removal.",
+      "instructions": "Never remove or modify anything without confirmation. Present findings; let the user decide.\n\n## What to look for\nThe non-obvious orphan classes -- the ones a generic \"unused asset\" sweep will miss:\n\n- **Modules that run but do nothing.** A spawn-rate module hardcoded to zero on a non-looping emitter; collision disabled by default with no role for the effect; a force module reading a system variable that no module writes anymore.\n- **Dynamic Input chains reading dead attributes.** When a writer module is removed, downstream Dynamic Inputs reading the attribute it produced still resolve -- to defaults or stale values -- without erroring.\n- **Data Interface initializers for removed consumers.** Set-parameter modules that initialize a mesh reader, skeletal reader, or similar Data Interface for a module no longer in the stack.\n- **User Parameters whose driving modules are gone.** Exposed but unreferenced; they survive because nothing flags them.\n\nThe common thread: removal of one module silently strands its readers and initializers. Walk the stack with that lens.\n\n## Before judging\nUnderstand the effect's intended use case. Something that looks unused in isolation may be intentional context (a collision module disabled by default but flipped on by a consumer-side override; a parameter exposed for designers).\n\n## Presenting findings\nGive the user a per-item table with location, what it is, and why you flagged it. State which you'd remove and why -- but wait for confirmation before touching anything. If the system is clean, say so and stop.\n\n## On removal\nFor an orphaned Dynamic Input chain, the input needs a replacement -- a direct value or a Dynamic Input that matches the original intent. Ask if the intent isn't obvious from context.",
+      "toolsets": [
+        "NiagaraToolset_Info",
+        "NiagaraToolset_System",
+        "NiagaraToolset_Component"
+      ]
+    },
+    {
+      "id": "NiagaraCustomHLSLSkill",
+      "desc": "Covers writing inline HLSL expressions in Niagara dynamic inputs -- single-rvalue syntax, CPU VM and GPU intrinsic compatibility, and Particle/Emitter/System scope rules.",
+      "instructions": "## Usage Rules\n- Single rvalue of the correct type. No variable declarations, no `return`.\n- Must compile on both the CPU VM and GPU. Stick to basic math/trig (`sin`, `cos`, `rcp`, `abs`, `min`, `max`); intrinsics like `smoothstep` aren't implemented on the CPU VM and will silently diverge.\n- Scope rules: a Particle expression can read Emitter and System; an Emitter expression cannot read Particles.",
+      "toolsets": [
+        "NiagaraToolset_Info",
+        "NiagaraToolset_System",
+        "NiagaraToolset_Component"
+      ]
+    },
+    {
+      "id": "NiagaraFundamentalsSkill",
+      "desc": "Covers the foundational rules for authoring Niagara systems -- templates, sim target, script stack ordering, lifecycle and initialization, parameter namespaces, randomness, coordinate spaces, HLSL expressions, User Parameters, and materials.",
+      "instructions": "## Templates for new assets\n- When searching for any asset type relevant to a Niagara system — including emitters, materials, textures, and modules — always search across all relevant content folders starting with /Niagara/, and /NiagaraToolsets/. Do not restrict searches to a single folder. Do not stop at the first search result.\n\n## Sim Target -- CPU vs GPU\n- A System can mix CPU and GPU emitters freely.\n- CPU is required to fire Niagara Events and to ship to platforms without compute-shader support. Default to CPU when compute support is uncertain.\n- GPU is required for GPU-only Data Interfaces, Simulation Stages, and sustaining hundreds+ of particles.\n\n## Editing\n- Read module descriptions and input tooltips before using them -- functionality and naming conventions drift. Module functionality is rarely fully captured by its name.\n- When finding scripts, the default visibility filter restricts results to library-exposed scripts. Only widen to hidden / unexposed when the user has explicitly asked for one.\n\n## Script Stack Ordering\nThe stack runs in fixed scope/phase order: System -> Emitter -> Particle, each with Spawn (once at creation) and Update (every tick). Place modules by what they do:\n- One-shot constants and one-time computed values: Spawn phase of the relevant scope.\n- Per-tick recomputed values driven by inputs that change at runtime: System or Emitter Update.\n- Per-particle initialization: Particle Spawn, set via the initialize particles module before any later Set/override modules.\n- Forces, then collision, then the velocity solve, in that order, in Particle Update. The solve runs exactly once per tick.\n\n## System/Emitter State\n- Loop Behavior: Once, Infinite, or Multiple with Loop Count. Always verify the loop behavior matches intent.\n- Per-emitter scalability requires the emitter to evaluate its own state rather than inherit from the system.\n- Setting Life Cycle Mode to Self only makes the emitter manage its own lifecycle, but doesn't change how it loops.\n\n## Particle Initialization\n- Configure initial values on the initialize particles module first; only add a separate Set/Initialize module when the value isn't exposed there.\n- Hue shift has no effect on a neutral (white) base color. Set the base color to RED (1, 0, 0) for hue shift to work.\n\n## Collision\n- Collision works on both CPU and GPU; mode options switch with sim target. Inspect the module schema for current options.\n- GPU depth-buffer collision against opaque materials reads the particles' own pixels and self-collides. Enable Partial Depth to exclude particle pixels from the depth read.\n\n## Random Values\nFor range requests (\"10 to 20\", \"1-3 seconds\"), configure randomness -- don't pick a single value. Prefer the module's own min/max mode; fall back to a Random dynamic input when min/max isn't exposed.\n\n## Parameter Namespaces\n- User       -- externally set; read anywhere.\n- Engine     -- engine-provided (DeltaTime, Owner xform, ExecutionState); read-only.\n- System     -- system-scope; written by System scripts; visible to Emitter/Particle.\n- Emitter    -- emitter-scope; written by Emitter scripts; visible to Particle.\n- Particles  -- per-particle; written by Particle scripts.\n\n## Linked Parameters\n- Namespace Format: `<Namespace>.<ModuleInstanceName>.<AttributeName>` -- Use the module's actual instance name (renaming a module changes the linked path); never the literal `MODULE` placeholder.\n- Global controls are often defined as user, system or emitter parameters. Follow linked parameters to get the full picture.\n\n## Dynamic Inputs\n- Follow the dynamic input chains in full before deciding on a course of action.\n\n## User Parameters\n- Evaluated every frame -- keep them targeted; avoid expensive data interfaces.\n- They are the external interface into the system. The Blueprint interop skill covers binding them at runtime.\n\n## Coordinate Spaces\n- The most common mistake is choosing Local Space because the system is attached to the actor — attachment controls spawn origin, space setting controls post-spawn behavior. These are independent concerns.\n- Default to World Space unless particles must rigidly follow the actor; Local Space is the exception, not the starting point.\n- Individual modules can declare a space independent of the emitter; check the module's space input.\n- LWC: keep `Position`-typed data as `Position`. Do not convert to `Vector` unless no other option exists.\n\n## HLSL Expressions\n- Last resort. Prefer dynamic inputs or module configuration.\n\n## Sprite Rotations\n- Sprites can be tumbled in 3D -- Use the mesh rotation modules (including aerodynamic drag when appropriate) and utilize the Align Sprite To Mesh Orientation module.\n\n## Scale\n- Unreal Engine operates at 1 unit = 1 cm, so parameter values map directly to real-world scales. Verify size, velocity, and lifetime against the real-world scale of the subject the effect represents.\n\n## Verify Intent\n- After building or modifying a system, trace the full input chain of every velocity-affecting module and every appearance-affecting module.\n- Every module present is executing — Verify the resolved behavior matches the **stated intent**, not just the authored intent.\n\n## Verify State\n- Edits can put a system into a bad state. You must verify the system is valid after modifications. Open the Niagara editor and check for stack errors and warnings. Opening the editor is necessary for the errors to surface.\n\n## Materials\n- Prefer material instances over materials.\n- Materials access per particle canonical data via `Particle*` nodes; custom per-particle dynamic data flows through the dynamic-parameter material node, populated from the matching particle module.\n- If a particle will be seen from both sides make sure the material supports it by activating the Two Sided option.\n- Materials require the correct usage flags per renderer type -- Used with Niagara Sprites/Ribbons/Mesh Particles. Each usage flag comes with a cost. Apply the minimal set.\n- Prefer Masked over Translucent materials. Only use Translucent when the effect genuinely requires partial transparency or soft blending.\n- Translucent materials do not support Metallic, Specular, Roughness, Normal by default. Translucency Lighting Mode must be set to one of the Directional options to activate these inputs.\n- The renderers skill covers per-renderer material requirements.\n\n## Out of scope\nThe toolset doesn't support Lightweight Emitters or Niagara Data Channels. If a task requires either, surface the limit rather than working around it. Avoid listing assets which reference Lightweight or Data Channels when asked.",
+      "toolsets": [
+        "NiagaraToolset_Info",
+        "NiagaraToolset_System",
+        "NiagaraToolset_Blueprint",
+        "NiagaraToolset_Component"
+      ]
+    },
+    {
+      "id": "NiagaraLevelPlacementSkill",
+      "desc": "Triggers when the user asks to place or spawn a gameplay VFX -- smoke, plume, fire, explosion, spark, trail, beam, muzzle flash, impact, burst, dust, cloud, ember, projectile, hit, ability, status effect. Enforces the search-present-confirm gate before placing an existing asset.",
+      "instructions": "Generic template systems can be found in the Niagara and NiagaraToolsets plugins.\n\nSearch the project for candidate VFX assets matching the user's request. Present the matches with location and a brief description, then stop and wait for the user to pick one. Do not place the first match. If nothing matches, say so -- do not author a new system unless the user explicitly asks.",
+      "toolsets": [
+        "NiagaraToolset_Info",
+        "NiagaraToolset_System",
+        "NiagaraToolset_Component"
+      ]
+    },
+    {
+      "id": "NiagaraOptimizationSkill",
+      "desc": "Covers reducing the CPU and GPU cost of Niagara effects -- sim target, emitter consolidation, bounds, scalability and Effect Types, pooling, system-level cheap wins, particle-only mesh stripping, and burst spawning.",
+      "instructions": "## Sim target -- the headline cost\nSystem and Emitter scripts always run on CPU through the Niagara VM. Only Particle scripts move to GPU when SimTarget is GPU. Switching an emitter to GPU does not eliminate its per-emitter CPU cost -- it just moves the particle work.\n\nGPU dispatches in fixed-size waves: an emitter under one wave's worth of particles wastes the same hardware as a full one. Rule of thumb: comfortably above ~100 simultaneous particles, not gating gameplay or silhouette, is a viable GPU candidate.\n\nPlatform context matters more than raw particle count. Mobile and Switch are typically GPU-bound -- keep simple sims on CPU to preserve GPU headroom. CPU-bound PC projects benefit from offloading moderate-count sims to GPU. Some platforms have no compute support at all; those emitters are CPU-only regardless.\n\n## Emitter consolidation -- the primary lever\nReducing emitter count beats almost any other optimization. Three patterns:\n\n- **One emitter, multiple renderers.** A single particle stream feeds Sprite + Light + Mesh simultaneously. The sim cost is paid once.\n- **Multi-source spawning in one emitter.** Replace N near-identical emitters (e.g. one per bone) with one emitter and N spawn modules tagged by spawn group. Particles inherit the group ID; downstream modules branch on it. Cuts VM overhead linearly with N.\n- **Cross-emitter reads via Attribute Reader, not Event Handlers.** Event Handlers are valid for genuinely event-triggered logic but pay higher per-crossing cost.\n\n## Bounds\nThe choice gates CPU recalc cost and GPU compatibility:\n\n- **Fixed** -- no per-frame recalc, works on CPU and GPU. Cheapest. Don't oversize on small fast-moving effects -- they stay relevant off-screen and waste cycles.\n- **Dynamic** -- per-frame recalc from particle positions. CPU emitters only. Use only when scale varies wildly between instances.\n- **Programmable** -- driven by an emitter-bounds module. Works on GPU. The choice for GPU emitters needing per-instance scaled or moving bounds.\n\nDeclare initial streaming bounds on the system so the renderer registers the system immediately on activation.\n\n## Scalability and Effect Types\nEffect Types apply project-wide significance handling -- distance culling, instance limits, visibility culling, cull-proxy mode -- to every system that references them. They're shared assets; never create a new one without confirming first. If no existing one matches, ask. Pick along two axes: gameplay vs environment (gameplay culls tighter, higher priority) and burst vs looping (burst tolerates instant culling; looping needs a delay to avoid pop).\n\nPer-emitter and per-renderer scalability gates flag pieces to run only on specific quality tiers; gated-off pieces incur no sim or render cost. Use these to land the low-spec degradation path -- including CPU-only platforms where compute-shader emitters must be gated off entirely.\n\nBudget Scaling on the asset reacts to the project's global FX budget at runtime. Inspect the asset for current properties.\n\n## Pooling cost\nPooling pays off for frequently spawned, moderate-volume effects -- impacts, hit reactions, footsteps. Below a threshold, the bookkeeping costs more than it saves. Auto-release for fire-and-forget; manual release when gameplay code owns the lifetime (status auras, channeled abilities). The blueprint interop skill covers the spawn-side wiring.\n\n## System-level cheap wins\n- **Require Current Frame Data** -- disable for non-moving / statically attached systems. Lets ticks start earlier and spreads CPU load. Trade-off: visible lag between effect and source -- keep enabled on high-speed gameplay tracking moving sockets (projectiles, muzzle flashes).\n- **Owner-velocity inheritance** -- disable when not attached to a moving object. Removes a game-thread dependency.\n- **Trim Attributes** -- keep on. Strips unused particle attributes at compile.\n\n## Particle-only meshes\nWhen a static mesh is only ever a particle, strip what the renderer will never use: collisions, cast-shadow on the LOD (especially translucent), distance-field resolution (set to zero), and unused UV channels.\n\n## Burst spawning\nLarge single-frame spawns hitch the CPU. Spread big counts across frames.\n\n## Renderer-level optimization\nCovered in the renderers skill alongside per-renderer rules.",
+      "toolsets": [
+        "NiagaraToolset_Info",
+        "NiagaraToolset_System",
+        "NiagaraToolset_Component"
+      ]
+    },
+    {
+      "id": "NiagaraRenderersSkill",
+      "desc": "Covers choosing and configuring Niagara renderers -- per-type rules (Sprite, Mesh, Ribbon, Light, Decal, Component), source mode, sprite alignment, visibility-tag and mesh-variant differentiation, sort mode, and silent-failure material dependencies.",
+      "instructions": "## Renderer choice\nSprite is the default for camera-facing cards (smoke, sparks, dust). Mesh for chunky 3D (debris, shrapnel, hero cores). Ribbon for trails / beams / connecting threads anchored to ordered particles.\n\nThree are CPU-only and force the whole emitter to CPU when present:\n\n- **Light** -- hero accents only. One particle, low count, very short lifetime; never on a high-count emitter. Disable on low-tier platforms; particles don't cast shadows so the renderer is the only cost.\n- **Decal** -- projects a deferred decal onto world geometry. Static once spawned -- decals don't move, so forces and velocity solves don't apply. Position is set at spawn.\n- **Component** -- per-particle Blueprint or Actor. Very expensive; reserve for set pieces.\n\nPicking any of these usually justifies the emitter staying on CPU.\n\n## Light renderer specifics\nNo material -- it parameterizes a runtime point light directly. Author values via the light-attributes module. Material-based dynamic parameters don't reach it.\n\n## Decal renderer specifics\nAuthor values via the decal-attributes module. Material-based dynamic parameters don't reach decal materials either.\n\n## Source mode -- per-particle vs per-emitter rendering\nSprite and Mesh expose a Source Mode toggle: Particles (default) draws one card or mesh per particle and reads particle-scope bindings; Emitter draws one at the emitter position, reads emitter-scope bindings, and ignores per-particle data. Useful for single flash sprites, emitter-bounds markers, or any one-per-emitter visual driven by emitter-scope state. Affects rendering only -- not simulation or particle count.\n\n## Visibility tag\nWhen one emitter mixes renderer types (Sprite vs Mesh vs Light vs Decal), the visibility-tag attribute routes each particle to exactly one renderer. Ribbons don't participate -- split a ribbon stream into separate emitters or use ribbon-ID disambiguation.\n\nFor mesh variation only (same renderer, different meshes), the Meshes array is cheaper than visibility tags -- one renderer holds N meshes, particles pick by index. No per-index material override; materials are uniform across the array. For per-particle material differentiation, bake onto the mesh assets or fall back to visibility tags.\n\n## Sprite alignment and facing\nBoth properties default to Automatic, which reads particle-scope hints if a module writes them and falls back otherwise. Leave them automatic in most cases. The most common reason to override is velocity-aligned sprites combined with speed-driven scaling.\n\n## Mesh renderer\nThe mesh asset carries the look -- geometry, surface, UVs, baked material assignments. Niagara mostly sets transforms and drives a few attributes (color, scale) the material reads. First step when changing a Mesh renderer's look is to swap the mesh asset, not override materials. Reach for Override Materials only when the baked material is genuinely wrong (lit vs unlit), the same mesh needs different materials across systems and re-baking isn't viable, or a per-particle attribute is needed and the baked material doesn't wire it through. Override Materials is gated by an enable toggle; empty entries fall through to the baked material.\n\n## Material dependencies that fail silently\nThese are the gotchas an LLM can't see in the asset:\n\n- **Dynamic Material Parameters** writes per-particle values to material `Dynamic Parameter` slots. If the material doesn't declare matching nodes (correct index and channel layout), writes are silently dropped -- no error, no warning. Verify the material first.\n- **SubUV / flipbook** requires three things lined up: the renderer's sub-image grid matches the texture, a SubUV-animation module runs in particle update, and that module's renderer-info input points at the consuming renderer.\n- **Renderer Info Data Interfaces** appear as inputs on multiple module types; they have to be set to the intended renderer or the module is wired to nothing.\n\n## Sort mode\nDefaults to None. Keep it there when blending allows -- any other mode adds GPU overhead and index-buffer memory. The performance skill covers culling, distance fade, and other per-renderer optimization knobs.",
+      "toolsets": [
+        "NiagaraToolset_Info",
+        "NiagaraToolset_System",
+        "NiagaraToolset_Component"
+      ]
+    }
+  ]
+}
