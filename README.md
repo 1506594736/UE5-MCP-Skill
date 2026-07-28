@@ -8,7 +8,7 @@
 [![Codex Skill](https://img.shields.io/badge/Codex-Skill-111111)](skills/ue5-mcp/SKILL.md)
 [![MCP 2025-11-25](https://img.shields.io/badge/MCP-2025--11--25-2563EB)](https://modelcontextprotocol.io/)
 [![Catalog 865 Tools](https://img.shields.io/badge/Catalog-865_Tools-0F766E)](skills/ue5-mcp/references/toolsets/_index.json)
-[![Validation Passing](https://img.shields.io/badge/Schema_Validation-Passing-15803D)](skills/ue5-mcp/scripts/validate_knowledge.py)
+[![Validate catalog](https://github.com/1506594736/UE5-MCP-Skill/actions/workflows/validate.yml/badge.svg)](https://github.com/1506594736/UE5-MCP-Skill/actions/workflows/validate.yml)
 
 一个面向实际 UE 编辑器操作的低上下文 Codex Skill。它不把 865 个工具定义一次性塞进提示词，而是先本地检索候选工具，再以运行中的 UE MCP Schema 为最终依据。
 
@@ -195,6 +195,8 @@ python .\scripts\search_tools.py "compile blueprint" --limit 8
 python .\scripts\search_tools.py "user variables" --toolset UNiagaraToolset_System
 python .\scripts\search_tools.py --kind skill "material"
 python .\scripts\validate_knowledge.py
+python .\scripts\validate_knowledge.py --max-age 90
+python .\scripts\validate_knowledge.py --editor-version 5.8.0
 ```
 
 如果系统 Python 不可用，可以使用 UE 自带的 Python：
@@ -237,6 +239,6 @@ UE5-MCP-Skill/
 下一阶段重点：
 
 - 建立本地短名到运行时完整 Toolset 名称的映射。
-- 增加运行时目录同步和快照版本元数据。
+- 建立自动化的运行时目录同步和快照更新流程。
 - 增加不上传 GitHub 的项目配置文件。
 - 完成 Blueprint、Material、PCG、Niagara、UMG 的隔离资产端到端测试。

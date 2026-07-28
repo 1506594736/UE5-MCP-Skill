@@ -1,0 +1,43 @@
+name: Validate catalog
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Validate catalog integrity
+        run: python skills/ue5-mcp/scripts/validate_knowledge.py
+      - name: Smoke-test catalog search
+        run: python skills/ue5-mcp/scripts/search_tools.py --stats
+      - name: Check catalog freshness
+        if: github.event_name != 'schedule'
+        continue-on-error: true
+        run: python skills/ue5-mcp/scripts/validate_knowledge.py --max-age 90
+
+  freshness:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Require a catalog snapshot newer than 90 days
+        run: python skills/ue5-mcp/scripts/validate_knowledge.py --max-age 90
