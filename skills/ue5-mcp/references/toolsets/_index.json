@@ -36,7 +36,7 @@
       "toolsets": [
         {
           "id": "SequencerConditionTools",
-          "desc": "Tools for managing runtime conditions on Sequencer tracks, sections, and",
+          "desc": "Tools for managing runtime conditions on Sequencer tracks, track rows, and sections.",
           "tools": 9
         },
         {
@@ -51,7 +51,7 @@
         },
         {
           "id": "SequencerCustomBindingTools",
-          "desc": "Tools for converting and managing custom binding types in Sequencer. Use",
+          "desc": "Tools for converting and managing custom binding types in Sequencer, including spawnable and possessable conversions, binding inspection, actor template classes, and default spawnable state.",
           "tools": 8
         },
         {
@@ -71,7 +71,7 @@
         },
         {
           "id": "SequencerTools",
-          "desc": "Core tools for creating and editing Level Sequences in Sequencer. Use",
+          "desc": "Core tools for creating and editing Level Sequences in Sequencer, including playback, bindings, tracks, sections, folders, selection, timing, cameras, and copy/paste operations.",
           "tools": 140
         }
       ],
@@ -153,7 +153,7 @@
       "toolsets": [
         {
           "id": "ActorTools",
-          "desc": "Provides tools for inspecting and modifying actors, including",
+          "desc": "Provides tools for inspecting and modifying actors, including labels, tags, transforms, component hierarchy, bounds, and component creation or removal.",
           "tools": 17
         },
         {
@@ -193,7 +193,7 @@
         },
         {
           "id": "ObjectTools",
-          "desc": "Provides tools for inspecting and modifying the properties of",
+          "desc": "Provides tools for discovering UObject subclasses and inspecting, setting, or resetting UObject properties.",
           "tools": 6
         },
         {
@@ -203,12 +203,12 @@
         },
         {
           "id": "SceneTools",
-          "desc": "Provides tools for working with the currently loaded level, including",
+          "desc": "Provides tools for working with the currently loaded level, including level loading, actor discovery, placement and removal, folders, traces, merges, level instances, checkout state, and saving.",
           "tools": 20
         },
         {
           "id": "SkeletalMeshTools",
-          "desc": "Provides tools for inspecting and modifying skeletal mesh assets, including",
+          "desc": "Provides tools for importing, inspecting, and modifying skeletal mesh assets, including LOD statistics, skeleton hierarchy, materials, physics assets, morph targets, and sockets.",
           "tools": 22
         },
         {

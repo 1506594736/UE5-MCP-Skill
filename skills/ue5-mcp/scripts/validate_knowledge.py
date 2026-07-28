@@ -15,6 +15,10 @@ from typing import Any, Optional
 CATALOG = Path(__file__).resolve().parent.parent / "references" / "toolsets"
 TEST_NAME = re.compile(r"(^|[^a-z])(fake|mock|demo|errorprone)([^a-z]|$)", re.IGNORECASE)
 ENGINE_VERSION = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)(?:\.(0|[1-9]\d*))?$")
+TRUNCATED_DESCRIPTION = re.compile(
+    r"(?:,\s*(?:and|or)|\b(?:including|of)|\.\s+use)\s*$",
+    re.IGNORECASE,
+)
 FUTURE_TOLERANCE = timedelta(minutes=5)
 
 
@@ -61,6 +65,21 @@ def parse_generated(value: Any) -> datetime:
     if parsed.tzinfo is None or parsed.utcoffset() is None:
         raise ValueError("generated timestamp must include a timezone")
     return parsed.astimezone(timezone.utc)
+
+
+def description_looks_truncated(value: Any) -> bool:
+    return bool(TRUNCATED_DESCRIPTION.search(str(value).strip()))
+
+
+def index_toolset_descriptions(index: dict[str, Any]) -> dict[tuple[str, str], str]:
+    descriptions: dict[tuple[str, str], str] = {}
+    for plugin in index.get("plugins", []):
+        file_name = str(plugin.get("file", "")).strip()
+        for toolset in plugin.get("toolsets", []):
+            toolset_id = str(toolset.get("id", "")).strip()
+            if file_name and toolset_id:
+                descriptions[(file_name, toolset_id)] = str(toolset.get("desc", "")).strip()
+    return descriptions
 
 
 def validate_metadata(
@@ -143,6 +162,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             editor_version=args.editor_version,
         )
         issues.extend(metadata_issues)
+        indexed_toolset_descriptions = index_toolset_descriptions(index)
+        seen_indexed_toolsets: set[tuple[str, str]] = set()
         files = sorted(path for path in CATALOG.glob("*.json") if not path.name.startswith("_"))
         toolsets: set[str] = set()
         tools: set[str] = set()
@@ -162,6 +183,18 @@ def main(argv: Optional[list[str]] = None) -> int:
                 toolsets.add(toolset_id)
                 if TEST_NAME.search(toolset_id):
                     issues.append(f"test-like toolset remains: {toolset_id}")
+                toolset_desc = str(toolset.get("desc", "")).strip()
+                if not toolset_desc:
+                    issues.append(f"{path.name}: empty toolset description: {toolset_id}")
+                elif description_looks_truncated(toolset_desc):
+                    issues.append(f"{path.name}: truncated-looking toolset description: {toolset_id}")
+                summary_key = (path.name, toolset_id)
+                if summary_key not in indexed_toolset_descriptions:
+                    issues.append(f"missing toolset summary in index: {path.name}.{toolset_id}")
+                else:
+                    seen_indexed_toolsets.add(summary_key)
+                    if indexed_toolset_descriptions[summary_key] != toolset_desc:
+                        issues.append(f"toolset description mismatch in index: {path.name}.{toolset_id}")
                 for tool in toolset.get("tools", []):
                     tool_id = str(tool.get("id", "")).strip()
                     key = f"{toolset_id}.{tool_id}"
@@ -183,6 +216,8 @@ def main(argv: Optional[list[str]] = None) -> int:
                 if skill_id in skills:
                     issues.append(f"duplicate skill: {skill_id}")
                 skills.add(skill_id)
+        for file_name, toolset_id in sorted(indexed_toolset_descriptions.keys() - seen_indexed_toolsets):
+            issues.append(f"index summary has no source toolset: {file_name}.{toolset_id}")
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"Validation failed to read catalog: {exc}", file=sys.stderr)
         return 2

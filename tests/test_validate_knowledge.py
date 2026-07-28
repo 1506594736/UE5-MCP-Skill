@@ -93,6 +93,46 @@ class MetadataValidationTests(unittest.TestCase):
         with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
             validate_knowledge.parse_args(["--editor-version", "5.8-preview"])
 
+    def test_truncated_toolset_descriptions_are_detected(self):
+        descriptions = (
+            "Tools for tracks, sections, and",
+            "Tools for bindings. Use",
+            "Provides tools, including",
+            "Provides the properties of",
+        )
+
+        for description in descriptions:
+            with self.subTest(description=description):
+                self.assertTrue(validate_knowledge.description_looks_truncated(description))
+
+    def test_complete_toolset_descriptions_are_allowed(self):
+        descriptions = (
+            "Tools for tracks, sections, and bindings.",
+            "Tools designed for ease of use.",
+            "Provides tools, including actor discovery and placement.",
+        )
+
+        for description in descriptions:
+            with self.subTest(description=description):
+                self.assertFalse(validate_knowledge.description_looks_truncated(description))
+
+    def test_index_toolset_descriptions_are_keyed_by_file_and_id(self):
+        descriptions = validate_knowledge.index_toolset_descriptions(
+            {
+                "plugins": [
+                    {
+                        "file": "Example.json",
+                        "toolsets": [{"id": "ExampleTools", "desc": "Example tools."}],
+                    }
+                ]
+            }
+        )
+
+        self.assertEqual(
+            "Example tools.",
+            descriptions[("Example.json", "ExampleTools")],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
