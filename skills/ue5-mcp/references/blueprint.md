@@ -16,6 +16,16 @@
 5. Add variables, parameters, dispatchers, components, or bound events before wiring logic that depends on them.
 6. After non-DSL structural edits, call `compile_blueprint` once after the complete logical batch rather than after every node.
 
+## Low-Round-Trip Path
+
+1. Create a neutral `SceneComponent` root first with `ActorTools.add_component` when several movable or trigger components must remain independent. Add primitives or meshes beneath it; the first primitive may otherwise become the root.
+2. Bootstrap all required components, variables, and bound events in one structural batch, compile once, and preserve every returned reference.
+3. List all required graph operations before discovery. Resolve each exact node type once and each pin schema once; cache the results.
+4. On localized editors, try compact canonical names such as `GetPlayerPawn`, `MoveComponentTo`, and `IsOverlappingActor` when spaced English display titles do not match. Use `context_pins` to disambiguate duplicate type IDs.
+5. If `read_graph_dsl` omits an unconnected component-bound event, inspect the node returned by `add_component_bound_event` with `get_node_infos`; do not create duplicate events.
+6. Write a coherent graph with DSL or batch the known node/pin calls through `ProgrammaticToolset`. Use individual `create_node` and `connect_pins` calls only for a genuinely small patch.
+7. Make the basic behavior compile and run before adding tunable parameters, animation polish, re-entry guards, or generalized abstractions not required by the request.
+
 ## Validate
 
 1. After `write_graph_dsl`, inspect the result of its built-in compile. Call `compile_blueprint` after non-DSL structural edits, or when later changes require compile status to be refreshed; do not compile a second time unconditionally. Under Fast validation, query focused Blueprint/compiler logs only when the compile result is ambiguous or reports a problem; Full validation includes the relevant log review.
@@ -31,3 +41,4 @@
 - Structural changes do not affect the generated class/CDO until compilation succeeds.
 - Runtime physics requires movable components. Inspect and set mobility before enabling simulation or applying impulses.
 - Preserve existing graph logic unless replacement is explicitly requested. Inspect the affected event chain before editing.
+- Do not issue broad parallel `find_node_types` searches. Unreal commonly serializes them on the game thread, so a fan-out increases latency without reducing wall time.

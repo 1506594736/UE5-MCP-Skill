@@ -3,10 +3,15 @@
 | Symptom | Likely cause | Response |
 |---|---|---|
 | Toolset or tool not found | Bundled snapshot differs from running editor | Call `list_toolsets`, then live `describe_toolset`; trust runtime names |
+| Toolset description is huge or truncated | Too many Toolsets were described or the complete schema was emitted | Select one primary Toolset and extract only the specific tool names and schemas needed |
 | Parameter/schema rejection | Guessed or stale signature | Describe the Toolset again and rebuild arguments from its schema |
 | Null or invalid object | Wrong content path, unloaded object, stale returned reference | Find/load again and preserve the new returned reference |
 | Property call succeeds but value is unchanged | Wrong owner or guessed property name | Inspect components; run `list_properties`, read, write, and read back |
 | Blueprint nodes fail to connect | Wrong node type or pin name | Use `find_node_types` and `get_node_type_pins`; inspect current nodes |
+| English Blueprint node search returns no matches | Localized title or compact function token differs from the display name | Try the compact canonical name, then `context_pins`; stop after two misses and inspect live nodes or catalog evidence |
+| Many parallel editor searches remain slow | Unreal serialized the calls on the game thread | Stop the fan-out; batch known calls or perform the minimum dependent calls sequentially |
+| First primitive unexpectedly becomes the Blueprint root | Primitive was added before a neutral scene root | Create a `SceneComponent` root first with `ActorTools.add_component`, then parent independent components deliberately |
+| One Blueprint graph takes many node-by-node calls | A coherent edit was split into high-latency MCP round trips | Discover schemas first, then use `write_graph_dsl` or `ProgrammaticToolset` for the mutation batch |
 | Structural Blueprint change is absent | Blueprint not compiled after batch | Compile, inspect errors, then re-read class/CDO/graph |
 | UMG layout does not change | Slot property was guessed or wrong slot class used | Inspect the returned Slot with `ObjectTools` and write exact names |
 | Niagara compiles but renders nothing | Spawn/lifetime/bounds/material/namespace/renderer dependency | Inspect summary, topology, stack issues, material, bounds, and component overrides |
