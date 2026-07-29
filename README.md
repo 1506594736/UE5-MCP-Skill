@@ -2,15 +2,14 @@
 
 # UE5 MCP Skill
 
-**让 Codex 通过 Unreal Engine 5.8 内置 MCP 检查、修改并验证编辑器内容**
+**让 Codex 通过 Unreal Engine 5.8.1 内置 MCP 检查、修改并验证编辑器内容**
 
-[![Unreal Engine 5.8](https://img.shields.io/badge/Unreal_Engine-5.8-0E1128?logo=unrealengine&logoColor=white)](https://www.unrealengine.com/)
+[![Unreal Engine 5.8.1](https://img.shields.io/badge/Unreal_Engine-5.8.1-0E1128?logo=unrealengine&logoColor=white)](https://www.unrealengine.com/)
 [![Codex Skill](https://img.shields.io/badge/Codex-Skill-111111)](skills/ue5-mcp/SKILL.md)
 [![MCP 2025-11-25](https://img.shields.io/badge/MCP-2025--11--25-2563EB)](https://modelcontextprotocol.io/)
-[![Catalog 865 Tools](https://img.shields.io/badge/Catalog-865_Tools-0F766E)](skills/ue5-mcp/references/toolsets/_index.json)
 [![Validate catalog](https://github.com/1506594736/UE5-MCP-Skill/actions/workflows/validate.yml/badge.svg)](https://github.com/1506594736/UE5-MCP-Skill/actions/workflows/validate.yml)
 
-一个面向实际 UE 编辑器操作的低上下文 Codex Skill。它不把 865 个工具定义一次性塞进提示词，而是先本地检索候选工具，再以运行中的 UE MCP Schema 为最终依据。
+一个面向实际 UE 编辑器操作的低上下文 Codex Skill。它不把完整工具目录一次性塞进提示词，而是先本地检索候选工具，再以运行中的 UE MCP Schema 为最终依据。
 
 [快速开始](#快速开始) · [工作原理](#工作原理) · [能力范围](#能力范围) · [安全与验证](#安全与验证) · [项目状态](#项目状态)
 
@@ -45,7 +44,7 @@
 
 ### 1. 前置条件
 
-- Unreal Engine 5.8。
+- Unreal Engine 5.8.1。
 - UE 项目已启用 `ModelContextProtocol` 和任务需要的 Toolset 插件。
 - Unreal Editor 已打开目标项目，并启动 MCP HTTP 服务。
 - 已安装 Codex。
@@ -87,7 +86,7 @@ unreal-mcp  http://127.0.0.1:8000/mcp  enabled
 建议先执行只读检查：
 
 ```text
-使用 $ue5-mcp，连接当前运行的 UE5.8 编辑器。
+使用 $ue5-mcp，连接当前运行的 UE5.8.1 编辑器。
 检查当前关卡、已选 Actor 和最近的错误日志，只读取，不做修改。
 ```
 
@@ -186,7 +185,7 @@ python .\scripts\search_tools.py "user variables" --toolset UNiagaraToolset_Syst
 python .\scripts\search_tools.py --kind skill "material"
 python .\scripts\validate_knowledge.py
 python .\scripts\validate_knowledge.py --max-age 90
-python .\scripts\validate_knowledge.py --editor-version 5.8.0
+python .\scripts\validate_knowledge.py --editor-version 5.8.1
 ```
 
 工具发现优先使用 `--format minimal`，它只输出签名或记录 ID；需要候选描述时省略该参数，需要完整结构化记录时使用 `--json`。
