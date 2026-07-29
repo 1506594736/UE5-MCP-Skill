@@ -105,7 +105,7 @@ def shorten(value: str, limit: int) -> str:
     return compact[: max(0, limit - 3)].rstrip() + "..."
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("query", nargs="*", help="Words that must all match")
     parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG)
@@ -115,13 +115,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int, default=12)
     parser.add_argument("--min-score", type=int, default=10)
     parser.add_argument("--max-chars", type=int, default=500)
+    parser.add_argument(
+        "--format",
+        choices=("full", "minimal"),
+        default="full",
+        dest="output_format",
+        help="Text output detail; --json always returns complete records",
+    )
     parser.add_argument("--json", action="store_true", dest="as_json")
     parser.add_argument("--stats", action="store_true")
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
-def main() -> int:
-    args = parse_args()
+def format_minimal(record: dict[str, str]) -> str:
+    if record["kind"] == "tool":
+        return record["signature"] or record["id"]
+    return f"{record['kind']} {record['id']}"
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv)
     if not args.catalog.is_dir():
         print(f"Catalog directory not found: {args.catalog}", file=sys.stderr)
         return 2
@@ -160,6 +173,13 @@ def main() -> int:
     if args.as_json:
         payload = [{"score": score, **record} for score, record in selected]
         print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return 0
+
+    if args.output_format == "minimal":
+        for _, record in selected:
+            print(format_minimal(record))
+        if not selected:
+            print("No matches.")
         return 0
 
     for score, record in selected:

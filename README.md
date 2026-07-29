@@ -181,19 +181,21 @@ Skill 默认采用以下证据顺序：
 
 ```powershell
 cd .\skills\ue5-mcp
-python .\scripts\search_tools.py "compile blueprint" --limit 8
-python .\scripts\search_tools.py "user variables" --toolset UNiagaraToolset_System
+python .\scripts\search_tools.py "compile blueprint" --limit 8 --format minimal
+python .\scripts\search_tools.py "user variables" --toolset UNiagaraToolset_System --format minimal
 python .\scripts\search_tools.py --kind skill "material"
 python .\scripts\validate_knowledge.py
 python .\scripts\validate_knowledge.py --max-age 90
 python .\scripts\validate_knowledge.py --editor-version 5.8.0
 ```
 
+工具发现优先使用 `--format minimal`，它只输出签名或记录 ID；需要候选描述时省略该参数，需要完整结构化记录时使用 `--json`。
+
 如果系统 Python 不可用，可以使用 UE 自带的 Python：
 
 ```powershell
 & "<UE_ROOT>\Engine\Binaries\ThirdParty\Python3\Win64\python.exe" `
-  .\scripts\search_tools.py "compile blueprint" --limit 8
+  .\scripts\search_tools.py "compile blueprint" --limit 8 --format minimal
 ```
 
 ## 仓库结构

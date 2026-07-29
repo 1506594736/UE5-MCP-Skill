@@ -28,10 +28,12 @@ Use this authority order:
 Never load all catalog JSON into context. Resolve script paths relative to this Skill directory and search the catalog instead:
 
 ```powershell
-python scripts/search_tools.py "compile blueprint" --limit 8
-python scripts/search_tools.py "user variables" --toolset UNiagaraToolset_System
+python scripts/search_tools.py "compile blueprint" --limit 8 --format minimal
+python scripts/search_tools.py "user variables" --toolset UNiagaraToolset_System --format minimal
 python scripts/search_tools.py --kind skill "material"
 ```
+
+Prefer `--format minimal` for tool discovery. Use the default full output only when candidate descriptions are needed to choose safely; use `--json` when a script needs complete structured records.
 
 If `python` is unavailable on Windows, use the Python interpreter bundled with the active UE installation under `Engine/Binaries/ThirdParty/Python3`.
 
