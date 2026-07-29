@@ -27,7 +27,7 @@
         },
         {
           "id": "Screenshot",
-          "desc": "SceneTools.take_screenshot for Editor UI; use SceneTools only for 3D viewport. * @param Ref  Slate widget ref. Empty = active window.",
+          "desc": "Captures Slate editor UI through USlateInspectorToolset.Screenshot. Use UEditorAppToolset.CaptureViewport for the 3D level viewport. @param Ref Slate widget ref. Empty = active window.",
           "signature": "USlateInspectorToolset.Screenshot(const FString&) -> FToolsetImage"
         },
         {

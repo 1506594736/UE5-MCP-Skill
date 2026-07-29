@@ -117,7 +117,7 @@
         },
         {
           "id": "CompileWidgetBlueprint",
-          "desc": "Compiles a widget blueprint. Returns false with error details if compilation fails. Errors include missing BindWidget bindings, type mismatches, and graph errors. Call after all widgets and properties are set. Save separately via AssetTools.save_asset. @param WidgetBlueprint The widget blueprint to compile.",
+          "desc": "Compiles a widget blueprint. Returns false with error details if compilation fails. Errors include missing BindWidget bindings, type mismatches, and graph errors. Call after all widgets and properties are set. Save separately via AssetTools.save_assets. @param WidgetBlueprint The widget blueprint to compile.",
           "signature": "UUMGToolSet.CompileWidgetBlueprint(UWidgetBlueprint*) -> bool"
         }
       ]

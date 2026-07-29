@@ -12,13 +12,13 @@
 1. Use function graphs for reusable or value-returning logic; keep the Event Graph for event-driven and asynchronous flow.
 2. Call `get_graph_dsl_docs` before the first DSL write in a session.
 3. Resolve node types with `find_node_types`; resolve exact pin names with `get_node_type_pins`.
-4. Use `write_graph_dsl` for coherent graph creation or replacement. Use focused node/pin operations for small edits.
+4. Use `write_graph_dsl` for coherent graph creation or replacement; it compiles the Blueprint as part of the write. Use focused node/pin operations for small edits.
 5. Add variables, parameters, dispatchers, components, or bound events before wiring logic that depends on them.
-6. Compile once after the complete logical batch.
+6. After non-DSL structural edits, call `compile_blueprint` once after the complete logical batch rather than after every node.
 
 ## Validate
 
-1. Run `compile_blueprint` and inspect Blueprint/compiler log entries.
+1. After `write_graph_dsl`, inspect the result of its built-in compile and the Blueprint/compiler log entries. Call `compile_blueprint` after non-DSL structural edits, or when later changes require compile status to be refreshed; do not compile a second time unconditionally.
 2. Re-read the modified graph or node subgraph and verify connections and literal values.
 3. Re-read variables, functions, parent, or component structure when changed.
 4. Save through `AssetTools.save_assets`; confirm the asset is not dirty.
@@ -26,7 +26,6 @@
 
 ## Hard Rules
 
-- Never guess node type IDs or pin names.
 - Pure-node outputs are recomputed for each connection; cache an expensive or stateful result in a variable when reused.
 - Casting to a Blueprint creates a hard load dependency; prefer interfaces for loose coupling.
 - Structural changes do not affect the generated class/CDO until compilation succeeds.

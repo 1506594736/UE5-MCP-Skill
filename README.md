@@ -111,7 +111,7 @@ Codex 加载 SKILL.md
       +----> search_tools.py 搜索本地清洗目录
       |           |
       |           v
-      |      26 Plugins / 55 Toolsets / 865 Tools / 12 UE Skills
+      |      Bundled catalog snapshot（统计由脚本读取）
       |
       v
 list_toolsets -> describe_toolset -> call_tool
@@ -130,7 +130,7 @@ Compile -> Save -> Logs / Readback / Screenshot / PIE
 | Metadata | Skill 名称和触发描述 | Codex 启动后用于自动发现 |
 | `SKILL.md` | 路由、执行纪律、验证要求 | Skill 触发时 |
 | Domain References | Blueprint、PCG、Niagara、UMG 等工作流 | 当前任务需要时 |
-| Tool Catalog | 约 360 KB 清洗 JSON | 不直接加载，由脚本检索 |
+| Tool Catalog | 清洗后的 JSON 快照 | 不直接加载，由脚本检索 |
 | Live Schema | 当前 UE 实例的真实参数结构 | 调用 `describe_toolset` 时 |
 
 本地目录只负责快速找到候选工具。工具是否存在、运行时完整名称、参数名称、枚举值和对象结构，始终以当前编辑器为准。
@@ -175,17 +175,7 @@ Skill 默认采用以下证据顺序：
 
 ## 工具目录
 
-工具快照来自 UE 5.8 本地源码扫描与清洗，用于候选工具检索，不是运行时 Schema 的替代品。
-
-| 指标 | 当前快照 |
-|---|---:|
-| Plugin JSON | 26 |
-| Toolsets | 55 |
-| Tools | 865 |
-| UE workflow Skills | 12 |
-| Parse errors | Not recorded for this snapshot |
-| Duplicate tools | 0 |
-| Test definitions | 0 |
+工具快照的引擎版本、生成时间和统计数据记录在 `references/toolsets/_index.json` 中，用于候选工具检索，不是运行时 Schema 的替代品。不要在文档中复制这些版本敏感数据；使用 `search_tools.py --stats` 读取当前统计。
 
 在 Skill 目录中执行搜索：
 

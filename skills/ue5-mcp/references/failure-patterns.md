@@ -11,6 +11,8 @@
 | UMG layout does not change | Slot property was guessed or wrong slot class used | Inspect the returned Slot with `ObjectTools` and write exact names |
 | Niagara compiles but renders nothing | Spawn/lifetime/bounds/material/namespace/renderer dependency | Inspect summary, topology, stack issues, material, bounds, and component overrides |
 | PCG graph executes with no output | Wrong pins/settings, empty spatial input, wrong instance | Read schema, structure, instance params, node data view, and logs |
+| PCG data view has no inspection data | Inspection was not enabled before the last execution | Call `GetNodeDataView` once to enable inspection, execute and await one instance, then call `GetNodeDataView` again |
+| Editor freezes while inspecting PCG actors | Actors sharing one graph were inspected concurrently | Stop concurrent calls; inspect each actor's shared graph serially and await every step |
 | Asset remains dirty | Save omitted or failed | Save exact asset paths, read logs, verify editability and dirty state |
 | Async call appears incomplete | Result was treated as synchronous | Wait/poll the returned async result or status tool before evaluating |
 | MCP disconnects | Editor closed, wrong project, server unavailable | Stop mutations; confirm editor/project and MCP endpoint before retrying |

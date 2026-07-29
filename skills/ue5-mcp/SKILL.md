@@ -1,7 +1,5 @@
 ---
 name: ue5-mcp
-version: "1.0.0"
-appliesTo: "**/*.uproject, **/*.uasset, **/*.umap"
 description: Operate Unreal Engine 5 through its Model Context Protocol server with low-context tool discovery, guarded editor mutations, and post-change validation. Use for UE5 or Unreal Editor tasks involving MCP, Blueprint, actors, levels, assets, materials, PCG, Niagara, UMG, Sequencer, animation, gameplay systems, plugins, logs, screenshots, PIE, automation tests, or Live Coding; also trigger for Chinese requests mentioning UE5 MCP, Unreal MCP, 蓝图, 关卡, 材质, PCG, Niagara, UMG, 编辑器自动化, or 通过 Codex 操作虚幻引擎.
 ---
 
@@ -45,26 +43,15 @@ Use the runtime chain `list_toolsets` (when needed) -> `describe_toolset` -> `ca
 2. Search for reusable assets before creating replacements.
 3. Check editability, checkout state, dependencies, and referencers when the operation can affect existing content.
 4. Make the smallest coherent batch of changes. Keep returned object references; do not reconstruct them from display text.
-5. Compile once after a logical graph-edit batch rather than after every node.
-6. Save every modified asset explicitly. Confirm that it is no longer dirty when the toolset supports that check.
-7. Re-read the changed structure or properties and compare them with the request.
+5. Validate with the selected domain reference and [references/diagnostics.md](references/diagnostics.md) when runtime, visual, log, or test evidence is needed.
+6. Save every modified asset explicitly. Confirm that it is no longer dirty when the Toolset supports that check.
+7. Re-read the changed structure or properties and compare them with the request. A successful mutation call alone is not proof of success.
 
 Do not delete assets, remove actors, replace widgets, reparent Blueprints, overwrite files, or perform broad renames unless the requested scope clearly authorizes it. Inspect referencers before destructive asset operations.
 
 ## Validate Results
 
-Choose validation proportional to the change:
-
-- Blueprint: compile, inspect compiler messages/logs, read the changed graph, save.
-- Material: recompile, inspect expressions/connections, capture an asset or viewport image when appearance matters, save.
-- PCG: read graph structure, execute or regenerate the intended instance, inspect output/data view, save.
-- Niagara: check compile state and stack issues, inspect summary/topology, capture the result when visual quality matters, save.
-- UMG: compile the Widget Blueprint, inspect the widget tree and slot properties, capture the asset/editor view when layout matters, save.
-- C++: use Live Coding only when enabled and appropriate; otherwise run the project build. Read compiler diagnostics.
-- Runtime behavior: start PIE, observe logs/state, then stop PIE. Do not leave PIE running unintentionally.
-- Broad or risky changes: run focused automation tests after discovery.
-
-Read [references/diagnostics.md](references/diagnostics.md) for validation sequences. If a call fails or returns an unexpected shape, read [references/failure-patterns.md](references/failure-patterns.md) before retrying.
+Use the selected domain reference for the exact Inspect -> Modify -> Validate -> Save sequence. Read [references/diagnostics.md](references/diagnostics.md) for logs, images, PIE, tests, and Live Coding. If a call fails or returns an unexpected shape, read [references/failure-patterns.md](references/failure-patterns.md) before retrying.
 
 ## Domain References
 
