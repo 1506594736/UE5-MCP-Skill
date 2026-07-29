@@ -1,5 +1,29 @@
 # Diagnostics And Validation
 
+## Validation Levels
+
+### Fast
+
+Use Fast by default for isolated, routine, narrowly scoped mutations.
+
+1. Run the domain compile, recompile, or execution check once when the change requires it. Count a documented built-in compile as that compile.
+2. Re-read only the exact properties, graph subgraph, connections, parameters, or component structure changed and compare them with the request.
+3. Read focused error or warning entries when the operation is asynchronous, its result is ambiguous, or the domain Toolset does not return structured diagnostics.
+4. Save the exact modified assets and confirm they are no longer dirty where supported.
+
+### Full
+
+Use Full when the user requests runtime proof, the change affects visual or runtime behavior, the target is shared or high-risk, the change spans multiple assets, or Fast evidence is ambiguous.
+
+1. Complete all Fast checks.
+2. Re-read the broader affected structure, dependencies, and related state.
+3. Capture and inspect relevant logs from a baseline.
+4. Capture an asset or viewport image when appearance matters.
+5. Run PIE when runtime behavior must be observed, then stop PIE and confirm it stopped.
+6. Run focused automation tests for broad or risky changes when suitable tests exist.
+
+Validation levels add to the selected domain reference; they do not replace its minimum evidence. Do not run images, PIE, or automation tests merely because Full was selected when that evidence cannot validate the requested outcome.
+
 ## Logs
 
 1. Capture a baseline timestamp or recent log position.

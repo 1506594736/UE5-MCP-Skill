@@ -18,7 +18,7 @@
 
 ## Validate
 
-1. After `write_graph_dsl`, inspect the result of its built-in compile and the Blueprint/compiler log entries. Call `compile_blueprint` after non-DSL structural edits, or when later changes require compile status to be refreshed; do not compile a second time unconditionally.
+1. After `write_graph_dsl`, inspect the result of its built-in compile. Call `compile_blueprint` after non-DSL structural edits, or when later changes require compile status to be refreshed; do not compile a second time unconditionally. Under Fast validation, query focused Blueprint/compiler logs only when the compile result is ambiguous or reports a problem; Full validation includes the relevant log review.
 2. Re-read the modified graph or node subgraph and verify connections and literal values.
 3. Re-read variables, functions, parent, or component structure when changed.
 4. Save through `AssetTools.save_assets`; confirm the asset is not dirty.

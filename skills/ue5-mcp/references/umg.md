@@ -23,6 +23,6 @@ Property names vary by widget and slot class. Guessing can silently set the wron
 2. Ensure widgets required by event binding or C++ `BindWidget` are variables with compatible classes.
 3. Treat widget replacement reports as required review output; resolve unmatched referenced members.
 4. Compile once after the hierarchy, properties, and bindings are complete.
-5. Inspect compile errors, re-read the tree, capture the editor/asset view, and save separately through `AssetTools`.
+5. Inspect compile errors and re-read the changed tree. Capture the editor/asset view when layout or appearance matters, then save separately through `AssetTools`.
 
 Do not use visible text to infer slot ownership or property names. Do not replace a widget or panel merely to work around an unknown property; inspect the actual widget and slot classes first.

@@ -39,19 +39,40 @@ Use the runtime chain `list_toolsets` (when needed) -> `describe_toolset` -> `ca
 
 ## Execute Changes
 
-1. Inspect the target asset, actor, graph, object, or editor state before mutation.
+Work in stages so discovery is complete before each coherent mutation batch.
+
+### Phase 1: Preflight
+
+1. Inspect the target asset, actor, graph, object, and relevant editor state without mutating them.
 2. Search for reusable assets before creating replacements.
 3. Check editability, checkout state, dependencies, and referencers when the operation can affect existing content.
-4. Make the smallest coherent batch of changes. Keep returned object references; do not reconstruct them from display text.
-5. Validate with the selected domain reference and [references/diagnostics.md](references/diagnostics.md) when runtime, visual, log, or test evidence is needed.
-6. Save every modified asset explicitly. Confirm that it is no longer dirty when the Toolset supports that check.
-7. Re-read the changed structure or properties and compare them with the request. A successful mutation call alone is not proof of success.
+4. Gather independent read-only facts together when the connected editor can handle them safely.
+
+### Phase 2: Bootstrap
+
+Create only the minimum asset shell, component, graph, or instance needed to obtain live object references. Skip this phase for existing targets. Preserve every returned reference and do not build dependent logic yet.
+
+### Phase 3: Discover
+
+Using the live references, resolve all property names, schemas, node types, pin names, enum values, and dependent objects needed for the next edit batch. Finish discovery before mutation; if later discovery depends on a newly created object, start another explicit bootstrap/discover cycle.
+
+### Phase 4: Execute
+
+1. Apply the smallest coherent batch of changes and reuse returned references instead of reconstructing them from display text.
+2. Compile or recompile once after the complete logical batch. Treat a Toolset operation with a documented built-in compile as that compile; do not compile a second time unconditionally.
+3. If a mutation fails or returns an unexpected shape, stop and read [references/failure-patterns.md](references/failure-patterns.md) before retrying.
+
+### Phase 5: Validate And Save
+
+Select the validation level below, follow the selected domain reference and validation level, save every modified asset explicitly, and confirm that each saved asset is no longer dirty when supported.
 
 Do not delete assets, remove actors, replace widgets, reparent Blueprints, overwrite files, or perform broad renames unless the requested scope clearly authorizes it. Inspect referencers before destructive asset operations.
 
 ## Validate Results
 
-Use the selected domain reference for the exact Inspect -> Modify -> Validate -> Save sequence. Read [references/diagnostics.md](references/diagnostics.md) for logs, images, PIE, tests, and Live Coding. If a call fails or returns an unexpected shape, read [references/failure-patterns.md](references/failure-patterns.md) before retrying.
+Default to **Fast** validation for isolated, routine, narrowly scoped mutations. Fast validation still requires a targeted readback of the exact properties, connections, or structure changed; compile and save success alone are insufficient.
+
+Escalate to **Full** validation when the user requests runtime proof, the change affects visual or runtime behavior, the target is shared or high-risk, the change spans multiple assets, or Fast evidence is ambiguous. Read [references/diagnostics.md](references/diagnostics.md) for the exact levels and for logs, images, PIE, tests, and Live Coding. Use the selected domain reference for its required minimum evidence.
 
 ## Domain References
 

@@ -20,7 +20,7 @@
 1. Read `GetSystemCompileState` and `GetStackIssues`.
 2. Apply an automatic issue fix only after inspecting what it changes.
 3. Re-read summary, topology, dependencies, user variables, and changed values.
-4. Capture a viewport image or run PIE for appearance/lifetime checks.
+4. Capture a viewport image or run PIE when appearance or lifetime behavior must be verified; do not run either for a purely structural Fast validation.
 5. Save the System and any dependent Material or Blueprint assets.
 
 ## Silent Failure Checks
