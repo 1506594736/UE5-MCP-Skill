@@ -7,107 +7,107 @@
       "tools": [
         {
           "id": "get_mixer_layers",
-          "desc": "Get all layers in an Anim Mixer track.",
+          "desc": "Get all layers in an Anim Mixer track. Args: track: The Anim Mixer track to query. Returns: List of MovieSceneAnimationMixerLayer objects.",
           "signature": "SequencerAnimMixerTools.get_mixer_layers(unreal.MovieSceneAnimationMixerTrack) -> list[unreal.MovieSceneAnimationMixerLayer]"
         },
         {
           "id": "get_mixer_layer_count",
-          "desc": "Get the number of layers in an Anim Mixer track.",
+          "desc": "Get the number of layers in an Anim Mixer track. Args: track: The Anim Mixer track to query. Returns: The layer count.",
           "signature": "SequencerAnimMixerTools.get_mixer_layer_count(unreal.MovieSceneAnimationMixerTrack) -> int"
         },
         {
           "id": "add_mixer_layer",
-          "desc": "Add a new empty layer at the end of the Anim Mixer track.",
+          "desc": "Add a new empty layer at the end of the Anim Mixer track. Args: track: The Anim Mixer track to add a layer to. Returns: The newly created MovieSceneAnimationMixerLayer.",
           "signature": "SequencerAnimMixerTools.add_mixer_layer(unreal.MovieSceneAnimationMixerTrack) -> unreal.MovieSceneAnimationMixerLayer"
         },
         {
           "id": "insert_mixer_layer",
-          "desc": "Insert a new layer at a specific index in the Anim Mixer track.",
+          "desc": "Insert a new layer at a specific index in the Anim Mixer track. Args: track: The Anim Mixer track to insert a layer into. index: The zero-based index at which to insert the layer. Returns: The newly created MovieSceneAnimationMixerLayer.",
           "signature": "SequencerAnimMixerTools.insert_mixer_layer(unreal.MovieSceneAnimationMixerTrack, int) -> unreal.MovieSceneAnimationMixerLayer"
         },
         {
           "id": "add_animation_to_mixer",
-          "desc": "Add a skeletal animation to a specific layer in the Anim Mixer.",
+          "desc": "Add a skeletal animation to a specific layer in the Anim Mixer. Args: track: The Anim Mixer track. layer_index: The zero-based index of the target layer. start_frame: The frame at which the animation starts. anim_sequence: The AnimSequence asset to add. Returns: The newly created MovieSceneSection for the animation.",
           "signature": "SequencerAnimMixerTools.add_animation_to_mixer(unreal.MovieSceneAnimationMixerTrack, int, int, unreal.AnimSequenceBase) -> unreal.MovieSceneSection"
         },
         {
           "id": "add_child_track_to_layer",
-          "desc": "Add a child track (e.g. Control Rig) to a mixer layer.",
+          "desc": "Add a child track (e.g. Control Rig) to a mixer layer. The child track occupies the entire layer. Layers support either animation sections or a single child track, not both. This is the UI operation of adding a track type to an empty mixer layer. Args: track: The Anim Mixer track. binding: The binding that owns this mixer track. track_class: The track class to add (e.g. MovieSceneControlRigParameterTrack). layer_index: The zero-based layer index to add the track to. Returns: The newly created child track.",
           "signature": "SequencerAnimMixerTools.add_child_track_to_layer(unreal.MovieSceneAnimationMixerTrack, unreal.SequencerBindingProxy, unreal.Class, int) -> unreal.MovieSceneTrack"
         },
         {
           "id": "get_layer_name",
-          "desc": "Get the display name of an Anim Mixer layer.",
+          "desc": "Get the display name of an Anim Mixer layer. Args: layer: The layer to query. Returns: The layer's display name.",
           "signature": "SequencerAnimMixerTools.get_layer_name(unreal.MovieSceneAnimationMixerLayer) -> str"
         },
         {
           "id": "set_layer_name",
-          "desc": "Set the display name of an Anim Mixer layer.",
+          "desc": "Set the display name of an Anim Mixer layer. Args: layer: The layer to rename. name: The new display name.",
           "signature": "SequencerAnimMixerTools.set_layer_name(unreal.MovieSceneAnimationMixerLayer, str) -> bool"
         },
         {
           "id": "get_layer_sections",
-          "desc": "Get all animation sections on an Anim Mixer layer.",
+          "desc": "Get all animation sections on an Anim Mixer layer. Args: layer: The layer to query. Returns: List of MovieSceneSection objects on the layer.",
           "signature": "SequencerAnimMixerTools.get_layer_sections(unreal.MovieSceneAnimationMixerLayer) -> list[unreal.MovieSceneSection]"
         },
         {
           "id": "get_layer_index",
-          "desc": "Get the index of a mixer layer within its parent track.",
+          "desc": "Get the index of a mixer layer within its parent track. Args: layer: The mixer layer to query. Returns: The layer index.",
           "signature": "SequencerAnimMixerTools.get_layer_index(unreal.MovieSceneAnimationMixerLayer) -> int"
         },
         {
           "id": "is_layer_empty",
-          "desc": "Check whether an Anim Mixer layer has any content.",
+          "desc": "Check whether an Anim Mixer layer has any content. Args: layer: The layer to check. Returns: True if the layer is empty, False if it has sections.",
           "signature": "SequencerAnimMixerTools.is_layer_empty(unreal.MovieSceneAnimationMixerLayer) -> bool"
         },
         {
           "id": "get_transitions_for_section",
-          "desc": "Get all transitions associated with a section.",
+          "desc": "Get all transitions associated with a section. Transitions are created automatically when sections overlap. Args: track: The Anim Mixer track containing the section. section: The section to query transitions for. Returns: List of transition objects touching this section.",
           "signature": "SequencerAnimMixerTools.get_transitions_for_section(unreal.MovieSceneAnimationMixerTrack, unreal.MovieSceneSection) -> list[unreal.MovieSceneAnimTransitionSectionBase]"
         },
         {
           "id": "get_transition_between",
-          "desc": "Get the transition between two specific sections.",
+          "desc": "Get the transition between two specific sections. Args: track: The Anim Mixer track. from_section: The earlier section. to_section: The later section. Returns: The transition object, or None if no transition exists.",
           "signature": "SequencerAnimMixerTools.get_transition_between(unreal.MovieSceneAnimationMixerTrack, unreal.MovieSceneSection, unreal.MovieSceneSection) -> unreal.MovieSceneAnimTransitionSectionBase"
         },
         {
           "id": "get_transition_info",
-          "desc": "Get detailed information about a transition.",
+          "desc": "Get detailed information about a transition. Args: transition: The transition to inspect. Returns: JSON string with 'name', 'is_valid', 'from_section_name', and 'to_section_name'.",
           "signature": "SequencerAnimMixerTools.get_transition_info(unreal.MovieSceneAnimTransitionSectionBase) -> str"
         },
         {
           "id": "change_transition_type",
-          "desc": "Change the type of a transition, preserving blend data where possible.",
+          "desc": "Change the type of a transition, preserving blend data where possible. Args: transition: The transition to change. new_transition_class: The new transition class to switch to. Returns: The new transition object (the old one becomes invalid).",
           "signature": "SequencerAnimMixerTools.change_transition_type(unreal.MovieSceneAnimTransitionSectionBase, unreal.Class) -> unreal.MovieSceneAnimTransitionSectionBase"
         },
         {
           "id": "get_transition_name",
-          "desc": "Get the display name of a transition.",
+          "desc": "Get the display name of a transition. Args: transition: The transition to query. Returns: The transition's display name.",
           "signature": "SequencerAnimMixerTools.get_transition_name(unreal.MovieSceneAnimTransitionSectionBase) -> str"
         },
         {
           "id": "get_compatible_decorations",
-          "desc": "Get all decoration classes that can be added to a container.",
+          "desc": "Get all decoration classes that can be added to a container. Works on any decoration container, including Anim Mixer layers. Args: container: The decoration container to query. Returns: List of UClass objects representing compatible decoration types.",
           "signature": "SequencerAnimMixerTools.get_compatible_decorations(unreal.MovieSceneDecorationContainerObject) -> list[unreal.Class]"
         },
         {
           "id": "get_decorations",
-          "desc": "Get all decorations currently on a container.",
+          "desc": "Get all decorations currently on a container. Args: container: The decoration container to query. Returns: List of decoration objects.",
           "signature": "SequencerAnimMixerTools.get_decorations(unreal.MovieSceneDecorationContainerObject) -> list[unreal.Object]"
         },
         {
           "id": "find_decoration",
-          "desc": "Find a specific decoration by class on a container.",
+          "desc": "Find a specific decoration by class on a container. Args: container: The decoration container to search. decoration_class: The decoration class to find. Returns: The decoration object, or None if not present.",
           "signature": "SequencerAnimMixerTools.find_decoration(unreal.MovieSceneDecorationContainerObject, unreal.Class) -> unreal.Object"
         },
         {
           "id": "add_decoration",
-          "desc": "Add a decoration by class to a container.",
+          "desc": "Add a decoration by class to a container. If the decoration already exists, returns the existing one. Args: container: The decoration container to add the decoration to. decoration_class: The decoration class to add. Returns: The decoration object (existing or newly created).",
           "signature": "SequencerAnimMixerTools.add_decoration(unreal.MovieSceneDecorationContainerObject, unreal.Class) -> unreal.Object"
         },
         {
           "id": "remove_decoration",
-          "desc": "Remove a decoration by class from a container.",
+          "desc": "Remove a decoration by class from a container. Args: container: The decoration container to modify. decoration_class: The decoration class to remove.",
           "signature": "SequencerAnimMixerTools.remove_decoration(unreal.MovieSceneDecorationContainerObject, unreal.Class) -> bool"
         }
       ]

@@ -3,7 +3,7 @@
     {
       "type": "C++",
       "id": "UConfigSettingsToolset",
-      "desc": "Tools for listing, inspecting, and editing Config Settings sections.",
+      "desc": "Tools for listing, inspecting, and editing Config Settings sections",
       "tools": [
         {
           "id": "ListContainers",

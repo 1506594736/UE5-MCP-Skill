@@ -13,7 +13,7 @@
         {
           "id": "ListTests",
           "desc": "Returns a JSON object: {\"tests\": [\"path1\", ...], \"total\": N, \"returned\": N}. @param NameFilter  Optional substring filter applied to the test's full path. @param TagFilter   Optional substring filter applied to the test's tags. * @param Limit       Maximum number of tests to return (0 = unlimited, default 200).",
-          "signature": "UAutomationTestToolset.ListTests(const FString&) -> FString"
+          "signature": "UAutomationTestToolset.ListTests(const FString&, const FString&, int32) -> FString"
         },
         {
           "id": "RunTests",

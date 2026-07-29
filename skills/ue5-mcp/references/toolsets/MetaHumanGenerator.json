@@ -3,51 +3,51 @@
     {
       "type": "Python",
       "id": "MetaHumanToolset",
-      "desc": "Tools for creating and editing MetaHuman characters.",
+      "desc": "Tools for creating and editing MetaHuman characters",
       "tools": [
         {
           "id": "begin_edit",
-          "desc": "Begin editing a MetaHuman character. Call this FIRST before any other MetaHuman tools.",
+          "desc": "Begin editing a MetaHuman character. Call this FIRST before any other MetaHuman tools. Args: object_path: Asset path Returns: Session to pass to other tools IMPORTANT: Always call end_edit() when done to commit changes.",
           "signature": "MetaHumanToolset.begin_edit(str) -> MetaHumanEditSession"
         },
         {
           "id": "end_edit",
-          "desc": "End editing a MetaHuman character. Call this LAST after all modifications.",
+          "desc": "End editing a MetaHuman character. Call this LAST after all modifications. Args: session: Session from begin_edit()",
           "signature": "MetaHumanToolset.end_edit(MetaHumanEditSession) -> None"
         },
         {
           "id": "get_body_shape",
-          "desc": "Get MetaHuman body shape parameters.",
+          "desc": "Get MetaHuman body shape parameters. Args: session: Session from begin_edit() Returns: Current body shape parameters",
           "signature": "MetaHumanToolset.get_body_shape(MetaHumanEditSession) -> BodyShape"
         },
         {
           "id": "set_body_shape",
-          "desc": "Set MetaHuman body shape.",
+          "desc": "Set MetaHuman body shape. Args: session: Session from begin_edit() body_shape: Body shape parameters to apply",
           "signature": "MetaHumanToolset.set_body_shape(MetaHumanEditSession, BodyShape) -> None"
         },
         {
           "id": "get_skin_tone",
-          "desc": "Get MetaHuman skin tone.",
+          "desc": "Get MetaHuman skin tone. Args: session: Session from begin_edit() Returns: Current skin tone parameters",
           "signature": "MetaHumanToolset.get_skin_tone(MetaHumanEditSession) -> SkinTone"
         },
         {
           "id": "set_skin_tone",
-          "desc": "Set MetaHuman skin tone.",
+          "desc": "Set MetaHuman skin tone. Args: session: Session from begin_edit() skin_tone: Skin tone parameters to apply",
           "signature": "MetaHumanToolset.set_skin_tone(MetaHumanEditSession, SkinTone) -> None"
         },
         {
           "id": "get_eye_color",
-          "desc": "Get MetaHuman eye color.",
+          "desc": "Get MetaHuman eye color. Args: session: Session from begin_edit() Returns: Current eye color parameters",
           "signature": "MetaHumanToolset.get_eye_color(MetaHumanEditSession) -> EyeColor"
         },
         {
           "id": "set_eye_color",
-          "desc": "Set MetaHuman eye color.",
+          "desc": "Set MetaHuman eye color. Args: session: Session from begin_edit() eye_color: Eye color parameters to apply",
           "signature": "MetaHumanToolset.set_eye_color(MetaHumanEditSession, EyeColor) -> None"
         },
         {
           "id": "create",
-          "desc": "Create a new MetaHuman character asset.",
+          "desc": "Create a new MetaHuman character asset. Args: asset_path: Asset path where the MetaHuman will be created Returns: Created MetaHuman character asset",
           "signature": "MetaHumanToolset.create(str) -> unreal.MetaHumanCharacter"
         }
       ]

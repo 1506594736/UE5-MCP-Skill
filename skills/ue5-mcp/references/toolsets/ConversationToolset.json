@@ -7,37 +7,37 @@
       "tools": [
         {
           "id": "list_entry_points",
-          "desc": "Returns entry points (FConversationEntryList structs).",
+          "desc": "Returns entry points (FConversationEntryList structs). Args: conversation: The ConversationDatabase asset. Returns: A list of FConversationEntryList structs.",
           "signature": "ConversationTools.list_entry_points(unreal.ConversationDatabase) -> list[unreal.ConversationEntryList]"
         },
         {
           "id": "list_speakers",
-          "desc": "Returns speaker/participant information.",
+          "desc": "Returns speaker/participant information. Args: conversation: The ConversationDatabase asset. Returns: A list of FCommonDialogueBankParticipant structs.",
           "signature": "ConversationTools.list_speakers(unreal.ConversationDatabase) -> list[unreal.CommonDialogueBankParticipant]"
         },
         {
           "id": "get_all_nodes",
-          "desc": "Returns all reachable nodes in the conversation.",
+          "desc": "Returns all reachable nodes in the conversation. Use ObjectTools.get_class and get_properties on each node to inspect type and properties. Each node's GUID is available via its compiled_node_guid attribute. Args: conversation: The ConversationDatabase asset. Returns: A list of UConversationNode UObjects.",
           "signature": "ConversationTools.get_all_nodes(unreal.ConversationDatabase) -> list[unreal.ConversationNode]"
         },
         {
           "id": "get_node_guids",
-          "desc": "Returns GUIDs of all reachable nodes, in map iteration order.",
+          "desc": "Returns GUIDs of all reachable nodes, in map iteration order. Use with get_node_by_guid to look up specific nodes. Args: conversation: The ConversationDatabase asset. Returns: A list of FGuid structs.",
           "signature": "ConversationTools.get_node_guids(unreal.ConversationDatabase) -> list[unreal.Guid]"
         },
         {
           "id": "get_node_by_guid",
-          "desc": "Returns a conversation node by its GUID.",
+          "desc": "Returns a conversation node by its GUID. Args: conversation: The ConversationDatabase asset. guid: The GUID (from get_node_guids or entry_points). Returns: The UConversationNode.",
           "signature": "ConversationTools.get_node_by_guid(unreal.ConversationDatabase, unreal.Guid) -> unreal.ConversationNode"
         },
         {
           "id": "get_node_connections",
-          "desc": "Returns output connection GUIDs for a conversation node.",
+          "desc": "Returns output connection GUIDs for a conversation node. Args: node: The conversation node to query. Returns: A list of FGuid output connections.",
           "signature": "ConversationTools.get_node_connections(unreal.ConversationNodeWithLinks) -> list[unreal.Guid]"
         },
         {
           "id": "get_sub_nodes",
-          "desc": "Returns sub-nodes (requirements, choices) attached to a task node.",
+          "desc": "Returns sub-nodes (requirements, choices) attached to a task node. Args: node: The conversation task node to query. Returns: A list of UConversationSubNode UObjects.",
           "signature": "ConversationTools.get_sub_nodes(unreal.ConversationTaskNode) -> list[unreal.ConversationSubNode]"
         }
       ]

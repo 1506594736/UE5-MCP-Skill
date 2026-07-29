@@ -33,7 +33,7 @@
         {
           "id": "Click",
           "desc": "@param Ref         Slate widget ref. @param Button      \"left\", \"right\", or \"middle\". @param DoubleClick True for double-click. * @param Modifiers   Modifier keys held during the click.",
-          "signature": "USlateInspectorToolset.Click(const FString&, const FString&) -> bool"
+          "signature": "USlateInspectorToolset.Click(const FString&, const FString&, bool, const FSlateInspectorToolsetModifierKeys&) -> bool"
         },
         {
           "id": "Hover",
@@ -63,12 +63,12 @@
         {
           "id": "Windows",
           "desc": "@param Action  \"list\" returns JSON array, \"select\" brings to front, \"close\" destroys. * @param Index   Window index for select/close.",
-          "signature": "USlateInspectorToolset.Windows(const FString&) -> FString"
+          "signature": "USlateInspectorToolset.Windows(const FString&, int32) -> FString"
         },
         {
           "id": "WaitFor",
           "desc": "Non-blocking: checks once and returns immediately. Poll to wait. @param Text       Text that must be present (empty = skip). * @param TextGone   Text that must be absent (empty = skip).",
-          "signature": "USlateInspectorToolset.WaitFor(const FString&) -> bool"
+          "signature": "USlateInspectorToolset.WaitFor(const FString&, const FString&) -> bool"
         },
         {
           "id": "FillForm",

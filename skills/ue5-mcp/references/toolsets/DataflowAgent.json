@@ -28,7 +28,7 @@
         {
           "id": "AddNode",
           "desc": "Adds a node of the given type to the Dataflow graph. @param Graph      - The Dataflow asset to add the node to @param TypeName   - The node type name (e.g., \"FAddFloatsDataflowNode\") @param NodeName   - Unique name for the node within this graph @param JsonParams - Optional JSON object of property overrides (e.g., {\"Value\": 3.14}) @param X          - X position in the graph editor (default 0, typical node width ~200) @param Y          - Y position in the graph editor (default 0, typical node height ~100) @return The newly created UDataflowEdNode, or nullptr on failure",
-          "signature": "UDataflowAgentToolset.AddNode(UDataflow*, const FString&, const FString&, const FString&) -> UDataflowEdNode*"
+          "signature": "UDataflowAgentToolset.AddNode(UDataflow*, const FString&, const FString&, const FString&, const int32, const int32) -> UDataflowEdNode*"
         },
         {
           "id": "UpdateNode",

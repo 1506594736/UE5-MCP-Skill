@@ -1,11 +1,11 @@
 {
   "format": "ue5-toolsets-clean-v1",
   "engine": "5.8.0",
-  "generated": "2026-07-28T18:08:57Z",
+  "generated": "2026-07-29T04:05:26Z",
   "stats": {
     "plugins": 26,
     "toolsets": 55,
-    "tools": 865,
+    "tools": 866,
     "skills": 12
   },
   "plugins": [
@@ -36,42 +36,42 @@
       "toolsets": [
         {
           "id": "SequencerConditionTools",
-          "desc": "Tools for managing runtime conditions on Sequencer tracks, track rows, and sections.",
+          "desc": "Tools for managing runtime conditions on Sequencer tracks, sections, and track rows. Use when setting up dynamic conditions that control whether tracks or sections evaluate at runtime based on platform, gameplay state, or custom logic. Supports MovieScenePlatformCondition, MovieSceneDirectorBlueprintCondition, and MovieSceneGroupCondition types.",
           "tools": 9
         },
         {
           "id": "ControlRigTools",
-          "desc": "Tools for creating and editing Control Rig assets, including hierarchy and graph operations.",
+          "desc": "Tools for creating and editing Control Rig assets, including hierarchy management, graph operations, and node/pin manipulation.",
           "tools": 44
         },
         {
           "id": "SequencerControlRigTools",
-          "desc": "Tools for animating with Control Rig inside Sequencer.",
+          "desc": "Tools for animating with Control Rig inside Sequencer. Use when adding Control Rig tracks to bindings, getting or setting control values (bool, float, int, position, rotator, scale, euler transform, transform), keying controls, baking animation to Control Rig, managing layered rigs and priority, masking controls per section, space switching (world, parent, control, bone), tweening and blending between keys, snapping controls to actors, mirroring poses, zeroing transforms, or managing animation layers (add, delete, duplicate, reorder, merge, collapse).",
           "tools": 72
         },
         {
           "id": "SequencerCustomBindingTools",
-          "desc": "Tools for converting and managing custom binding types in Sequencer, including spawnable and possessable conversions, binding inspection, actor template classes, and default spawnable state.",
+          "desc": "Tools for converting and managing custom binding types in Sequencer. Use when converting between possessable, spawnable, and custom/replaceable bindings, querying what custom binding type a binding uses, accessing custom binding objects for property inspection, or changing the actor template class on spawnables/replaceables.",
           "tools": 8
         },
         {
           "id": "SequencerImportExportTools",
-          "desc": "Tools for importing and exporting animation data to and from Sequencer.",
+          "desc": "Tools for importing and exporting animation data to and from Sequencer. Use when exporting bindings or Control Rig animation to FBX files, importing FBX animation onto bindings or Control Rig tracks, exporting animation to AnimSequence assets, or linking AnimSequences for auto-updates.",
           "tools": 6
         },
         {
           "id": "SequencerKeyframingTools",
-          "desc": "Tools for keyframing and animating properties in Sequencer.",
+          "desc": "Tools for keyframing and animating properties on the Sequencer timeline. Use when adding, querying, or removing keyframes on channels, setting default values, evaluating channels at specific times, working with the Curve Editor, or managing channel selection. Covers float, bool, integer, and string key types with configurable interpolation.",
           "tools": 22
         },
         {
           "id": "SequencerOutlinerTools",
-          "desc": "Tools for inspecting and managing the Sequencer outliner tree.",
+          "desc": "Tools for inspecting and managing the Sequencer outliner tree. Use when getting a snapshot of the outliner hierarchy, querying node children, managing outliner selection, expanding or collapsing nodes, or toggling node states like mute, solo, deactivate, lock, and pin. Also useful for test verification of Sequencer UI state.",
           "tools": 18
         },
         {
           "id": "SequencerTools",
-          "desc": "Core tools for creating and editing Level Sequences in Sequencer, including playback, bindings, tracks, sections, folders, selection, timing, cameras, and copy/paste operations.",
+          "desc": "Core tools for creating and editing Level Sequences in Sequencer. Use whenever working with Sequencer - covers sequence lifecycle (create, open, close), playback control (play, pause, scrub, speed, loop), sequence properties (display rate, frame ranges, marked frames, tick resolution), actor bindings (add actors, spawnables, cameras, find and manage bindings), tracks (add, find, remove any track type), sections (range, easing, blend type, completion mode), selection state, folder organization, sub-sequence navigation, event tracks, track filters, and sequence locking. For keyframing use SequencerKeyframingTools. For Control Rig use SequencerControlRigTools. For outliner inspection use SequencerOutlinerTools.",
           "tools": 140
         }
       ],
@@ -109,7 +109,7 @@
       "toolsets": [
         {
           "id": "UConfigSettingsToolset",
-          "desc": "Tools for listing, inspecting, and editing Config Settings sections.",
+          "desc": "Tools for listing, inspecting, and editing Config Settings sections",
           "tools": 8
         }
       ],
@@ -153,7 +153,7 @@
       "toolsets": [
         {
           "id": "ActorTools",
-          "desc": "Provides tools for inspecting and modifying actors, including labels, tags, transforms, component hierarchy, bounds, and component creation or removal.",
+          "desc": "Provides tools for inspecting and modifying actors, including their transforms, labels, parent-child relationships, and components.",
           "tools": 17
         },
         {
@@ -193,7 +193,7 @@
         },
         {
           "id": "ObjectTools",
-          "desc": "Provides tools for discovering UObject subclasses and inspecting, setting, or resetting UObject properties.",
+          "desc": "Provides tools for inspecting and modifying the properties of Unreal Objects and Unreal Classes, including those in Blueprints. Also use this toolset to discover available classes and subclasses.",
           "tools": 6
         },
         {
@@ -203,12 +203,12 @@
         },
         {
           "id": "SceneTools",
-          "desc": "Provides tools for working with the currently loaded level, including level loading, actor discovery, placement and removal, folders, traces, merges, level instances, checkout state, and saving.",
+          "desc": "Provides tools for working with the currently loaded level, including loading levels, placing and removing actors, controlling the level camera, and organizing actors in the outliner.",
           "tools": 20
         },
         {
           "id": "SkeletalMeshTools",
-          "desc": "Provides tools for importing, inspecting, and modifying skeletal mesh assets, including LOD statistics, skeleton hierarchy, materials, physics assets, morph targets, and sockets.",
+          "desc": "Provides tools for inspecting and modifying skeletal mesh assets, including the mesh/materials, bone hierarchies, and sockets.",
           "tools": 22
         },
         {
@@ -315,7 +315,7 @@
       "toolsets": [
         {
           "id": "MetaHumanToolset",
-          "desc": "Tools for creating and editing MetaHuman characters.",
+          "desc": "Tools for creating and editing MetaHuman characters",
           "tools": 9
         }
       ],
@@ -386,8 +386,8 @@
       "toolsets": [
         {
           "id": "UPCGToolset",
-          "desc": "Toolset for building and modifying PCG graphs.",
-          "tools": 29
+          "desc": "Toolset for building and modifying PCG graphs",
+          "tools": 30
         }
       ],
       "skills": []
@@ -408,7 +408,7 @@
       "toolsets": [
         {
           "id": "UPluginToolset",
-          "desc": "Tools for creating, editing, enabling, and querying Unreal plugins.",
+          "desc": "Tools for creating, editing, enabling, and querying Unreal plugins",
           "tools": 17
         }
       ],

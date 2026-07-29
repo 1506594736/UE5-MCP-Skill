@@ -3,7 +3,7 @@
     {
       "type": "C++",
       "id": "UPCGToolset",
-      "desc": "Toolset for building and modifying PCG graphs.",
+      "desc": "Toolset for building and modifying PCG graphs",
       "tools": [
         {
           "id": "CreateGraph",
@@ -56,6 +56,11 @@
           "signature": "UPCGToolset.ExecuteGraphInstance(const APCGVolume*) -> UPCGExecuteGraphInstanceAsyncResult*"
         },
         {
+          "id": "GetGraphInstanceParams",
+          "desc": "Gets the graph instance params of a specific actor, actor MUST have a graph instance @param PCGVolume - The actor to get graph instance params from @return FInstancedPropertyBag containing the filtered graph instance parameters",
+          "signature": "UPCGToolset.GetGraphInstanceParams(const APCGVolume*) -> FInstancedPropertyBag"
+        },
+        {
           "id": "SetGraphInstanceParams",
           "desc": "Sets the graph instance params of a specific actor, actor MUST have a graph instance @param PCGVolume - The actor to set graph instance params for @param JsonParams - JSON string representing JsonObject for the params to set. MUST be in format: {{\"property_1_name\": \"property_1_value\"}, ...} @return boolean representing success/failed",
           "signature": "UPCGToolset.SetGraphInstanceParams(const APCGVolume*, const FString&) -> bool"
@@ -83,17 +88,17 @@
         {
           "id": "AddNode",
           "desc": "Adds a native node to the graph. @param Graph - Graph to modify. @param NativeNodeType - The native type of the added node. @param NodeName - The name of the added node. (Must be unique identifier in the graph) @param JsonParams - The Json string representing a dictionary of the params to set on the node. Optional. Default is empty. Only non-default params need be included. @param NodeTitle - The Display Title of the node. Optional. Default is empty. @param NodeComment - The comment attached to the node, if needed. Default is empty. @param XPositionIdx - The X coordinate of the position of the node in the editor. Optional. Default is 0. Typical node size X is 200 @param YPositionIdx - The Y coordinate of the position of the node in the editor. Optional. Default is 0. Typical node size Y is 100 @return The Added Node object",
-          "signature": "UPCGToolset.AddNode(UPCGGraph*, const FString&, const FString&, const FString&) -> UPCGNode*"
+          "signature": "UPCGToolset.AddNode(UPCGGraph*, const FString&, const FString&, const FString&, const FString&, const FString&, const int32, const int32) -> UPCGNode*"
         },
         {
           "id": "AddSubgraphNode",
           "desc": "Adds a subgraph node to the graph. @param Graph - Graph to modify. @param SubGraphForNode - The subgraph to use in the added node. @param NodeName - The name of the added node. (Must be unique identifier in the graph) @param JsonParams - The Json string representing a dictionary of the params to override on the graph. Optional. Default is empty. Only non-default params need be included @param NodeTitle - The Display Title of the node. Optional. Default is empty. @param NodeComment - The comment attached to the node, if needed. Default is empty and will clear the comment. @param XPositionIdx - The X coordinate of the position of the node in the editor. Optional. Default is 0. Typical node size X is 200 @param YPositionIdx - The Y coordinate of the position of the node in the editor. Optional. Default is 0. Typical node size Y is 100 @return The Added Node object",
-          "signature": "UPCGToolset.AddSubgraphNode(UPCGGraph*, UPCGGraph*, const FString&, const FString&) -> UPCGNode*"
+          "signature": "UPCGToolset.AddSubgraphNode(UPCGGraph*, UPCGGraph*, const FString&, const FString&, const FString&, const FString&, const int32, const int32) -> UPCGNode*"
         },
         {
           "id": "UpdateNode",
           "desc": "Updates a node by changing its params and/or title. @param Node - The node to modify. @param JsonParams - The Json string representing a dictionary of the params to override. Optional. Default is empty. Only non-default params need be included @param NodeTitle - The Display Title of the node. Optional. Default is empty. Empty will keep the old title @return boolean representing success/failed",
-          "signature": "UPCGToolset.UpdateNode(UPCGNode*, const FString&) -> bool"
+          "signature": "UPCGToolset.UpdateNode(UPCGNode*, const FString&, const FString&) -> bool"
         },
         {
           "id": "SetNodeComment",
@@ -128,7 +133,7 @@
         {
           "id": "GetNodeDataView",
           "desc": "Returns a JSON Data View of a specific node's output data from the last graph execution. On first call, enables inspection so future ExecuteGraphInstance calls store per-node data. If no inspection data exists, returns an error prompting re-execution. IMPORTANT: Inspection state is shared at the graph asset level. If multiple actors use the same graph, you MUST call this tool (and ExecuteGraphInstance) on only one actor at a time. Wait for each call to fully complete before calling on the next actor. Concurrent calls on actors sharing the same graph will cause a freeze. @param PCGVolume - The PCG Volume whose graph was executed. @param Node - The node whose output to inspect. @param PinLabel - Output pin label to read. Defaults to \"Out\". @param AttributeName - Filter to a single attribute/property (e.g. \"$Position\", \"$Density\", \"MyCustomAttr\"). Empty = all attributes. @param StartIndex - Element range start, inclusive, 0-based. Default 0. @param EndIndex - Element range end, exclusive. -1 means all elements (Python slice convention). Default -1. @return JSON string with the data view contents",
-          "signature": "UPCGToolset.GetNodeDataView(const APCGVolume*, const UPCGNode*, const FString&) -> FString"
+          "signature": "UPCGToolset.GetNodeDataView(const APCGVolume*, const UPCGNode*, const FString&, const FString&, const int32, const int32) -> FString"
         },
         {
           "id": "AddCommentBox",
@@ -138,7 +143,7 @@
         {
           "id": "UpdateCommentBox",
           "desc": "Updates an existing comment box with new nodes and value. Note: If the bounding box of the nodes include other nodes, they will be included in the comment. @param Graph - Graph to add comment to. @param CommentId - The unique id of the comment to update. @param Nodes - The list of nodes to include in the comment box. If empty, the box will keep its current dimensions. @param Comment - The new comment to put on the comment box. If empty, will keep the same text as it was. Default is empty. @param Color - The color of the comment box. Defaults to White @return boolean representing success/failed",
-          "signature": "UPCGToolset.UpdateCommentBox(UPCGGraph*, const FString&, const TArray<UPCGNode*>&, const FString&) -> bool"
+          "signature": "UPCGToolset.UpdateCommentBox(UPCGGraph*, const FString&, const TArray<UPCGNode*>&, const FString&, FLinearColor) -> bool"
         },
         {
           "id": "RemoveCommentBox",
